@@ -4,18 +4,23 @@ import axios from 'axios';
 export default class RegForm extends React.Component {
     constructor(props) {
         super(props);
-        
+        /* To register a user we are storing:
+           forename
+           surname
+           email
+           password */
         this.state = {
             userName: '',
             email: '',
             password: '',
-            confirmPassword: '',
-            registrationErrors: ""
+            confirmPassword: ''
         };
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    
+
+    //I think this must be changed
     handleChange = event => {
         this.setState({ 
             [event.target.name]: event.target.value
@@ -24,9 +29,12 @@ export default class RegForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
         const { userName, email, password, confirmPassword } = this.state;
 
+        /*This is the JSON part
+        so the forname...etc must correspond to
+        user input 
+        atm they are hardcoded */
         axios.post('https://www.one.barttest.me.uk/Project2/public/account/register',
          {
              forename: 'Anna',
@@ -40,27 +48,6 @@ export default class RegForm extends React.Component {
          .catch(function (error) {
              console.log(error);
          });
-        //axios.post('/user', {
-            //userName: userName,
-            //email: email,
-            //password: password,
-            //confirmPassword: confirmPassword
-        //})
-        //.then(function (response) {
-            //console.log(response);
-          //})
-          //.catch(function (error) {
-            //console.log(error);
-          //});
-        //{ withCredentials: true }
-        //.then(response => {
-            //console.log(response);
-            //console.log(response.data);
-        //})
-        //.catch(error => {
-            //console.log('registration error', error);
-        //});
-        //event.preventDefault();
     }
 
     render() {
