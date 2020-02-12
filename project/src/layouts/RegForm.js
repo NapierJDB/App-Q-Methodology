@@ -27,27 +27,40 @@ export default class RegForm extends React.Component {
 
         const { userName, email, password, confirmPassword } = this.state;
 
-        axios.
-        post(
-            'https://jsonplaceholder.typicode.com/users',
-        { 
-            user: {
-                userNamme: userName,
-                email: email,
-                password: password,
-                confirmPassword: confirmPassword
-            }  
-        },
-        { withCredentials: true }
-        )
-        .then(response => {
-            console.log(response);
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.log('registration error', error);
-        });
-        event.preventDefault();
+        axios.post('https://www.one.barttest.me.uk/Project2/public/account/register',
+         {
+             forename: 'Anna',
+             surname: 'Banana',
+             email: 'email@op.pl',
+             password: 'banana password'
+         })
+         .then(function (resonse) {
+             console.log(resonse);
+         })
+         .catch(function (error) {
+             console.log(error);
+         });
+        //axios.post('/user', {
+            //userName: userName,
+            //email: email,
+            //password: password,
+            //confirmPassword: confirmPassword
+        //})
+        //.then(function (response) {
+            //console.log(response);
+          //})
+          //.catch(function (error) {
+            //console.log(error);
+          //});
+        //{ withCredentials: true }
+        //.then(response => {
+            //console.log(response);
+            //console.log(response.data);
+        //})
+        //.catch(error => {
+            //console.log('registration error', error);
+        //});
+        //event.preventDefault();
     }
 
     render() {
