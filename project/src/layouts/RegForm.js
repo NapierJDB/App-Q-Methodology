@@ -1,102 +1,98 @@
 import React from 'react';
-import './App.css';
+import axios from 'axios';
 
 export default class RegForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formControls: {
-        userName: {
-          value: ''
-        },
-        email: {
-          value: ''
-        },
-        password: {
-          value: ''
-        },
-        confirmPassword: {
-          value: ''
-        }
-      }
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            userName: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            registrationErrors: ""
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
+    handleChange = event => {
+        this.setState({ 
+            [event.target.name]: event.target.value
+        });
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+    handleSubmit = event => {
+        event.preventDefault();
 
-  handleChange = event => {
+        const { userName, email, password, confirmPassword } = this.state;
 
-    const name = event.target.name;
-    const value = event.target.value;
+        axios.
+        post(
+            'https://jsonplaceholder.typicode.com/users',
+        { 
+            user: {
+                userNamme: userName,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            }  
+        },
+        { withCredentials: true }
+        )
+        .then(response => {
+            console.log(response);
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('registration error', error);
+        });
+        event.preventDefault();
+    }
 
-    this.setState({
-      formControls: {
-        ...this.state.formControls,
-        [name]: {
-          ...this.state.formControls[name],
-          value
-        }
-      }
-    });
-  }
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                <input
+                    type="text"
+                    name="userName"
+                    placeholder="User name"
+                    value={this.state.userName}
+                    onChange={this.handleChange}
+                    required
+                />
 
-  handleSubmit(event) {
-    alert(
-    this.state.formControls.userName.value +
-    '\n' +
-    this.state.formControls.email.value +
-    '\n' +
-    this.state.formControls.password.value +
-    '\n' +
-    this.state.formControls.confirmPassword.value
-    );
-    event.preventDefault();
-  }
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                />
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-       
-        <label>
-          Name:
-          <input
-            name="userName"
-            value={this.state.formControls.userName.value}
-            onChange={this.handleChange}
-          />
-        </label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                />
 
-        <label>
-          Email address:
-          <input
-            name="email"
-            value={this.state.formControls.email.value}
-            onChange={this.handleChange}
-          />
-        </label>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Password confirmation"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleChange}
+                    required
+                />
 
-        <label>
-          Password:
-          <input
-            name="password"
-            value={this.state.formControls.password.value}
-            onChange={this.handleChange}
-          />
-        </label>
-
-        <label>
-          Confirm password:
-          <input
-            name="confirmPassword"
-            value={this.state.formControls.confirmPassword.value}
-            onChange={this.handleChange}
-          />
-        </label>
-
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-
+                <button type="submit">Register</button>
+                </form>
+            </div>
+        )
+    }
 }
