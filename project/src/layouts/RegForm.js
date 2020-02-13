@@ -16,7 +16,7 @@ export default class RegForm extends React.Component {
       password: ""
     };
 
-    /*     this.handleSubmit = this.handleSubmit.bind(this); */
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeForename = this.handleChangeForename.bind(this);
     this.handleChangeSurname = this.handleChangeSurname.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -50,15 +50,15 @@ export default class RegForm extends React.Component {
         atm they are hardcoded */
     axios
       .post("https://www.one.barttest.me.uk/Project2/public/account/register", {
-        forename: "Anna",
-        surname: "Banana",
-        email: "email@op.pl",
-        password: "banana password"
+        forename: this.state.forename,
+        surname: this.state.surname,
+        email: this.state.email,
+        password: this.state.password
       })
-      .then(function(resonse) {
+      .then(function (resonse) {
         console.log(resonse);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -112,13 +112,14 @@ export default class RegForm extends React.Component {
             onClick={() => {
               alert(
                 this.state.forename +
-                  "\n" +
-                  this.state.surname +
-                  "\n" +
-                  this.state.email +
-                  "\n" +
-                  this.state.password
+                "\n" +
+                this.state.surname +
+                "\n" +
+                this.state.email +
+                "\n" +
+                this.state.password
               );
+              this.handleSubmit();
             }}
           >
             Register
