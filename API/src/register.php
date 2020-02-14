@@ -10,9 +10,9 @@ function register(Request $request, Response $response)
 
     $data = json_decode($request->getBody());
 
-    try {
+    if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {
 
-        if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {
+        try {
 
             $object = checkEmail($data);
 
@@ -30,16 +30,16 @@ function register(Request $request, Response $response)
 
             }
 
-        } else {
+        } catch (PDOException $e) {
 
-            return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string']);
+            removeAccount($data);
+            return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
 
         }
 
-    } catch (PDOException $e) {
+    } else {
 
-        removeAccount($data);
-        return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required']);
 
     }
 
