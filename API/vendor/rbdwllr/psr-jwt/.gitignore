@@ -1,0 +1,7 @@
+composer.lock
+vendor
+coverage
+infection.log
+coverage.xml
+Dockerfile
+docker-compose.yml

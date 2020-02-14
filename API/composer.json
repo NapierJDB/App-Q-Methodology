@@ -1,0 +1,11 @@
+{
+    "require": {
+        "slim/slim": "3.*",
+        "tuupola/slim-jwt-auth": "^3.4",
+        "rbdwllr/reallysimplejwt": "^2.1",
+        "rbdwllr/psr-jwt": "^0.3.0",
+        "firebase/php-jwt": "^5.0",
+        "phpmailer/phpmailer": "^6.1",
+        "monolog/monolog": "^2.0"
+    }
+}
