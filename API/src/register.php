@@ -55,30 +55,37 @@ function sendValidMail($data, $token)
     $mail = new PHPMailer; // create a new object
 
     try {
-        $mail->IsSMTP(); // enable SMTP
-        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-        $mail->SMTPAuth = true; // authentication enabled
+        
+        $mail->IsMail(); // enable SMTP
         $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "smtp.gmail.com"; //smtp sever address
         $mail->Port = 465; // or 587
         $mail->IsHTML(true);
-        $mail->Username = "qmethodologyapp@gmail.com"; //smtp user
-        $mail->Password = 'Qmethodology'; //smtp password
+        //GMAIL SETTINGS
+/*  $mail->IsSMTP(); // enable SMTP
+$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+$mail->SMTPAuth = true; // authentication enabled
+$mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
+$mail->Host = "smtp.gmail.com"; //smtp sever address
+$mail->Port = 465; // or 587
+$mail->IsHTML(true);
+$mail->Username = "qmethodologyapp@gmail.com"; //smtp user
+$mail->Password = 'Qmethodology'; //smtp password
+ */
         $mail->SetFrom("qmethodologyapp@gmail.com"); //sent from
         $mail->Subject = "Test";
         $mail->AddAddress($data->email); // sent to
         $mail->Body = '
-                  <h1>QMet App</h1>
-                  <p>Thank You!</p>
-                  <p>Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.</p>
+    <h1>QMet App</h1>
+    <p>Thank You!</p>
+    <p>Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.</p>
 
-                  <p>------------------------</p>
-                  <p>Username: ' . $data->email . '</p>
-                  <p>Password: ' . $data->password . '</p>
-                  <p>------------------------</p>
+    <p>------------------------</p>
+    <p>Username: ' . $data->email . '</p>
+    <p>Password: ' . $data->password . '</p>
+    <p>------------------------</p>
 
-                  <p>Please click this link to activate your account:</p>
-                  <p>http://soc-web-liv-60.napier.ac.uk/API/public/account/activate?token=' . $token . '</p>
+    <p>Please click this link to activate your account:</p>
+    <p>http://soc-web-liv-60.napier.ac.uk/API/public/account/activate?token=' . $token . '</p>
     ';
 
         if (!$mail->Send()) {
