@@ -1,11 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
+import axios from 'axios';
+
+/*
+    TO IMPLEMENT:
+        navigation
+        Admin panel page if log in successful
+*/
 
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          userName: '',
+          email: '',
           password: ''
         };
     
@@ -20,13 +27,27 @@ export default class Home extends React.Component {
       }
       
       handleSubmit(event) {
-        alert(
-        "Login button works"
-        );
+
         event.preventDefault();
+
+        axios
+          .post("https://www.one.barttest.me.uk/Project2/public/account/login",
+          {
+            email: this.state.email,
+            password: this.state.password
+            
+          })
+        .then((response) => {
+            alert("Log in successful");
+            console.log(response);
+        }, (error) => {
+          console.log("Login error ", error);
+        });
       }
 
       btnRegister(event) {
+
+        //Navigate to regForm page
           
       }
 
@@ -37,10 +58,10 @@ export default class Home extends React.Component {
                   <h1>Q-METHODOLOGY</h1>
                   
                   <input 
-                    type="text"
-                    name="userName"
-                    placeholder="Username"
-                    value={this.state.userName}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={this.state.email}
                     onChange={this.handleChange}
                     required
                   />

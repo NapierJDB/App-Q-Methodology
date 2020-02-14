@@ -59,8 +59,8 @@ export default class RegForm extends React.Component {
         email: this.state.email,
         password: this.state.password
       })
-      .then(function (resonse) {
-        console.log(resonse);
+      .then(function (response) {
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
