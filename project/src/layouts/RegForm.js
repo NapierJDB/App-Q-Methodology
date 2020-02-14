@@ -1,14 +1,17 @@
 import React from "react";
 import axios from "axios";
 
+/*
+    TO IMPLEMENT:
+        password confirmation
+*/
+
 export default class RegForm extends React.Component {
   constructor(props) {
     super(props);
-    /* To register a user we are storing:
-           forename
-           surname
-           email
-           password */
+    /*
+     Values to take from the user 
+    */
     this.state = {
       forename: "",
       surname: "",
@@ -16,39 +19,40 @@ export default class RegForm extends React.Component {
       password: ""
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeForename = this.handleChangeForename.bind(this);
-    this.handleChangeSurname = this.handleChangeSurname.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
   }
 
-  //functions for handling changes in variable values
-  handleChangeForename = event => {
-    this.setState({ forename: event.target.value });
-  };
 
-  handleChangeSurname = event => {
-    this.setState({ surname: event.target.value });
-  };
+  handleChange= event =>  {
+      this.setState({
+          [event.target.name]: event.target.value
+      })
+  }
 
-  handleChangePassword = event => {
-    this.setState({ password: event.target.value });
-  };
+  handleSubmit(event) {
+      /*
+      Check if values are stored 
+      by displaying an alert message
+      */
 
-  handleChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  };
+      //alert(
+          //this.state.forename + 
+          //'\n' + 
+          //this.state.surname +
+          //'\n' +
+          //this.state.email + 
+          //'\n' +
+          //this.state.password
+          //)
 
-  handleSubmit = event => {
-    event.preventDefault();
-    const { forename, surname, email, password } = this.state;
+      event.preventDefault()
 
-    /*This is the JSON part
-        so the forname...etc must correspond to
-        user input 
-        atm they are hardcoded */
-    axios
+      /*
+      Passing values to store in a database
+      */
+
+      axios
       .post("https://www.one.barttest.me.uk/Project2/public/account/register", {
         forename: this.state.forename,
         surname: this.state.surname,
@@ -61,7 +65,8 @@ export default class RegForm extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-  };
+  }
+
 
   render() {
     return (
@@ -73,57 +78,44 @@ export default class RegForm extends React.Component {
             placeholder="Forename"
             forename={this.state.forename}
             //function call
-            onChange={this.handleChangeForename}
+            onChange={this.handleChange}
             required
           />
 
           <input
             type="text"
-            name="Surname"
+            name="surname"
             placeholder="Surname"
             surname={this.state.surname}
             //function call
-            onChange={this.handleChangeSurname}
+            onChange={this.handleChange}
             required
           />
 
           <input
             type="email"
-            name="Email"
+            name="email"
             placeholder="Email"
             email={this.state.email}
             //function call
-            onChange={this.handleChangeEmail}
+            onChange={this.handleChange}
             required
           />
 
           <input
             type="password"
-            name="Passwrod"
-            placeholder="Password "
-            confirmpassword={this.state.password}
+            name="password"
+            placeholder="Password"
+            password={this.state.password}
             //function call
-            onChange={this.handleChangePassword}
+            onChange={this.handleChange}
             required
           />
 
-          <button
-            type="submit"
-            onClick={() => {
-              alert(
-                this.state.forename +
-                "\n" +
-                this.state.surname +
-                "\n" +
-                this.state.email +
-                "\n" +
-                this.state.password
-              );
-              this.handleSubmit();
-            }}
-          >
+          <button type="submit">
             Register
           </button>
+
         </form>
       </div>
     );
