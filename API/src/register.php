@@ -10,11 +10,6 @@ function register(Request $request, Response $response)
 
     $data = json_decode($request->getBody());
 
-    $email = test_input($_POST["email"]);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-     $emailErr = "Invalid email format, please enter a valid email";
-        
-    } else {
         
     if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {
 
@@ -48,7 +43,7 @@ function register(Request $request, Response $response)
         return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required']);
 
     }
-    }
+    
 
 }
 // send confirmation email
