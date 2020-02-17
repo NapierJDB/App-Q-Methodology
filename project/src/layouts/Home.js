@@ -66,15 +66,6 @@ export default class Home extends React.Component {
                     required
                   />
 
-<input 
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                  />
-
                     <input 
                     type="password"
                     name="password"
