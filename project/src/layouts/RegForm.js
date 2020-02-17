@@ -71,6 +71,7 @@ export default class RegForm extends React.Component {
   render() {
     return (
       <div>
+        <h1>Create account</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

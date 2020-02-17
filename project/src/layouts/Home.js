@@ -1,6 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
+import Registration from './RegForm';
+import {BrowserRouter as Router,
+  Route,
+  Link,
+  Switch} from 'react-router-dom';
 
 /*
     TO IMPLEMENT:
@@ -54,36 +59,54 @@ export default class Home extends React.Component {
       render() {
         return (       
           <div>
-              <form onSubmit={this.handleSubmit}>
-                  <h1>Q-METHODOLOGY</h1>
-                  
-                  <input 
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                  />
-
-                    <input 
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                  />
-
-                  <button type="submit">
-                    Login
-                  </button>
-              </form>
-
-                <button onSubmit={this.btnRegister} type="submit">
-                    Register
-                </button>
+            <Router>
+              <Switch>
+                <Route path='/' exact component={HomePage}/>     
+                <Route path='/registration' component={Registration}/>
+              </Switch>
+            </Router>           
           </div>
         );
       }
 }
+
+
+const HomePage = () => (
+  <div>
+    <form onSubmit={this.handleSubmit}>
+      <h1>Q-METHODOLOGY</h1>
+                  
+        <input 
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={this.state.email}
+          onChange={this.handleChange}
+          required
+        />
+
+        <input 
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={this.state.password}
+          onChange={this.handleChange}
+          required
+        />
+
+        <button type="submit">
+          Login
+        </button>
+
+        <Link to='/registration'>
+        <button type='button'>
+        Register 
+        </button>
+      </Link>
+      </form>
+
+  </div>
+
+);
+
+
