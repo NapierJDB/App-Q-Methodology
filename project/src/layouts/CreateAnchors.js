@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AnchorsTable from './tables/AnchorsTable';
-import AddAnchorsForm from './forms/AddAnchorsForm';
+import AddAnchorsForm from './tables/Forms/AddAnchorsForm';
 
 /**To implement:
  * Delition of anchors
