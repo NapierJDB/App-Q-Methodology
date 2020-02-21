@@ -15,6 +15,8 @@ require '../src/register.php';
 
 require '../src/activate.php';
 
+require '../src/add.php';
+
 $app->run();
 
 ?>

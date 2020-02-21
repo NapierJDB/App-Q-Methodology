@@ -10,7 +10,6 @@ function register(Request $request, Response $response)
 
     $data = json_decode($request->getBody());
 
-        
     if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {
 
         try {
@@ -40,10 +39,9 @@ function register(Request $request, Response $response)
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required)']);
 
     }
-    
 
 }
 // send confirmation email
@@ -58,12 +56,9 @@ function sendValidMail($data, $token)
 
     try {
         
-        $mail->IsMail(); // enable SMTP
-        $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
-        $mail->Port = 465; // or 587
-        $mail->IsHTML(true);
+        
         //GMAIL SETTINGS
-/*  $mail->IsSMTP(); // enable SMTP
+$mail->IsSMTP(); // enable SMTP
 $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 $mail->SMTPAuth = true; // authentication enabled
 $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
@@ -72,7 +67,7 @@ $mail->Port = 465; // or 587
 $mail->IsHTML(true);
 $mail->Username = "qmethodologyapp@gmail.com"; //smtp user
 $mail->Password = 'Qmethodology'; //smtp password
- */
+
         $mail->SetFrom("qmethodologyapp@gmail.com"); //sent from
         $mail->Subject = "Test";
         $mail->AddAddress($data->email); // sent to
