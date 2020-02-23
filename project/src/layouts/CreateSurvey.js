@@ -19,7 +19,6 @@ export default class CreateSurvey_1 extends React.Component {
         box1: "",
         box2: "",
         box3: "",
-        numberOfStatements: "",
       };
   
       this.handleChange = this.handleChange.bind(this);
@@ -138,21 +137,7 @@ export default class CreateSurvey_1 extends React.Component {
                         required
                         />                    
                     </div>
-
-                    <div>
-                        <input
-                        type="number"
-                        name="numberOfStatements"
-                        placeholder="Number of statements"
-                        numberOfStatements={this.state.numberOfStatements}
-                        onChange={this.handleChange}
-                        required
-                        />                      
-                    </div>
-                   
-
-                             
-                </form>
+             </form>
             </div>
 
             <div>

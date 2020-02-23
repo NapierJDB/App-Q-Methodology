@@ -28,6 +28,7 @@ const CreateAnchors = () => {
          */
         anchor.id = anchors.length + 1
         setAnchors([...anchors, anchor])
+
     }
 
     /*
@@ -117,6 +118,7 @@ const CreateAnchors = () => {
                         editRow={editRow}
                     />
                 </div>
+                
             </div>
         </div>
     )
