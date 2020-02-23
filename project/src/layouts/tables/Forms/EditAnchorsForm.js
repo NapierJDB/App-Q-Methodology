@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EditAnchorsForm = props => {
     const [ anchor, setAnchor ] = useState(props.currentAnchor)
@@ -7,7 +7,12 @@ const EditAnchorsForm = props => {
         const { name, value } = event.target
 
         setAnchor({ ...anchor, [name]: value })
+        
     }
+
+    useEffect(() => {
+        setAnchor(props.currentAnchor)
+    }, [props])
 
     return (
         <form
@@ -25,8 +30,8 @@ const EditAnchorsForm = props => {
             <label>Number of statements</label>
             <input 
                 type="number"
-                name="numberOfstatements"
-                value={anchor.numberOfStatements}
+                name="numberOfItems"
+                value={anchor.numberOfItems}
                 onChange={handleChange}
             />
             <button>Update anchor</button>

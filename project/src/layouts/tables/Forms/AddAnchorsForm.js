@@ -34,7 +34,7 @@ const AddAnchorsForm = props => {
                 value={anchor.anchorNumber}
                 onChange={handleChange} 
             />
-            <label>Number of Statements</label>
+            <label>Number of Items</label>
             <input 
                 type="number" 
                 name="numberOfItems" 

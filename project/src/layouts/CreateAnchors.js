@@ -13,11 +13,6 @@ import EditAnchorsForm from './tables/Forms/EditAnchorsForm';
 
 const CreateAnchors = () => {
     const anchorsData = [
-        {anchorNumber: -2, numberOfItems: 3},
-        {anchorNumber: -1, numberOfItems: 5},
-        {anchorNumber: 0, numberOfItems: 2},
-        {anchorNumber: +1, numberOfItems: 6},
-        {anchorNumber: +2, numberOfItems: 1},
     ]
     /*
         .......................
@@ -82,7 +77,7 @@ const CreateAnchors = () => {
         })
     }
 
-    const updateAnchor = (id, updateUser) => {
+    const updateAnchor = (id, updateAnchor) => {
         setEditing(false)
 
         setAnchors(anchors.map(
@@ -97,23 +92,6 @@ const CreateAnchors = () => {
             <h1>Create anchors</h1>
             <div>
                 <div>
-                    <h2>Add anchor</h2>
-                    <AddAnchorsForm 
-                        addAnchor={addAnchor} 
-                    />
-                </div>
-                <div>
-                    <h2>View anchors</h2>
-                    <AnchorsTable 
-                        anchors={anchors} 
-                        deleteAnchor={deleteAnchor}
-                        editRow={editRow}
-                    />
-                </div>
-                <div>
-                    <button>Next</button>
-                </div>
-                <div>
                     {editing ? (
                         <div>
                             <h2>Edit anchor</h2>
@@ -127,9 +105,23 @@ const CreateAnchors = () => {
                     ) : (
                         <div>
                             <h2>Add anchor</h2>
-                            <AddAnchorsForm addAnchor={addAnchor}/>
+                            <AddAnchorsForm 
+                            addAnchor={addAnchor} 
+                            />
                         </div>
                     )}
+                    
+                </div>
+                <div>
+                    <h2>View anchors</h2>
+                    <AnchorsTable 
+                        anchors={anchors} 
+                        deleteAnchor={deleteAnchor}
+                        editRow={editRow}
+                    />
+                </div>
+                <div>
+                    <button>Next</button>
                 </div>
             </div>
         </div>
