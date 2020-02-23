@@ -5,6 +5,8 @@ import {BrowserRouter as Router,
     Route,
     Link,
     Switch} from 'react-router-dom';
+import CreateAnchors from './CreateAnchors';
+import StatementCreator from './StatementCreator';
 
 
 export default class CreateSurvey_1 extends React.Component {
@@ -36,7 +38,7 @@ export default class CreateSurvey_1 extends React.Component {
         by displaying an alert message
         */
   
-        alert(
+        /*alert(
             this.state.surveyName + 
             '\n' + 
             this.state.description +
@@ -48,7 +50,7 @@ export default class CreateSurvey_1 extends React.Component {
             this.state.box3 + 
             '\n' +
             this.state.numberOfStatements
-            )
+            )*/
   
         event.preventDefault()
   
@@ -80,6 +82,7 @@ export default class CreateSurvey_1 extends React.Component {
             <h1>Create new survey</h1>
 
             <div>
+                <h2>Survey information</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <input
@@ -145,17 +148,28 @@ export default class CreateSurvey_1 extends React.Component {
                         onChange={this.handleChange}
                         required
                         />                      
-                    </div>   
+                    </div>
+                   
 
-                    <div>
-                        <Link to='/CreateAnchors'>
-                            <button type="submit">
-                                Next
-                            </button>
-                        </Link>
-                    </div>           
+                             
                 </form>
             </div>
+
+            <div>
+                <CreateAnchors />
+            </div>
+
+            <div>
+                <StatementCreator />
+            </div>
+
+            <div>
+                <Link to='/CreateAnchors'>
+                    <button type="submit">
+                        Create survey
+                    </button>
+                </Link>
+            </div>  
 
             
 

@@ -93,7 +93,6 @@ const CreateAnchors = () => {
 
     return (
         <div>
-            <h1>Create anchors</h1>
             <div>
                 <div>
                     {editing ? (
@@ -123,14 +122,6 @@ const CreateAnchors = () => {
                         deleteAnchor={deleteAnchor}
                         editRow={editRow}
                     />
-                </div>
-                <div>
-                    <Link to='/StatementCreator'>
-                        <button>
-                            Next
-                        </button>
-                    </Link>
-                    
                 </div>
             </div>
         </div>

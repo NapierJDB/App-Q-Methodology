@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import AdminTable from './tables/AdminTable'
 import AddStatementForm from './tables/Forms/AddStatementForm'
 import EditStatementForm from './tables/Forms/EditStatementForm'
+import {BrowserRouter as Router,
+    Route,
+    Link,
+    Switch} from 'react-router-dom';
 
 const StatementCreator = () => {
     const statementData = [
@@ -30,15 +34,16 @@ const StatementCreator = () => {
         setStatements(statements.map(statement => (statement.id === id ? updatedStatement : statement)))
     }
 
+    //Add
     const addStatements = statement => {
         statement.id = statements.length + 1
+        statement.statementNumber = statements.length + 1
         setStatements([...statements, statement])
 
     }
 
     return (
         <div className="container">
-            <h1>Statement Creator</h1>
             <div className="flex-row">
                 <div className="flex-large">
                     {editing ? (
@@ -61,11 +66,6 @@ const StatementCreator = () => {
                 <div className="flex-large">
                     <h2>View Statement</h2>
                     <AdminTable statements={statements} deleteStatement={deleteStatement} editRow={editRow} />
-                </div>
-                <div>
-                    <button>
-                        Next
-                    </button>
                 </div>
             </div>
         </div>

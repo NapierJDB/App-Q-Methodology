@@ -5,6 +5,7 @@ import AdminPanel from "./layouts/AdminPanel";
 import CreateSurvey from './layouts/CreateSurvey';
 import CreateAnchors from './layouts/CreateAnchors';
 import StatementCreator from './layouts/StatementCreator';
+import SurveyOverview from './layouts/SurveyOverview';
 import {BrowserRouter as Router,
   Switch,
   Route} from 'react-router-dom';
@@ -21,6 +22,7 @@ export default class App extends React.Component {
             <Route path='/CreateSurvey' component={CreateSurvey} />
             <Route path='/CreateAnchors' component={CreateAnchors} />
             <Route path='/StatementCreator' component={StatementCreator} />
+            <Route path='/SurveyOverview' component={SurveyOverview} />
           </Switch>
         </div>
       </Router>
