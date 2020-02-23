@@ -57,56 +57,39 @@ export default class Home extends React.Component {
       }
 
       render() {
-        return (       
-          <div>
-            <Router>
-              <Switch>
-                <Route path='/' exact component={HomePage}/>     
-                <Route path='/registration' component={Registration}/>
-              </Switch>
-            </Router>           
-          </div>
+        return (
+          <form onSubmit={this.handleSubmit}>
+            <h1>Q-METHODOLOGY</h1>                        
+              <input 
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+              />
+
+              <input 
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+              />
+
+              <button type="submit">
+                Login
+              </button>
+              <Link to='/RegForm'>
+                <button>
+                  Register
+                </button>
+              </Link>
+          </form>          
         );
       }
 }
 
-
-const HomePage = () => (
-  <div>
-    <form onSubmit={this.handleSubmit}>
-      <h1>Q-METHODOLOGY</h1>
-                  
-        <input 
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-        />
-
-        <input 
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-          required
-        />
-
-        <button type="submit">
-          Login
-        </button>
-
-        <Link to='/registration'>
-        <button type='button'>
-        Register 
-        </button>
-      </Link>
-      </form>
-
-  </div>
-
-);
 
 
