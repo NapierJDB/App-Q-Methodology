@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from "axios"
-import {
-    Box,
-} from 'rebass'
+import { Box } from 'rebass'
+import {BrowserRouter as Router,
+    Route,
+    Link,
+    Switch} from 'react-router-dom';
 //rebass used to get boxes
 
 export default class AdminPanel extends React.Component {
@@ -14,7 +16,13 @@ export default class AdminPanel extends React.Component {
                 <h1>Active</h1>
                 <br></br>
                 <br></br>
-                <button>New Survey</button>
+
+                <Link to='/CreateSurvey'>
+                    <button>
+                        New Survey
+                    </button>
+                </Link>
+                
                 <br></br>
                 <br></br>
                 <Box width={256} sx={{

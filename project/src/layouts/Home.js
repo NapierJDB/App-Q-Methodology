@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
-import Registration from './RegForm';
 import {BrowserRouter as Router,
   Route,
   Link,
@@ -18,9 +17,11 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
           email: '',
-          password: ''
+          password: '',
+          isLogedin: false,
+          
         };
-    
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
@@ -30,6 +31,8 @@ export default class Home extends React.Component {
               [event.target.name]: event.target.value
           });
       }
+
+      
       
       handleSubmit(event) {
 
@@ -43,22 +46,24 @@ export default class Home extends React.Component {
             
           })
         .then((response) => {
-            alert("Log in successful");
+            //alert("Log in successful");
+            //Set boolean expression to true
+            //this.state.isLogedin(true);
+            //this.state.isLogedin: true;
             console.log(response);
         }, (error) => {
           console.log("Login error ", error);
         });
       }
 
-      btnRegister(event) {
-
-        //Navigate to regForm page
-          
-      }
-
       render() {
+        if(this.state.isLogedin) {
+          //alert("Logged in")
+        } 
+
         return (
-          <form onSubmit={this.handleSubmit}>
+          <div>
+            <form onSubmit={this.handleSubmit}>
             <h1>Q-METHODOLOGY</h1>                        
               <input 
                 type="email"
@@ -77,16 +82,20 @@ export default class Home extends React.Component {
                 onChange={this.handleChange}
                 required
               />
-
-              <button type="submit">
-                Login
-              </button>
+              
+              <Link to='/AdminPanel'>
+                <button type="submit">
+                  Login
+                </button>
+              </Link>
+                          
               <Link to='/RegForm'>
                 <button>
                   Register
                 </button>
               </Link>
-          </form>          
+          </form>    
+        </div>              
         );
       }
 }

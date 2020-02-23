@@ -62,6 +62,11 @@ const StatementCreator = () => {
                     <h2>View Statement</h2>
                     <AdminTable statements={statements} deleteStatement={deleteStatement} editRow={editRow} />
                 </div>
+                <div>
+                    <button>
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
     )

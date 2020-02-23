@@ -2,7 +2,7 @@ import React from "react";
 import Home from './layouts/Home';
 import RegForm from './layouts/RegForm';
 import AdminPanel from "./layouts/AdminPanel";
-import CreateSurvey_1 from './layouts/CreateSurvey_1';
+import CreateSurvey from './layouts/CreateSurvey';
 import CreateAnchors from './layouts/CreateAnchors';
 import StatementCreator from './layouts/StatementCreator';
 import {BrowserRouter as Router,
@@ -17,6 +17,10 @@ export default class App extends React.Component {
           <Switch>
             <Route path='/' exact component={HomePage}/>
             <Route path='/RegForm' component={RegForm}/>
+            <Route path='/AdminPanel' component={AdminPanel}/>
+            <Route path='/CreateSurvey' component={CreateSurvey} />
+            <Route path='/CreateAnchors' component={CreateAnchors} />
+            <Route path='/StatementCreator' component={StatementCreator} />
           </Switch>
         </div>
       </Router>

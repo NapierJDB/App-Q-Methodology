@@ -3,6 +3,10 @@ import AnchorsTable from './tables/AnchorsTable';
 import AddAnchorsForm from './tables/Forms/AddAnchorsForm';
 import axios from "axios";
 import EditAnchorsForm from './tables/Forms/EditAnchorsForm';
+import {BrowserRouter as Router,
+    Route,
+    Link,
+    Switch} from 'react-router-dom';
 
 /**To implement:
  * Delition of anchors
@@ -121,7 +125,12 @@ const CreateAnchors = () => {
                     />
                 </div>
                 <div>
-                    <button>Next</button>
+                    <Link to='/StatementCreator'>
+                        <button>
+                            Next
+                        </button>
+                    </Link>
+                    
                 </div>
             </div>
         </div>

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router,
+    Route,
+    Link,
+    Switch} from 'react-router-dom';
 
 
 export default class CreateSurvey_1 extends React.Component {
@@ -144,9 +148,11 @@ export default class CreateSurvey_1 extends React.Component {
                     </div>   
 
                     <div>
-                        <button type="submit">
-                        Next
-                        </button>
+                        <Link to='/CreateAnchors'>
+                            <button type="submit">
+                                Next
+                            </button>
+                        </Link>
                     </div>           
                 </form>
             </div>
