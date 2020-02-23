@@ -12,35 +12,51 @@ const StatementCreator = () => {
 
     ]
 
-    const [statements, setStatements] = useState(statementData)
+     //Add
+     const [statements, setStatements] = useState(statementData)
+     const addStatements = statement => {
+        statement.id = statements.length + 1
+        //statement.statementNumber = statements.length + 1
+        setStatements([...statements, statement])
 
+    }
+
+    //Delete
     const deleteStatement = id => {
         setStatements(statements.filter(statement => statement.id !== id))
     }
 
+    //Edit
+
     const [editing, setEditing] = useState(false)
-    const initialFormState = { id: null, name: '' }
+    const initialFormState = { 
+        id: null,
+        statementNumber: '', 
+        name: '' }
+
     const [currentStatement, setCurrentStatement] = useState(initialFormState)
 
     const editRow = statement => {
         setEditing(true)
 
-        setCurrentStatement({ id: statement.id, name: statement.name })
+        setCurrentStatement({ 
+            id: statement.id,
+            statementNumber: statement.statementNumber, 
+            name: statement.name 
+        })
     }
 
     const updateStatement = (id, updatedStatement) => {
         setEditing(false)
 
-        setStatements(statements.map(statement => (statement.id === id ? updatedStatement : statement)))
+        setStatements(statements.map(
+            statement => (
+                statement.id === id ? updatedStatement : statement
+                )
+            ))
     }
 
-    //Add
-    const addStatements = statement => {
-        statement.id = statements.length + 1
-        statement.statementNumber = statements.length + 1
-        setStatements([...statements, statement])
-
-    }
+   
 
     return (
         <div className="container">

@@ -79,16 +79,16 @@ export default class CreateSurvey_1 extends React.Component {
     render() {
         return (
           <div>
-            <h1>Create new survey</h1>
+            <h1>Create new research</h1>
 
             <div>
-                <h2>Survey information</h2>
+                <h2>Research information</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <input
                         type="text"
                         name="surveyName"
-                        placeholder="Survey Name"
+                        placeholder="Research name"
                         surveyName={this.state.surveyName}
                         onChange={this.handleChange}
                         required
@@ -110,7 +110,7 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box1"
-                        placeholder="Box1"
+                        placeholder="Box 1"
                         box1={this.state.box1}
                         onChange={this.handleChange}
                         required
@@ -121,7 +121,7 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box2"
-                        placeholder="Box2"
+                        placeholder="Box 2"
                         box2={this.state.box2}
                         onChange={this.handleChange}
                         required
@@ -132,7 +132,7 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box3"
-                        placeholder="Box3"
+                        placeholder="Box 3"
                         box3={this.state.box3}
                         onChange={this.handleChange}
                         required

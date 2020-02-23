@@ -27,7 +27,7 @@ const AddAnchorsForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Anchor number</label>
+            <label>Marker number</label>
             <input 
                 type="number" 
                 name="anchorNumber" 
@@ -41,7 +41,7 @@ const AddAnchorsForm = props => {
                 value={anchor.numberOfItems}
                 onChange={handleChange} 
             />
-            <button>Add new anchor</button>
+            <button>Add new marker</button>
         </form>
     )
 }
