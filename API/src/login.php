@@ -9,6 +9,10 @@ function login(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
+   /*  $header = $request->getHeaders();
+    $temp = $header ['HTTP_AUTHORIZATION'];
+
+    return $response->withJson(['error' => true, 'message' => implode($temp)]); */
 
     if (isset($data->email) && isset($data->password)) {
 
@@ -99,8 +103,8 @@ function generateToken($object)
         "iss" => "qmethodology", //issuer
         //"aud" => " " //audience
         "jti" => "QMET"+time(), //unique identifier
-        "exp" => date() + 3600, // expiartion
-        "iat" => date(), // the time it was issued
+        "exp" => time() + 3600, // expiartion
+        "iat" => time(), // the time it was issued
 
         "data" => [
             "id" => $object->id,
