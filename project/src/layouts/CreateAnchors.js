@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AnchorsTable from './tables/AnchorsTable';
 import AddAnchorsForm from './tables/Forms/AddAnchorsForm';
+import axios from "axios";
+import EditAnchorsForm from './tables/Forms/EditAnchorsForm';
 
 /**To implement:
  * Delition of anchors
@@ -17,9 +19,14 @@ const CreateAnchors = () => {
         {anchorNumber: +1, numberOfItems: 6},
         {anchorNumber: +2, numberOfItems: 1},
     ]
-    
+    /*
+        .......................
+        |  ADDING NEW ANCHOR  |
+        '''''''''''''''''''''''
+    */    
     const [anchors, setAnchors] = useState(anchorsData)
 
+    //Appends new anchor to an array
     const addAnchor = anchor => {
         /**Id generator 
          * not sure if this is needed
@@ -30,17 +37,99 @@ const CreateAnchors = () => {
         setAnchors([...anchors, anchor])
     }
 
+    /*
+        .....................
+        |  DELETING ANCHOR  |
+        '''''''''''''''''''''
+    */
+
+    //This function is passed to AnchorsTable
+    const deleteAnchor = id => {
+        setAnchors(anchors.filter(anchor => anchor.id !== id))
+    }
+
+    /*
+        ....................
+        |  EDITING ANCHOR  |
+        ''''''''''''''''''''
+    */
+
+    /*
+        Initial empty space for the item being selected for editing
+        When edit is selected on an anchor
+        it should turn into edit mode
+        and set the current user
+    */
+
+    const [editing, setEditing] = useState(false)
+
+    
+    const initialFormState = { 
+        id: null, 
+        anchorNumber: '', 
+        numberOfItems: ''}
+
+    const [currentAnchor, setCurrentAnchor] = useState(initialFormState)
+
+    // This function is passed to AnchorsTable 
+    const editRow = anchor => {
+        setEditing(true)
+
+        setCurrentAnchor({
+            id: anchor.id,
+            anchorNumber: anchor.anchorNumber,
+            numberOfItems: anchor.numberOfItems
+        })
+    }
+
+    const updateAnchor = (id, updateUser) => {
+        setEditing(false)
+
+        setAnchors(anchors.map(
+            anchor => (
+                anchor.id === id ? updateAnchor : anchor
+            )
+        ))
+    }
+
     return (
         <div>
             <h1>Create anchors</h1>
             <div>
                 <div>
                     <h2>Add anchor</h2>
-                    <AddAnchorsForm addAnchor={addAnchor} />
+                    <AddAnchorsForm 
+                        addAnchor={addAnchor} 
+                    />
                 </div>
                 <div>
                     <h2>View anchors</h2>
-                    <AnchorsTable anchors={anchors} />
+                    <AnchorsTable 
+                        anchors={anchors} 
+                        deleteAnchor={deleteAnchor}
+                        editRow={editRow}
+                    />
+                </div>
+                <div>
+                    <button>Next</button>
+                </div>
+                <div>
+                    {editing ? (
+                        <div>
+                            <h2>Edit anchor</h2>
+                            <EditAnchorsForm 
+                                editing={editing}
+                                setEditing={setEditing}
+                                currentAnchor={currentAnchor}
+                                updateAnchor={updateAnchor}
+                            />
+                        </div>
+                    ) : (
+                        <div>
+                            <h2>Add anchor</h2>
+                            <AddAnchorsForm addAnchor={addAnchor}/>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

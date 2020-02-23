@@ -9,7 +9,14 @@ import StatementCreator from './layouts/StatementCreator'
 export default class App extends React.Component {
   render() {
     return (
-      <CreateAnchors />
+      <CreateAnchors/>
     );
   }
 }
+
+/*
+1. Admin uses CreateSurvey_1 page
+to start the survey creation process
+then moves to the next page 
+CreateAnchors which
+then moves to StatementCreator page*/

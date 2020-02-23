@@ -15,8 +15,16 @@ const AnchorsTable = props => (
                         <td>{anchor.anchorNumber}</td>
                         <td>{anchor.numberOfItems}</td>
                         <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button
+                                onClick={() => {
+                                    props.editRow(anchor)
+                                }}>
+                                Edit
+                            </button>
+                            <button 
+                                onClick={() => props.deleteAnchor(anchor.id)}>
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 ))

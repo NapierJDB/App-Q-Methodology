@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 
 
 export default class CreateSurvey_1 extends React.Component {
@@ -14,8 +14,6 @@ export default class CreateSurvey_1 extends React.Component {
         box2: "",
         box3: "",
         numberOfStatements: "",
-        anchor: "",
-        itemsPerAnchor: "",
       };
   
       this.handleChange = this.handleChange.bind(this);
@@ -53,6 +51,22 @@ export default class CreateSurvey_1 extends React.Component {
         /*
         Passing values to store in a database
         */
+
+       /*axios
+       .post(LINK GOES HERE, {
+         surveyName: this.state.surveyName,
+         description: this.state.description,
+         box1: this.state.box1,
+         box2: this.state.box2,
+         box3: this.state.box3,
+         numberOfStatements: this.state.numberOfStatements
+       })
+       .then(function (response) {
+         console.log(response);
+       })
+       .catch(function (error) {
+         console.log(error);
+       });*/
   
     }
 
@@ -63,66 +77,81 @@ export default class CreateSurvey_1 extends React.Component {
 
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    <div>
+                        <input
+                        type="text"
+                        name="surveyName"
+                        placeholder="Survey Name"
+                        surveyName={this.state.surveyName}
+                        onChange={this.handleChange}
+                        required
+                        />
+                    </div>
 
-                    <input
-                    type="text"
-                    name="surveyName"
-                    placeholder="Survey Name"
-                    surveyName={this.state.surveyName}
-                    onChange={this.handleChange}
-                    required
-                    />
+                    <div>
+                        <input
+                        type="text"
+                        name="description"
+                        placeholder="Description..."
+                        description={this.state.description}
+                        onChange={this.handleChange}
+                        required
+                        />       
+                    </div>
 
-                    <input
-                    type="text"
-                    name="description"
-                    placeholder="Description..."
-                    description={this.state.description}
-                    onChange={this.handleChange}
-                    required
-                    />
+                    <div>
+                        <input
+                        type="text"
+                        name="box1"
+                        placeholder="Box1"
+                        box1={this.state.box1}
+                        onChange={this.handleChange}
+                        required
+                        />                   
+                    </div>
 
-                    <input
-                    type="text"
-                    name="box1"
-                    placeholder="Box1"
-                    box1={this.state.box1}
-                    onChange={this.handleChange}
-                    required
-                    />
-                    <input
-                    type="text"
-                    name="box2"
-                    placeholder="Box2"
-                    box2={this.state.box2}
-                    onChange={this.handleChange}
-                    required
-                    />
-                    <input
-                    type="text"
-                    name="box3"
-                    placeholder="Box3"
-                    box3={this.state.box3}
-                    onChange={this.handleChange}
-                    required
-                    />
+                    <div>
+                        <input
+                        type="text"
+                        name="box2"
+                        placeholder="Box2"
+                        box2={this.state.box2}
+                        onChange={this.handleChange}
+                        required
+                        />                     
+                    </div>
 
-                    <input
-                    type="number"
-                    name="numberOfStatements"
-                    placeholder="Number of statements"
-                    numberOfStatements={this.state.numberOfStatements}
-                    onChange={this.handleChange}
-                    required
-                    />
+                    <div>
+                        <input
+                        type="text"
+                        name="box3"
+                        placeholder="Box3"
+                        box3={this.state.box3}
+                        onChange={this.handleChange}
+                        required
+                        />                    
+                    </div>
+
+                    <div>
+                        <input
+                        type="number"
+                        name="numberOfStatements"
+                        placeholder="Number of statements"
+                        numberOfStatements={this.state.numberOfStatements}
+                        onChange={this.handleChange}
+                        required
+                        />                      
+                    </div>   
+
+                    <div>
+                        <button type="submit">
+                        Next
+                        </button>
+                    </div>           
                 </form>
             </div>
 
-            <div>
-                <button type="submit">
-                Next
-                </button>
-            </div>
+            
 
           </div>
         );
