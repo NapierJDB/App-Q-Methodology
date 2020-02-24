@@ -11,11 +11,32 @@ import {
 //rebass used to get boxes
 
 export default class AdminPanel extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user_token: this.props.location.token_data
+        };
+
+        //this.setUserToken = this.setUserToken.bind(this);
+
+        //const { data } = this.props.location
+
+      }
+
+    //setUserToken = event =>  {
+      //  this.setState({
+        //    user_token : data
+        //})
+    //}
 
     render() {
 
+        //const { token_data } = this.props.location
+
         return (
             <div>
+                <h3> {this.state.user_token}</h3>
                 <Link to='/'>
                     <button>log out</button>
                 </Link>
@@ -24,13 +45,24 @@ export default class AdminPanel extends React.Component {
                 <h1>Active</h1>
 
 
-                <Link to='/CreateSurvey'>
+                <Link 
+                    to={{
+                        pathname: '/CreateSurvey',
+                        mtoken_data: this.state.user_token
+                        }}>
                     <button>
                         New Survey
                     </button>
                 </Link>
 
-                <br></br>
+                
+            </div>
+        )
+    }
+}
+
+
+/*<br></br>
                 <br></br>
                 <Box width={256} sx={{
                     borderRadius: 2,
@@ -90,8 +122,4 @@ export default class AdminPanel extends React.Component {
                     <button>Edit</button>
                     <button>Delete</button>
                 </Box>
-                <br></br>
-            </div>
-        )
-    }
-}
+                <br></br>*/

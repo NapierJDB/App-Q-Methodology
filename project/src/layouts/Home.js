@@ -14,7 +14,6 @@ import {
 
 //import { push } from 'connected-react-router';
 
-
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +21,10 @@ export default class Home extends React.Component {
       email: '',
       password: '',
       isLogedin: false,
-      userData: [],
+      user: '',
+      userData: '',
+      user_token: '',
+      token: '',
 
     };
 
@@ -36,11 +38,12 @@ export default class Home extends React.Component {
     });
   }
 
+
   handleSubmit(event) {
     event.preventDefault()
 
     axios
-      .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/login",
+      .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/login",
         {
           email: this.state.email,
           password: this.state.password
@@ -49,10 +52,12 @@ export default class Home extends React.Component {
       .then((response) => {
 
         console.log(response);
-        var user = response.data;
-        console.log(user);
+
+        //var user = response.data;
+        this.state.user = response.data;
+        console.log(this.state.user);
         this.setState({
-          userData: user
+          userData: this.state.user
         });
 
         // ---STORING USER ID---
@@ -64,20 +69,21 @@ export default class Home extends React.Component {
           mUserData => mUserData.error);
           
         // ---STORING USER TOKEN
-        //var token = this.state.userData.map(
-          //mUserData => mUserData.token);
+        this.state.token = this.state.userData.map(
+          mUserData => mUserData.token);
 
-        /*
-        If the error is set to true then
-        it means that the login failed
-        and user won't be redirected
-         */      
+        this.setState({
+          user_token: this.state.token
+        })
+                
         if(mError == 'false'){
           this.setState({ Redirect: true });
+          //alert(this.state.userToken);
         }
         else {
-          alert("Invalid login details");
+          alert("Wrong login details")
         }
+
       }, 
       (error) => {
         console.log("Login error ", error);
@@ -88,15 +94,23 @@ export default class Home extends React.Component {
     
   }
 
+
+
   render() {
 
     if (this.state.Redirect) {
-      return (<Redirect to='/AdminPanel' />)
+      return (
+      <Redirect to={{
+        pathname: '/AdminPanel',
+        token_data: this.state.user_token
+      }}
+      />)
     }
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} 
+          mUserToken={this.state.user_token}>
           <h1>Q-METHODOLOGY</h1>
           <input
             type="email"
@@ -117,12 +131,16 @@ export default class Home extends React.Component {
           />
 
 
-          <button type="submit">
+          <button 
+            type="submit"            
+          >
             Login
           </button>
 
           <Link to={'/RegForm'}>
-            <button type="submit">
+            <button 
+              type="submit"
+            >
               Register
             </button>
           </Link>

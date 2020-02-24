@@ -62,20 +62,6 @@ const AddAnchorsForm = props => {
                     readOnly
                 />
             </div>
-
-
-            <div>
-                <input 
-                    type="button" 
-                    onClick={addAction} 
-                    value="Add"
-                />
-                <input 
-                    type='text' 
-                    value={anchor.total} 
-                    readOnly
-                />
-            </div>
         </div>       
         
         

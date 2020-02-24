@@ -14,42 +14,32 @@ export default class CreateSurvey_1 extends React.Component {
       super(props);
 
       this.state = {
-        surveyName: "",
+        survey_name: "",
         description: "",
         box1: "",
         box2: "",
         box3: "",
+        user_token: this.props.location.mtoken_data.toString(),
       };
   
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.setToken = this.setToken.bind(this);
+      //this.twoFunctions = this.twoFunctions.bind(this);
     }
 
-    handleChange= event =>  {
+    handleChange = event =>  {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    setToken(event) {
+
+        alert(this.state.user_token)
+    }
+
     handleSubmit(event) {
-        /*
-        Check if values are stored 
-        by displaying an alert message
-        */
-  
-        /*alert(
-            this.state.surveyName + 
-            '\n' + 
-            this.state.description +
-            '\n' +
-            this.state.box1 + 
-            '\n' +
-            this.state.box2 + 
-            '\n' +
-            this.state.box3 + 
-            '\n' +
-            this.state.numberOfStatements
-            )*/
   
         event.preventDefault()
   
@@ -57,25 +47,39 @@ export default class CreateSurvey_1 extends React.Component {
         Passing values to store in a database
         */
 
-       /*axios
-       .post(LINK GOES HERE, {
-         surveyName: this.state.surveyName,
-         description: this.state.description,
-         box1: this.state.box1,
-         box2: this.state.box2,
-         box3: this.state.box3,
-         numberOfStatements: this.state.numberOfStatements
+        
+       alert(this.state.user_token)
+       axios
+       .post('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch', {
+           headers: {
+               'Authorization': `Bearer ${this.state.user_token}`,
+               'Content-Type': 'application/json'         
+           },
+            survey_name: this.state.survey_name,
+            description: this.state.description,
+            box1: this.state.box1,
+            box2: this.state.box2,
+            box3: this.state.box3
+         
        })
        .then(function (response) {
          console.log(response);
        })
        .catch(function (error) {
          console.log(error);
-       });*/
+       }); 
   
     }
 
+    //twoFunctions(event) {
+       // //this.setToken();
+        //this.handleSubmit();
+   // }
+
     render() {
+
+       // const { token_data } = this.props.location
+
         return (
           <div>
             <h1>Create new research</h1>
@@ -86,9 +90,9 @@ export default class CreateSurvey_1 extends React.Component {
                     <div>
                         <input
                         type="text"
-                        name="surveyName"
+                        name="survey_name"
                         placeholder="Research name"
-                        surveyName={this.state.surveyName}
+                        survey_name={this.state.survey_name}
                         onChange={this.handleChange}
                         required
                         />
@@ -149,14 +153,17 @@ export default class CreateSurvey_1 extends React.Component {
             </div>
 
             <div>
-                <Link to='/CreateAnchors'>
-                    <button type="submit">
+                <Link to='/AdminPanel'>
+                    <button onClick={this.handleSubmit}>
                         Create survey
                     </button>
                 </Link>
-            </div>  
 
-            
+                <button onClick={this.setToken}>
+                        Token
+                    </button>
+            </div>
+
 
           </div>
         );

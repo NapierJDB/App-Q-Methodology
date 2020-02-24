@@ -41,4 +41,6 @@ const HomePage = () => (
 to start the survey creation process
 then moves to the next page
 CreateAnchors which
-then moves to StatementCreator page*/
+then moves to StatementCreator page
+https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch
+*/
