@@ -20,7 +20,7 @@ const EditAnchorsForm = props => {
                 event.preventDefault()
                 props.updateAnchor(anchor.id, anchor)
             }}>
-            <label>Anchor number</label>
+            <label>Marker number</label>
             <input 
                 type="number"
                 name="anchorNumber"
@@ -34,7 +34,7 @@ const EditAnchorsForm = props => {
                 value={anchor.numberOfItems}
                 onChange={handleChange}
             />
-            <button>Update anchor</button>
+            <button>Update marker</button>
             <button
                 onClick={() => props.setEditing(false)}>
                 Cancel

@@ -4,7 +4,7 @@ const AnchorsTable = props => (
     <table>
         <thead>
             <tr>
-                <th>Anchor number</th>
+                <th>Marker number</th>
                 <th>Number of items</th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@ const AnchorsTable = props => (
                 ))
             ) : (
                 <tr>
-                    <td colSpan={3}>No anchors</td>
+                    <td colSpan={3}>No markers</td>
                 </tr>
             )}
         </tbody>

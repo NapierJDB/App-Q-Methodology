@@ -2,43 +2,64 @@ import React, { useState } from 'react'
 import AdminTable from './tables/AdminTable'
 import AddStatementForm from './tables/Forms/AddStatementForm'
 import EditStatementForm from './tables/Forms/EditStatementForm'
+import {BrowserRouter as Router,
+    Route,
+    Link,
+    Switch} from 'react-router-dom';
 
 const StatementCreator = () => {
     const statementData = [
 
     ]
 
-    const [statements, setStatements] = useState(statementData)
+     //Add
+     const [statements, setStatements] = useState(statementData)
+     const addStatements = statement => {
+        statement.id = statements.length + 1
+        //statement.statementNumber = statements.length + 1
+        setStatements([...statements, statement])
 
+    }
+
+    //Delete
     const deleteStatement = id => {
         setStatements(statements.filter(statement => statement.id !== id))
     }
 
+    //Edit
+
     const [editing, setEditing] = useState(false)
-    const initialFormState = { id: null, name: '' }
+    const initialFormState = { 
+        id: null,
+        statementNumber: '', 
+        name: '' }
+
     const [currentStatement, setCurrentStatement] = useState(initialFormState)
 
     const editRow = statement => {
         setEditing(true)
 
-        setCurrentStatement({ id: statement.id, name: statement.name })
+        setCurrentStatement({ 
+            id: statement.id,
+            statementNumber: statement.statementNumber, 
+            name: statement.name 
+        })
     }
 
     const updateStatement = (id, updatedStatement) => {
         setEditing(false)
 
-        setStatements(statements.map(statement => (statement.id === id ? updatedStatement : statement)))
+        setStatements(statements.map(
+            statement => (
+                statement.id === id ? updatedStatement : statement
+                )
+            ))
     }
 
-    const addStatements = statement => {
-        statement.id = statements.length + 1
-        setStatements([...statements, statement])
-
-    }
+   
 
     return (
         <div className="container">
-            <h1>Statement Creator</h1>
             <div className="flex-row">
                 <div className="flex-large">
                     {editing ? (
@@ -61,11 +82,6 @@ const StatementCreator = () => {
                 <div className="flex-large">
                     <h2>View Statement</h2>
                     <AdminTable statements={statements} deleteStatement={deleteStatement} editRow={editRow} />
-                </div>
-                <div>
-                    <button>
-                        Next
-                    </button>
                 </div>
             </div>
         </div>

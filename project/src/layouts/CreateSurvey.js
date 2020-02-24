@@ -5,6 +5,8 @@ import {BrowserRouter as Router,
     Route,
     Link,
     Switch} from 'react-router-dom';
+import CreateAnchors from './CreateAnchors';
+import StatementCreator from './StatementCreator';
 
 
 export default class CreateSurvey_1 extends React.Component {
@@ -17,7 +19,6 @@ export default class CreateSurvey_1 extends React.Component {
         box1: "",
         box2: "",
         box3: "",
-        numberOfStatements: "",
       };
   
       this.handleChange = this.handleChange.bind(this);
@@ -36,7 +37,7 @@ export default class CreateSurvey_1 extends React.Component {
         by displaying an alert message
         */
   
-        alert(
+        /*alert(
             this.state.surveyName + 
             '\n' + 
             this.state.description +
@@ -48,7 +49,7 @@ export default class CreateSurvey_1 extends React.Component {
             this.state.box3 + 
             '\n' +
             this.state.numberOfStatements
-            )
+            )*/
   
         event.preventDefault()
   
@@ -77,15 +78,16 @@ export default class CreateSurvey_1 extends React.Component {
     render() {
         return (
           <div>
-            <h1>Create new survey</h1>
+            <h1>Create new research</h1>
 
             <div>
+                <h2>Research information</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <input
                         type="text"
                         name="surveyName"
-                        placeholder="Survey Name"
+                        placeholder="Research name"
                         surveyName={this.state.surveyName}
                         onChange={this.handleChange}
                         required
@@ -107,7 +109,7 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box1"
-                        placeholder="Box1"
+                        placeholder="Box 1"
                         box1={this.state.box1}
                         onChange={this.handleChange}
                         required
@@ -118,7 +120,7 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box2"
-                        placeholder="Box2"
+                        placeholder="Box 2"
                         box2={this.state.box2}
                         onChange={this.handleChange}
                         required
@@ -129,33 +131,30 @@ export default class CreateSurvey_1 extends React.Component {
                         <input
                         type="text"
                         name="box3"
-                        placeholder="Box3"
+                        placeholder="Box 3"
                         box3={this.state.box3}
                         onChange={this.handleChange}
                         required
                         />                    
                     </div>
-
-                    <div>
-                        <input
-                        type="number"
-                        name="numberOfStatements"
-                        placeholder="Number of statements"
-                        numberOfStatements={this.state.numberOfStatements}
-                        onChange={this.handleChange}
-                        required
-                        />                      
-                    </div>   
-
-                    <div>
-                        <Link to='/CreateAnchors'>
-                            <button type="submit">
-                                Next
-                            </button>
-                        </Link>
-                    </div>           
-                </form>
+             </form>
             </div>
+
+            <div>
+                <CreateAnchors />
+            </div>
+
+            <div>
+                <StatementCreator />
+            </div>
+
+            <div>
+                <Link to='/CreateAnchors'>
+                    <button type="submit">
+                        Create survey
+                    </button>
+                </Link>
+            </div>  
 
             
 

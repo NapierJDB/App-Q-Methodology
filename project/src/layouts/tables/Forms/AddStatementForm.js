@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 
 const AddStatementForm = props => {
-    const initialFormState = { id: null, name: '' }
+    const initialFormState = { 
+        id: null,
+        statementNumber: '', 
+        name : '' 
+    }
     const [statement, setStatements] = useState(initialFormState)
 
     const handleInputChange = event => {
@@ -14,14 +18,24 @@ const AddStatementForm = props => {
         <form
             onSubmit={event => {
                 event.preventDefault()
-                if (!statement.name) return
+                if (!statement.name|| !statement.statementNumber) return
 
                 props.addStatements(statement)
                 setStatements(initialFormState)
             }}
         >
+            <label>Statement number</label>
+            <input 
+                type="number"
+                name="statementNumber"
+                value={statement.statementNumber}
+                onChange={handleInputChange}/>
             <label>Statement</label>
-            <input type="text" name="name" value={statement.name} onChange={handleInputChange} />
+            <input 
+                type="text" 
+                name="name" 
+                value={statement.name } 
+                onChange={handleInputChange} />
             <button>Add new statement</button>
         </form>
     )

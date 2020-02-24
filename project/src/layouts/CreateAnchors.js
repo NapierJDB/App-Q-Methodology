@@ -8,12 +8,6 @@ import {BrowserRouter as Router,
     Link,
     Switch} from 'react-router-dom';
 
-/**To implement:
- * Delition of anchors
- * Editing Anchors
- * Continue to work on navigation!!!!!
- * Pass data to back end
- */
 
 const CreateAnchors = () => {
     const anchorsData = [
@@ -34,6 +28,7 @@ const CreateAnchors = () => {
          */
         anchor.id = anchors.length + 1
         setAnchors([...anchors, anchor])
+
     }
 
     /*
@@ -93,12 +88,11 @@ const CreateAnchors = () => {
 
     return (
         <div>
-            <h1>Create anchors</h1>
             <div>
                 <div>
                     {editing ? (
                         <div>
-                            <h2>Edit anchor</h2>
+                            <h2>Edit distribution marker</h2>
                             <EditAnchorsForm 
                                 editing={editing}
                                 setEditing={setEditing}
@@ -108,7 +102,7 @@ const CreateAnchors = () => {
                         </div>
                     ) : (
                         <div>
-                            <h2>Add anchor</h2>
+                            <h2>Rating scale</h2>
                             <AddAnchorsForm 
                             addAnchor={addAnchor} 
                             />
@@ -117,21 +111,14 @@ const CreateAnchors = () => {
                     
                 </div>
                 <div>
-                    <h2>View anchors</h2>
+                    <h2>View rating scale</h2>
                     <AnchorsTable 
                         anchors={anchors} 
                         deleteAnchor={deleteAnchor}
                         editRow={editRow}
                     />
                 </div>
-                <div>
-                    <Link to='/StatementCreator'>
-                        <button>
-                            Next
-                        </button>
-                    </Link>
-                    
-                </div>
+                
             </div>
         </div>
     )
