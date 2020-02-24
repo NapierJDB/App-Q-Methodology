@@ -8,17 +8,12 @@ import {
   Switch,
   useHistory,
   withRouter,
-  Redirect
+  Redirect,
+  MemoryRouter
 } from 'react-router-dom';
 
-import { push } from 'connected-react-router';
+//import { push } from 'connected-react-router';
 
-
-/*
-    TO IMPLEMENT:
-        navigation
-        Admin panel page if log in successful
-*/
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -27,7 +22,7 @@ export default class Home extends React.Component {
       email: '',
       password: '',
       isLogedin: false,
-
+      userData: [],
 
     };
 
@@ -41,41 +36,60 @@ export default class Home extends React.Component {
     });
   }
 
-  /*   handleLogin(event) {
-      this.setState({ Redirect: true })
-      return (<Redirect to='/AdminPanel' />)
-    } */
-
-
   handleSubmit(event) {
     event.preventDefault()
 
     axios
-      .post("https://www.one.barttest.me.uk/Project2/public/account/login",
+      .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/login",
         {
           email: this.state.email,
           password: this.state.password
 
-
         })
       .then((response) => {
-        alert("Log in successful");
-        //Set boolean expression to true
-        this.state.isLogedin(true);
-        //this.handleLogin(true);
-        //this.state.isLogedin: true;
+
         console.log(response);
-      }, (error) => {
+        var user = response.data;
+        console.log(user);
+        this.setState({
+          userData: user
+        });
+
+        // ---STORING USER ID---
+        //var id = this.state.userData.map(
+          //mUserData => mUserData.id);
+        
+        // ---STORING USER ERROR---
+        var mError = this.state.userData.map(
+          mUserData => mUserData.error);
+          
+        // ---STORING USER TOKEN
+        //var token = this.state.userData.map(
+          //mUserData => mUserData.token);
+
+        /*
+        If the error is set to true then
+        it means that the login failed
+        and user won't be redirected
+         */      
+        if(mError == 'false'){
+          this.setState({ Redirect: true });
+        }
+        else {
+          alert("Invalid login details");
+        }
+      }, 
+      (error) => {
         console.log("Login error ", error);
       })
       .catch(function (error) {
         console.log(error);
       })
-    this.setState({ Redirect: true })
-      ;
+    
   }
 
   render() {
+
     if (this.state.Redirect) {
       return (<Redirect to='/AdminPanel' />)
     }
@@ -107,7 +121,11 @@ export default class Home extends React.Component {
             Login
           </button>
 
-
+          <Link to={'/RegForm'}>
+            <button type="submit">
+              Register
+            </button>
+          </Link>
         </form>
       </div>
 
@@ -115,6 +133,12 @@ export default class Home extends React.Component {
     );
   }
 }
+
+/*      <div>
+          <h3>{ this.state.userData.map(
+         mUserData => <li>{mUserData.id}</li>) }</h3>
+       </div>
+*/
 
 
 

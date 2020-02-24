@@ -5,19 +5,11 @@ import AdminPanel from "./layouts/AdminPanel";
 import CreateSurvey from './layouts/CreateSurvey';
 import CreateAnchors from './layouts/CreateAnchors';
 import StatementCreator from './layouts/StatementCreator';
-<<<<<<< HEAD
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-=======
-import SurveyOverview from './layouts/SurveyOverview';
-import {BrowserRouter as Router,
-  Switch,
-  Route} from 'react-router-dom';
-  
->>>>>>> ef91e172120d71677204496f344d7b873dc147cd
 
 export default class App extends React.Component {
   render() {
@@ -31,7 +23,6 @@ export default class App extends React.Component {
             <Route path='/CreateSurvey' component={CreateSurvey} />
             <Route path='/CreateAnchors' component={CreateAnchors} />
             <Route path='/StatementCreator' component={StatementCreator} />
-            <Route path='/SurveyOverview' component={SurveyOverview} />
           </Switch>
         </div>
       </Router>

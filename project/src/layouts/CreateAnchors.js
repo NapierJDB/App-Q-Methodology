@@ -31,6 +31,10 @@ const CreateAnchors = () => {
 
     }
 
+    const totalItems = anchor => {
+
+    }
+
     /*
         .....................
         |  DELETING ANCHOR  |

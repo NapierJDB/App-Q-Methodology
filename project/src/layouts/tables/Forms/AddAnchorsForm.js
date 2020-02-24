@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 
-const AddAnchorsForm = props => {
-
+const AddAnchorsForm = props => { 
 
     const initialFormState = { 
         id: null, 
-        anchorNumber: '', 
-        numberOfItems: '',
+        anchorNumber: 0, 
+        numberOfItems: 0,
         total: 0,
     }
-    
-
-    
     
     const [anchor, setAnchor] = useState(initialFormState)
 
@@ -32,9 +28,9 @@ const AddAnchorsForm = props => {
         addAction();
     }
 
-    const addAction = (event) => {
-        let x = initialFormState.total + initialFormState.numberOfItems
-        initialFormState({ total: x})
+    const addAction = event => {
+        anchor.total = anchor.total + anchor.numberOfItems
+
     }
 
     return (
@@ -54,7 +50,7 @@ const AddAnchorsForm = props => {
                     value={anchor.numberOfItems}
                     onChange={handleChange} 
                 />
-                <button>
+                <button onClick={addAction}>                 
                     Add new marker
                 </button>
             </form>
@@ -63,6 +59,20 @@ const AddAnchorsForm = props => {
                 <input 
                     type = 'text'
                     value={initialFormState.total}
+                    readOnly
+                />
+            </div>
+
+
+            <div>
+                <input 
+                    type="button" 
+                    onClick={addAction} 
+                    value="Add"
+                />
+                <input 
+                    type='text' 
+                    value={anchor.total} 
                     readOnly
                 />
             </div>
