@@ -5,8 +5,8 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 //Register researcher
 function addResearch(Request $request, Response $response)
 {
-    $response->getBody()->write('Test'); // test response
-
+    return $response->withJson(['error' => false, 'message' => 'Test']); // test response
+    
 /*     require_once '../config/connection.php';
 
     $id = $request->getParam('id');

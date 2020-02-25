@@ -24,11 +24,14 @@ $app->group('/api', function () use ($app) {
     })->add(function ($request, $response, $next) {
 
         $header = $request->getHeaders();
+        //return $response->withJson(['error' => true, 'message' => $header['HTTP_AUTHORIZATION']]);
 
-        if ($header) {
-
+         if ($header) {
+            //$token = $header['HTTP_AUTHORIZATION'];
             $token = implode($header['HTTP_AUTHORIZATION']);
             $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
+
+            
 
             try {
 
@@ -52,7 +55,7 @@ $app->group('/api', function () use ($app) {
 
             return $response->withJson(['error' => true, 'message' => 'Empty header!']);
 
-        }
+        } 
 
     });
 

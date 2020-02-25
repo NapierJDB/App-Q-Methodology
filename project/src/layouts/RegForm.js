@@ -53,7 +53,7 @@ export default class RegForm extends React.Component {
       */
 
       axios
-      .post("https://www.one.barttest.me.uk/Project2/public/account/register", {
+      .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/register", {
         forename: this.state.forename,
         surname: this.state.surname,
         email: this.state.email,

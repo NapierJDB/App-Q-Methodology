@@ -1,112 +1,162 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
-import Registration from './RegForm';
-import {BrowserRouter as Router,
+import {
+  BrowserRouter as Router,
   Route,
   Link,
-  Switch} from 'react-router-dom';
+  Switch,
+  useHistory,
+  withRouter,
+  Redirect,
+  MemoryRouter
+} from 'react-router-dom';
 
-/*
-    TO IMPLEMENT:
-        navigation
-        Admin panel page if log in successful
-*/
+//import { push } from 'connected-react-router';
 
 export default class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          email: '',
-          password: ''
-        };
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      isLogedin: false,
+      user: '',
+      userData: '',
+      user_token: '',
+      token: '',
 
-      handleChange(event) {
-          this.setState({
-              [event.target.name]: event.target.value
-          });
-      }
-      
-      handleSubmit(event) {
+    };
 
-        event.preventDefault();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-        axios
-          .post("https://www.one.barttest.me.uk/Project2/public/account/login",
-          {
-            email: this.state.email,
-            password: this.state.password
-            
-          })
-        .then((response) => {
-            alert("Log in successful");
-            console.log(response);
-        }, (error) => {
-          console.log("Login error ", error);
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+
+  handleSubmit(event) {
+    event.preventDefault()
+
+    axios
+      .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/login",
+        {
+          email: this.state.email,
+          password: this.state.password
+
+        })
+      .then((response) => {
+
+        console.log(response);
+
+        //var user = response.data;
+        this.state.user = response.data;
+        console.log(this.state.user);
+        this.setState({
+          userData: this.state.user
         });
-      }
 
-      btnRegister(event) {
-
-        //Navigate to regForm page
+        // ---STORING USER ID---
+        //var id = this.state.userData.map(
+          //mUserData => mUserData.id);
+        
+        // ---STORING USER ERROR---
+        var mError = this.state.userData.map(
+          mUserData => mUserData.error);
           
-      }
+        // ---STORING USER TOKEN
+        this.state.token = this.state.userData.map(
+          mUserData => mUserData.token);
 
-      render() {
-        return (       
-          <div>
-            <Router>
-              <Switch>
-                <Route path='/' exact component={HomePage}/>     
-                <Route path='/registration' component={Registration}/>
-              </Switch>
-            </Router>           
-          </div>
-        );
-      }
+        this.setState({
+          user_token: this.state.token
+        })
+                
+        if(mError == 'false'){
+          this.setState({ Redirect: true });
+          //alert(this.state.userToken);
+        }
+        else {
+          alert("Wrong login details")
+        }
+
+      }, 
+      (error) => {
+        console.log("Login error ", error);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    
+  }
+
+
+
+  render() {
+
+    if (this.state.Redirect) {
+      return (
+      <Redirect to={{
+        pathname: '/AdminPanel',
+        token_data: this.state.user_token
+      }}
+      />)
+    }
+
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit} 
+          mUserToken={this.state.user_token}>
+          <h1>Q-METHODOLOGY</h1>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            email={this.state.email}
+            onChange={this.handleChange}
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            password={this.state.password}
+            onChange={this.handleChange}
+            required
+          />
+
+
+          <button 
+            type="submit"            
+          >
+            Login
+          </button>
+
+          <Link to={'/RegForm'}>
+            <button 
+              type="submit"
+            >
+              Register
+            </button>
+          </Link>
+        </form>
+      </div>
+
+
+    );
+  }
 }
 
+/*      <div>
+          <h3>{ this.state.userData.map(
+         mUserData => <li>{mUserData.id}</li>) }</h3>
+       </div>
+*/
 
-const HomePage = () => (
-  <div>
-    <form onSubmit={this.handleSubmit}>
-      <h1>Q-METHODOLOGY</h1>
-                  
-        <input 
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-        />
-
-        <input 
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-          required
-        />
-
-        <button type="submit">
-          Login
-        </button>
-
-        <Link to='/registration'>
-        <button type='button'>
-        Register 
-        </button>
-      </Link>
-      </form>
-
-  </div>
-
-);
 
 

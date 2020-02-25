@@ -18,12 +18,25 @@ const EditStatementForm = props => {
         <form
             onSubmit={event => {
                 event.preventDefault()
-
                 props.updateStatement(statement.id, statement)
-            }}
-        >
+            }}>
+            
+            <label>Statement number</label>
+            <input 
+                type="number"
+                name="statementNumber"
+                value={statement.statementNumber}
+                onChange={handleInputChange}
+            />
+
             <label>Statement</label>
-            <input type="text" name="name" value={statement.name} onChange={handleInputChange} />
+            <input 
+                type="text" 
+                name="name" 
+                value={statement.name} 
+                onChange={handleInputChange} 
+            />
+
             <button>Update statement</button>
             <button onClick={() => props.setEditing(false)} className="button muted-button">
                 Cancel

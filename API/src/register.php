@@ -39,7 +39,7 @@ function register(Request $request, Response $response)
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required)']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (forename, surname, email and password required']);
 
     }
 
@@ -49,16 +49,19 @@ function sendValidMail($data, $token)
 {
 
     require '/usr/share/php/libphp-phpmailer/class.phpmailer.php';
-
     require '/usr/share/php/libphp-phpmailer/class.smtp.php';
 
     $mail = new PHPMailer; // create a new object
 
     try {
         
-        
+     /*    $mail->IsSMTP(); 
+        $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
+        $mail->Port = 465; // or 587
+        $mail->IsHTML(true);
+        $mail->Host = "Localhost"; */
         //GMAIL SETTINGS
-$mail->IsSMTP(); // enable SMTP
+ $mail->IsSMTP(); // enable SMTP
 $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 $mail->SMTPAuth = true; // authentication enabled
 $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
@@ -66,8 +69,8 @@ $mail->Host = "smtp.gmail.com"; //smtp sever address
 $mail->Port = 465; // or 587
 $mail->IsHTML(true);
 $mail->Username = "qmethodologyapp@gmail.com"; //smtp user
-$mail->Password = 'Qmethodology'; //smtp password
-
+$mail->Password = 'Qmethodology'; //smtp password 
+ 
         $mail->SetFrom("qmethodologyapp@gmail.com"); //sent from
         $mail->Subject = "Test";
         $mail->AddAddress($data->email); // sent to
@@ -82,7 +85,7 @@ $mail->Password = 'Qmethodology'; //smtp password
     <p>------------------------</p>
 
     <p>Please click this link to activate your account:</p>
-    <p>http://soc-web-liv-60.napier.ac.uk/API/public/account/activate?token=' . $token . '</p>
+    <p>http://soc-web-liv-60.napier.ac.uk/API/public/api/account/activate?token=' . $token . '</p>
     ';
 
         if (!$mail->Send()) {
