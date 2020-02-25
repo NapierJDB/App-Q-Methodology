@@ -52,7 +52,7 @@ export default class CreateSurvey_1 extends React.Component {
        alert(this.state.user_token)
       fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
-           headers: {
+        headers: {
                'Authorization': this.state.user_token,
                'Content-Type': 'application/json'         
            }
