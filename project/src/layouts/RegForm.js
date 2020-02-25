@@ -16,55 +16,74 @@ export default class RegForm extends React.Component {
       forename: "",
       surname: "",
       email: "",
-      password: ""
+      password: "",
+      passwordConfirm: "",
+      passwordsCorrect: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  passwordCheck() {
+    if (this.state.password == this.state.passwordConfirm && this.state.password.length >= 6) {
+      this.state.passwordsCorrect = true;
+    }
+    else {
+      alert("Please ensure passwords match and are over 5 characters")
+      throw "Please ensure passwords match and are over 5 characters"
+    }
+  }
 
-  handleChange= event =>  {
-      this.setState({
-          [event.target.name]: event.target.value
-      })
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+
+
   }
 
   handleSubmit(event) {
-      /*
-      Check if values are stored 
-      by displaying an alert message
-      */
+    /*
+    Check if values are stored 
+    by displaying an alert message
+    */
 
-      //alert(
-          //this.state.forename + 
-          //'\n' + 
-          //this.state.surname +
-          //'\n' +
-          //this.state.email + 
-          //'\n' +
-          //this.state.password
-          //)
+    //alert(
+    //this.state.forename + 
+    //'\n' + 
+    //this.state.surname +
+    //'\n' +
+    //this.state.email + 
+    //'\n' +
+    //this.state.password
+    //)
 
-      event.preventDefault()
+    event.preventDefault()
 
-      /*
-      Passing values to store in a database
-      */
+    /*
+    Passing values to store in a database
+    */
 
+    this.passwordCheck();
+
+    if (this.state.passwordsCorrect = true) {
+
+      alert("Success")
       axios
-      .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/register", {
-        forename: this.state.forename,
-        surname: this.state.surname,
-        email: this.state.email,
-        password: this.state.password
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/register", {
+          forename: this.state.forename,
+          surname: this.state.surname,
+          email: this.state.email,
+          password: this.state.password
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
 
@@ -108,6 +127,16 @@ export default class RegForm extends React.Component {
             name="password"
             placeholder="Password"
             password={this.state.password}
+            //function call
+            onChange={this.handleChange}
+            required
+          />
+
+          <input
+            type="password"
+            name="passwordConfirm"
+            placeholder="Confirm Password"
+            password={this.state.passwordConfirm}
             //function call
             onChange={this.handleChange}
             required
