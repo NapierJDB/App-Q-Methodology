@@ -5,6 +5,7 @@ import AdminPanel from "./layouts/AdminPanel";
 import CreateSurvey from './layouts/CreateSurvey';
 import CreateAnchors from './layouts/CreateAnchors';
 import StatementCreator from './layouts/StatementCreator';
+import PrivacyScreen from './layouts/PrivacyScreen'
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,7 +33,7 @@ export default class App extends React.Component {
 
 const HomePage = () => (
   <div>
-    <Home />
+    <PrivacyScreen />
   </div>
 );
 
