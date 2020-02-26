@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router,
     Route,
     Link,
-    Switch} from 'react-router-dom';
-import CreateAnchors from './CreateAnchors';
-import StatementCreator from './StatementCreator';
+    Switch,
+    Redirect,} from 'react-router-dom';
+
 
 
 export default class CreateSurvey_1 extends React.Component {
@@ -19,14 +19,12 @@ export default class CreateSurvey_1 extends React.Component {
         box1: "",
         box2: "",
         box3: "",
-       user_token: this.props.location.mtoken_data.toString()
+        C_user_token: this.props.location.B_user_token.toString()
        
       };
   
       this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.setToken = this.setToken.bind(this);
-      //this.twoFunctions = this.twoFunctions.bind(this);
+      this.sendResearchInfoToBackend = this.sendResearchInfoToBackend.bind(this);
     }
 
     handleChange = event =>  {
@@ -35,32 +33,31 @@ export default class CreateSurvey_1 extends React.Component {
         })
     }
 
-    setToken(event) {
-
-        alert(this.state.user_token)
-    }
-
-    handleSubmit(event) {
+    sendResearchInfoToBackend(event) {
   
         event.preventDefault()
-  
+        this.setState({ Redirect: true });
         /*
         Passing values to store in a database
         */
 
-        
-       alert(this.state.user_token)
       fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
         headers: {
-               'Authorization': this.state.user_token,
+               'Authorization': this.state.C_user_token,
                'Content-Type': 'application/json'         
-           }
-           
-         
+           },
+            survey_name: this.state.survey_name,
+            description: this.state.description,
+            box1: this.state.box1,
+            box2: this.state.box2,
+            box3: this.state.box3,
+                  
        })
+       
        .then(function (response) {
          console.log(response);
+         
        })
        .catch(function (error) {
          console.log(error);
@@ -75,7 +72,14 @@ export default class CreateSurvey_1 extends React.Component {
 
     render() {
 
-       // const { token_data } = this.props.location
+        if (this.state.Redirect) {
+            return (
+            <Redirect to={{
+              pathname: '/NewAnchors',
+              D_user_token: this.state.C_user_token
+            }}/>
+            )
+          }
 
         return (
           <div>
@@ -83,7 +87,7 @@ export default class CreateSurvey_1 extends React.Component {
 
             <div>
                 <h2>Research information</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <div>
                         <input
                         type="text"
@@ -138,29 +142,15 @@ export default class CreateSurvey_1 extends React.Component {
                         required
                         />                    
                     </div>
+                    <div>
+                        <button onClick={this.sendResearchInfoToBackend}>
+                            Next
+                        </button>            
+                    </div>
              </form>
             </div>
 
-            <div>
-                <CreateAnchors />
-            </div>
-
-            <div>
-                <StatementCreator />
-            </div>
-
-            <div>
-                <Link to='/AdminPanel'>
-                    <button onClick={this.handleSubmit}>
-                        Create survey
-                    </button>
-                </Link>
-
-                <button onClick={this.setToken}>
-                        Token
-                    </button>
-            </div>
-
+           
 
           </div>
         );

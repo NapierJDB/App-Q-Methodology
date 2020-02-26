@@ -15,7 +15,7 @@ export default class AdminPanel extends React.Component {
         super(props);
 
         this.state = {
-            user_token: this.props.location.token_data
+            A_user_token: this.props.location.token_data
         };
 
         //this.setUserToken = this.setUserToken.bind(this);
@@ -36,7 +36,6 @@ export default class AdminPanel extends React.Component {
 
         return (
             <div>
-                <h3> {this.state.user_token}</h3>
                 <Link to='/'>
                     <button>log out</button>
                 </Link>
@@ -48,7 +47,7 @@ export default class AdminPanel extends React.Component {
                 <Link 
                     to={{
                         pathname: '/CreateSurvey',
-                        mtoken_data: this.state.user_token
+                        B_user_token: this.state.A_user_token
                         }}>
                     <button>
                         New Survey

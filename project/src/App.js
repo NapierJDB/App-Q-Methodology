@@ -3,7 +3,8 @@ import Home from './layouts/Home';
 import RegForm from './layouts/RegForm';
 import AdminPanel from "./layouts/AdminPanel";
 import CreateSurvey from './layouts/CreateSurvey';
-import CreateAnchors from './layouts/CreateAnchors';
+import NewAnchors from './layouts/NewAnchors';
+
 import StatementCreator from './layouts/StatementCreator';
 import PrivacyScreen from './layouts/PrivacyScreen'
 import {
@@ -22,7 +23,8 @@ export default class App extends React.Component {
             <Route path='/RegForm' component={RegForm} />
             <Route path='/AdminPanel' component={AdminPanel} />
             <Route path='/CreateSurvey' component={CreateSurvey} />
-            <Route path='/CreateAnchors' component={CreateAnchors} />
+            <Route path='/NewAnchors' component={NewAnchors} />
+            
             <Route path='/StatementCreator' component={StatementCreator} />
           </Switch>
         </div>
@@ -33,7 +35,7 @@ export default class App extends React.Component {
 
 const HomePage = () => (
   <div>
-    <PrivacyScreen />
+    <Home />
   </div>
 );
 

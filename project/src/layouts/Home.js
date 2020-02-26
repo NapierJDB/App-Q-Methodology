@@ -53,7 +53,6 @@ export default class Home extends React.Component {
 
         console.log(response);
 
-        //var user = response.data;
         this.state.user = response.data;
         console.log(this.state.user);
         this.setState({
@@ -131,16 +130,12 @@ export default class Home extends React.Component {
           />
 
 
-          <button 
-            type="submit"            
-          >
+          <button type="submit">
             Login
           </button>
 
           <Link to={'/RegForm'}>
-            <button 
-              type="submit"
-            >
+            <button type="submit">
               Register
             </button>
           </Link>

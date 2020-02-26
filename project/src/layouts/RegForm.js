@@ -27,8 +27,8 @@ export default class RegForm extends React.Component {
 
   passwordCheck() {
     if (this.state.password != this.state.passwordConfirm || this.state.password.length < 8) {
-      alert("Please ensure passwords match and are over 5 characters")
-      throw "Please ensure passwords match and are over 5 characters"
+      alert("Please ensure passwords match and are over 8 characters")
+      throw "Please ensure passwords match and are over 8 characters"
     }
   }
 
