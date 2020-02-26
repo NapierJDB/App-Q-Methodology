@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
 
 class Anchors extends Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            
+            //value: 0,
+            
+        };
+}
 
     // Call updateAnchor (NewAnchors.js)
     handleUpdate = () => {
         this.props.updateAnchor(
             this.indexNum,
             this.markerNumber.value,
-            this.numberOfItems.value,)
+            this.numberOfItems.value,
+        )
+
+        //this.state.oldValue = this.numberOfItems.value
+
+        
     }
+
 
     render(){
 
         const { allAnchors, editButton, deleteAnchor} = this.props;
 
         const anchorsList = allAnchors.map((anchor, index) => {
+
+            this.newTotal = () => {
+
+                alert("Total is : " +
+                anchor.total + 
+                  " value: " + 
+                this.numberOfItems.value)
+
+                if(anchor.total > this.numberOfItems.value){
+                    //Total is greater than value
+                    var a = parseInt(anchor.total) - parseInt(this.numberOfItems.value);
+                    anchor.total = parseInt(anchor.total) - parseInt(a);
+                    alert(anchor.total)
+                }
+                else if (anchor.total < this.numberOfItems.value){
+                    //Total is less than the value
+                }
+                else{
+
+                }
+
+            }
             
             return anchor.isEditing === true ? (
 
@@ -34,7 +71,7 @@ class Anchors extends Component{
                         <input 
                             type="number"
                             ref={(val) => 
-                            {this.numberOfItems = val}}
+                                {this.numberOfItems = val}}
                             required
                             defaultValue={anchor.numberOfItems}
                         />
@@ -44,11 +81,12 @@ class Anchors extends Component{
                         <input 
                             type="button"
                             value="Update"
-                            onClick={this.handleUpdate}
+                            onClick={this.handleUpdate, this.newTotal}
                             ref={() =>
                             {this.indexNum = index}}
                         />
                     </td>
+
                 </tr>   
             ) : (
 

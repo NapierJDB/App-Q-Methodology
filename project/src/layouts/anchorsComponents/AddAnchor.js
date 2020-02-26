@@ -5,15 +5,24 @@ class AddAnchor extends Component{
     state = {
         markerNumber:null,
         numberOfItems:null,
-        isEditing:false
+        isEditing:false,
+        total: 0,
     }
 
     // call add anchor (NewAnchors.js)
 
     handleSubmit = (e) => {
         e.preventDefault();
+        // Add the total number of items
+        this.state.total = 
+            parseInt(this.state.numberOfItems) + 
+            parseInt(this.state.total)
+        console.log(this.state.total);
         this.props.addAnchor(this.state);
+        
         e.target.reset();
+
+        
     }
 
     //update state
@@ -21,7 +30,9 @@ class AddAnchor extends Component{
         this.setState({
             [e.target.name]:e.target.value,
         });
+
     }
+
 
     render(){
         return(
@@ -53,6 +64,10 @@ class AddAnchor extends Component{
                             type="submit" 
                             value="Add +" 
                         />
+                    </div>
+
+                    <div>
+                        <h3>{ this.state.total }</h3>
                     </div>
                 </form>
             </div>

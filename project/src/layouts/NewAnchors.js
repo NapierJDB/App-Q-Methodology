@@ -10,7 +10,8 @@ class NewAnchors extends Component {
     this.state = {
 
         anchors: [],
-        E_user_token: this.props.location.D_user_token.toString()
+        E_user_token: this.props.location.D_user_token.toString(),
+
     }
 
     this.sendAnchorsToBackend = this.sendAnchorsToBackend.bind(this);
@@ -22,6 +23,10 @@ class NewAnchors extends Component {
         this.setState({
             anchors
         });
+
+        
+
+        //this.state.total = this.state.total + 1;
     }
 
     // When press edit button 
@@ -75,6 +80,7 @@ class NewAnchors extends Component {
        })
        .then(function (response) {
          console.log(response);
+
        })
        .catch(function (error) {
          console.log(error);
