@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Anchors from './anchorsComponents/Anchors';
 import AddAnchor from './anchorsComponents/AddAnchor';
+import { Redirect } from 'react-router-dom';
 
 class NewAnchors extends Component {
     constructor(props) {
@@ -59,8 +60,7 @@ class NewAnchors extends Component {
     sendAnchorsToBackend(event) {
   
         event.preventDefault()
-        console.log(this.state.anchors);
-  
+        this.setState({ Redirect: true }); 
         /*
         Passing values to store in a database
         */    
@@ -83,6 +83,14 @@ class NewAnchors extends Component {
     }
 
     render(){
+        if (this.state.Redirect) {
+            return (
+            <Redirect to={{
+              pathname: '/NewStatements',
+              F_user_token: this.state.E_user_token
+            }}/>
+            )
+          }
         return(
             <div>
                 <div>

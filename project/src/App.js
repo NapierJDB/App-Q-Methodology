@@ -5,8 +5,8 @@ import AdminPanel from "./layouts/AdminPanel";
 import CreateSurvey from './layouts/CreateSurvey';
 import NewAnchors from './layouts/NewAnchors';
 
-import StatementCreator from './layouts/StatementCreator';
-import PrivacyScreen from './layouts/PrivacyScreen'
+import NewStatements from './layouts/NewStatements';
+import PrivacyScreen from './layouts/PrivacyScreen';
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,8 +24,7 @@ export default class App extends React.Component {
             <Route path='/AdminPanel' component={AdminPanel} />
             <Route path='/CreateSurvey' component={CreateSurvey} />
             <Route path='/NewAnchors' component={NewAnchors} />
-            
-            <Route path='/StatementCreator' component={StatementCreator} />
+            <Route path='/NewStatements' component={NewStatements} />
           </Switch>
         </div>
       </Router>
