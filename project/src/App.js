@@ -8,6 +8,7 @@ import PrivacyScreen from './layouts/PrivacyScreen';
 import Reject from './layouts/Reject'
 import NewAnchors from './layouts/NewAnchors';
 import NewStatements from './layouts/NewStatements';
+import Debrief from './layouts/Debrief'
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,6 +28,7 @@ export default class App extends React.Component {
             <Route path='/NewAnchors' component={NewAnchors} />
             <Route path='/PrivacyScreen' component={PrivacyScreen} />
             <Route path='/Reject' component={Reject} />
+            <Route path='/Debrief' component={Debrief} />
           </Switch>
         </div>
       </Router>
@@ -36,7 +38,7 @@ export default class App extends React.Component {
 
 const HomePage = () => (
   <div>
-    <PrivacyScreen />
+    <Home />
   </div>
 );
 
