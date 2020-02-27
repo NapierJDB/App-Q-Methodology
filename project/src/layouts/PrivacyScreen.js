@@ -1,4 +1,15 @@
 import React from "react";
+import Reject from './Reject'
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Switch,
+    useHistory,
+    withRouter,
+    Redirect,
+    MemoryRouter
+} from 'react-router-dom';
 
 
 export default class PrivacyScreen extends React.Component {
@@ -6,7 +17,7 @@ export default class PrivacyScreen extends React.Component {
         super();
 
         this.state = {
-            agreed: ""
+            agreed: null
         }
 
     }
@@ -26,8 +37,15 @@ export default class PrivacyScreen extends React.Component {
 
         if (this.state.agreed == false) {
             //alert("Sorry, you must agree to the above terms and conditions to continue")
+            return (
+                <Redirect to={{
+                    pathname: '/Reject',
+
+                }} />
+            )
         }
-        else {
+
+        if (this.state.agreed == true) {
             alert("Terms agreed")
         }
 
