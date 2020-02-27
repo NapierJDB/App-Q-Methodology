@@ -11,6 +11,7 @@ class NewAnchors extends Component {
 
         anchors: [],
         E_user_token: this.props.location.D_user_token.toString(),
+        oldValue: '',
 
     }
 
@@ -24,8 +25,6 @@ class NewAnchors extends Component {
             anchors
         });
 
-        
-
         //this.state.total = this.state.total + 1;
     }
 
@@ -35,9 +34,11 @@ class NewAnchors extends Component {
         let anchors = this.state.anchors;
         anchors[i].isEditing = true;
         this.setState({
-            anchors
+            anchors,
+            oldValue: anchors[i].numberOfItems
         });
     }
+
 
     // (i, markerNumber, numberOfItems) is received from Anchors.js
     updateAnchor = (i, markerNumber, numberOfItems) => {
@@ -89,6 +90,7 @@ class NewAnchors extends Component {
     }
 
     render(){
+    
         if (this.state.Redirect) {
             return (
             <Redirect to={{
@@ -108,6 +110,7 @@ class NewAnchors extends Component {
                         editButton={this.editButton}
                         updateAnchor={this.updateAnchor}
                         deleteAnchor={this.deleteAnchor}
+                        oldValue={this.state.oldValue}
                     />
                     <AddAnchor 
                         addAnchor={this.addAnchor}

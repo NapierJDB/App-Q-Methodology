@@ -13,11 +13,14 @@ class AddAnchor extends Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
+        
         // Add the total number of items
         this.state.total = 
             parseInt(this.state.numberOfItems) + 
-            parseInt(this.state.total)
+            parseInt(this.state.total);
+
         console.log(this.state.total);
+
         this.props.addAnchor(this.state);
         
         e.target.reset();
@@ -65,7 +68,7 @@ class AddAnchor extends Component{
                             value="Add +" 
                         />
                     </div>
-
+                  
                     <div>
                         <h3>{ this.state.total }</h3>
                     </div>

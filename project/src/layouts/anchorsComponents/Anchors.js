@@ -4,53 +4,53 @@ class Anchors extends Component{
     constructor(props) {
         super(props);
 
-        this.state = {
-            
-            //value: 0,
-            
-        };
 }
 
     // Call updateAnchor (NewAnchors.js)
     handleUpdate = () => {
+
+        this.calculateTotal();
         this.props.updateAnchor(
             this.indexNum,
             this.markerNumber.value,
-            this.numberOfItems.value,
+            this.numberOfItems.value
         )
-
-        //this.state.oldValue = this.numberOfItems.value
-
-        
+       
     }
 
-
     render(){
-
-        const { allAnchors, editButton, deleteAnchor} = this.props;
+      
+        const { allAnchors, editButton, deleteAnchor } = this.props;
 
         const anchorsList = allAnchors.map((anchor, index) => {
 
-            this.newTotal = () => {
-
-                alert("Total is : " +
-                anchor.total + 
-                  " value: " + 
-                this.numberOfItems.value)
+            this.calculateTotal = () => {
 
                 if(anchor.total > this.numberOfItems.value){
-                    //Total is greater than value
-                    var a = parseInt(anchor.total) - parseInt(this.numberOfItems.value);
-                    anchor.total = parseInt(anchor.total) - parseInt(a);
-                    alert(anchor.total)
+                    /*
+                        Total is greater than number of items
+                        then the difference must be taken away 
+                        from the total
+                     */
+                    var a_difference = 
+                        parseInt(this.props.oldValue) - 
+                        parseInt(this.numberOfItems.value);
+                    //alert("Difference: " + a_difference)
+                    anchor.total = parseInt(anchor.total) - parseInt(a_difference)
                 }
                 else if (anchor.total < this.numberOfItems.value){
-                    //Total is less than the value
-                }
-                else{
+                     /*
+                        Total is less than number of items
+                        then the difference must be added
+                        to the total
+                     */
+                    var b_difference = 
+                        parseInt(this.props.oldValue) - 
+                        parseInt(this.numberOfItems.value);
 
+                    anchor.total = parseInt(anchor.total) + parseInt(b_difference)
                 }
-
+                                     
             }
             
             return anchor.isEditing === true ? (
@@ -61,7 +61,7 @@ class Anchors extends Component{
                         <input 
                             type="number"
                             ref={(val) => 
-                            {this.markerNumber = val}}
+                                {this.markerNumber = val}}
                             required
                             defaultValue={anchor.markerNumber}
                         />
@@ -81,11 +81,13 @@ class Anchors extends Component{
                         <input 
                             type="button"
                             value="Update"
-                            onClick={this.handleUpdate, this.newTotal}
+                            onClick={this.handleUpdate}
                             ref={() =>
-                            {this.indexNum = index}}
+                                {this.indexNum = index}}
                         />
                     </td>
+
+                     
 
                 </tr>   
             ) : (
@@ -103,24 +105,29 @@ class Anchors extends Component{
                             Delete
                         </button>
                     </td>
+                    
                 </tr>
+                
             );
         
         });
         
         return(
-            <table>
-            <thead>
-                <tr>
-                <th>Marker number</th>
-                <th>Number of items</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {anchorsList}
-            </tbody>
-        </table>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                        <th>Marker number</th>
+                        <th>Number of items</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {anchorsList}                
+                </tbody>         
+                </table>
+            </div>
+            
         );
     }
 }
