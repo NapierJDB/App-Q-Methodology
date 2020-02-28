@@ -10,7 +10,7 @@ class NewStatements extends Component {
     this.state = {
 
         statements: [],
-        G_user_token: this.props.location.F_user_token.toString()
+        //G_user_token: this.props.location.F_user_token.toString()
     }
 
     this.sendStatementsToBackend = this.sendStatementsToBackend.bind(this);
@@ -67,7 +67,7 @@ class NewStatements extends Component {
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
         headers: {
-               'Authorization': this.state.G_user_token,
+               'Authorization': window.token_data,
                'Content-Type': 'application/json'         
            },
             statements: this.state.statements
@@ -87,7 +87,7 @@ class NewStatements extends Component {
             return (
             <Redirect to={{
               pathname: '/AdminPanel',
-              H_user_token: this.state.G_user_token
+              //H_user_token: this.state.G_user_token
             }}/>
             )
           }

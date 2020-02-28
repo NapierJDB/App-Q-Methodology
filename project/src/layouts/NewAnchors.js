@@ -10,7 +10,7 @@ class NewAnchors extends Component {
     this.state = {
 
         anchors: [],
-        E_user_token: this.props.location.D_user_token.toString(),
+        //E_user_token: this.props.location.D_user_token.toString(),
         oldValue: '',
 
     }
@@ -74,7 +74,7 @@ class NewAnchors extends Component {
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
         headers: {
-               'Authorization': this.state.E_user_token,
+               'Authorization': window.token_data,
                'Content-Type': 'application/json'         
            },
             anchors: this.state.anchors
@@ -96,7 +96,7 @@ class NewAnchors extends Component {
             return (
             <Redirect to={{
               pathname: '/NewStatements',
-              F_user_token: this.state.E_user_token
+              //F_user_token: this.state.E_user_token
             }}/>
             )
           }
