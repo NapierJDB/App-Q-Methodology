@@ -19,7 +19,7 @@ class AddAnchor extends Component{
             parseInt(this.state.numberOfItems) + 
             parseInt(this.state.total);
 
-        console.log(this.state.total);
+        //console.log(this.state.total);
 
         this.props.addAnchor(this.state);
         
@@ -32,12 +32,16 @@ class AddAnchor extends Component{
     updateState = (e) => {
         this.setState({
             [e.target.name]:e.target.value,
+            total: this.state.total,
+            
         });
 
     }
 
 
     render(){
+
+        window.totalNumberOfItems = this.state.total
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>

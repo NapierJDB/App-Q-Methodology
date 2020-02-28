@@ -2,8 +2,8 @@ import React from "react";
 import Home from './layouts/Home';
 import RegForm from './layouts/RegForm';
 import AdminPanel from "./layouts/AdminPanel";
+import SurveyOverview from './layouts/SurveyOverview';
 import CreateSurvey from './layouts/CreateSurvey';
-//import StatementCreator from './layouts/StatementCreator';
 import PrivacyScreen from './layouts/PrivacyScreen';
 import Reject from './layouts/Reject'
 import NewAnchors from './layouts/NewAnchors';
@@ -24,8 +24,10 @@ export default class App extends React.Component {
             <Route path='/' exact component={HomePage} />
             <Route path='/RegForm' component={RegForm} />
             <Route path='/AdminPanel' component={AdminPanel} />
+            <Route path='/SurveyOverview' component={SurveyOverview} />
             <Route path='/CreateSurvey' component={CreateSurvey} />
             <Route path='/NewAnchors' component={NewAnchors} />
+            <Route path='/NewStatements' component={NewStatements} />
             <Route path='/PrivacyScreen' component={PrivacyScreen} />
             <Route path='/Reject' component={Reject} />
             <Route path='/Debrief' component={Debrief} />

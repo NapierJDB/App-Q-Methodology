@@ -11,6 +11,7 @@ import {
   Redirect,
   MemoryRouter
 } from 'react-router-dom';
+import './App.css';
 
 //import { push } from 'connected-react-router';
 
@@ -54,8 +55,6 @@ export default class Home extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    
 
     axios
       .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/login",
@@ -131,6 +130,7 @@ export default class Home extends React.Component {
           mUserToken={this.state.user_token}>
           <h1>Q-METHODOLOGY</h1>
           <input
+            class='textbox'
             type="email"
             name="email"
             placeholder="Email"
@@ -140,6 +140,7 @@ export default class Home extends React.Component {
           />
 
           <input
+            class='textbox'
             type="password"
             name="password"
             placeholder="Password"
@@ -149,12 +150,16 @@ export default class Home extends React.Component {
           />
 
 
-          <button type="submit">
+          <button 
+            type="submit"
+            class="button button3">
             Login
           </button>
 
           <Link to={'/RegForm'}>
-            <button type="submit">
+            <button 
+              type="submit"
+              class="button button3">
               Register
             </button>
           </Link>
