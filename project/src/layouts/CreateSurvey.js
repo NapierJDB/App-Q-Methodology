@@ -19,7 +19,7 @@ export default class CreateSurvey_1 extends React.Component {
         box1: "",
         box2: "",
         box3: "",
-        C_user_token: this.props.location.B_user_token.toString()
+        //C_user_token: this.props.location.B_user_token.toString()
        
       };
   
@@ -44,7 +44,7 @@ export default class CreateSurvey_1 extends React.Component {
       fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
         headers: {
-               'Authorization': this.state.C_user_token,
+               'Authorization': window.token_data,
                'Content-Type': 'application/json'         
            },
             survey_name: this.state.survey_name,
@@ -76,7 +76,7 @@ export default class CreateSurvey_1 extends React.Component {
             return (
             <Redirect to={{
               pathname: '/NewAnchors',
-              D_user_token: this.state.C_user_token
+              //D_user_token: this.state.C_user_token
             }}/>
             )
           }

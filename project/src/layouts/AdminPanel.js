@@ -15,13 +15,18 @@ export default class AdminPanel extends React.Component {
         super(props);
 
         this.state = {
-            A_user_token: this.props.location.token_data
+            //A_user_token: this.props.location.token_data
+            
         };
 
         //this.setUserToken = this.setUserToken.bind(this);
 
         //const { data } = this.props.location
 
+       //var Global = require('react-global');
+
+        //Global.get('globalToken')
+        
       }
 
     //setUserToken = event =>  {
@@ -33,9 +38,10 @@ export default class AdminPanel extends React.Component {
     render() {
 
         //const { token_data } = this.props.location
-
+        //var Global = require('react-global');
         return (
             <div>
+                <h1>{window.token_data}</h1>
                 <Link to='/'>
                     <button>log out</button>
                 </Link>
@@ -47,7 +53,7 @@ export default class AdminPanel extends React.Component {
                 <Link 
                     to={{
                         pathname: '/CreateSurvey',
-                        B_user_token: this.state.A_user_token
+                        //B_user_token: this.state.A_user_token
                         }}>
                     <button>
                         New Survey

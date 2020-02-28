@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 class Anchors extends Component{
     constructor(props) {
         super(props);
-
+        this.state = {
+            value: this.props.oldValue,
+        }
+        this.handleRegionClick = this.handleRegionClick.bind(this);
 }
 
     // Call updateAnchor (NewAnchors.js)
@@ -16,6 +19,12 @@ class Anchors extends Component{
             this.numberOfItems.value
         )
        
+    }
+
+    handleRegionClick(btnDelete){
+        //console.log("button pressed");
+        //this.anchorRemoved();
+        
     }
 
     render(){
@@ -50,8 +59,17 @@ class Anchors extends Component{
 
                     anchor.total = parseInt(anchor.total) + parseInt(b_difference)
                 }
+                
+                
                                      
             }
+
+            //this.anchorRemoved = () => {
+              //  anchor.total = parseInt(anchor.total) - this.state.value
+                //console.log(anchor.total)
+            //}
+
+            
             
             return anchor.isEditing === true ? (
 
@@ -101,8 +119,13 @@ class Anchors extends Component{
                             Edit                           
                         </button>
                         <button
-                            onClick={() => deleteAnchor(index)}>
+                            onClick={() => deleteAnchor(index), this.handleRegionClick}
+                            id="btnDelete">
                             Delete
+                        </button>
+                        <button
+                            onClick={this.anchorRemoved}>
+                            Remove
                         </button>
                     </td>
                     

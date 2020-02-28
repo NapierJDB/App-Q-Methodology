@@ -28,8 +28,11 @@ export default class Home extends React.Component {
 
     };
 
+    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    //this.getGlobal = this.getGlobal.bind(this);
   }
 
   handleChange = event => {
@@ -39,8 +42,20 @@ export default class Home extends React.Component {
   }
 
 
+  //getGlobal = event => {
+    //var Global = require('react-global');
+
+    //<Global values={{
+     // globalToken: this.props.user_token,
+    //}} />
+ // }
+  
+
+
   handleSubmit(event) {
     event.preventDefault()
+
+    
 
     axios
       .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/login",
@@ -97,14 +112,18 @@ export default class Home extends React.Component {
 
   render() {
 
+    //const global_token_data = window.global_token_data;
+    window.token_data = this.state.user_token;
     if (this.state.Redirect) {
       return (
       <Redirect to={{
         pathname: '/AdminPanel',
-        token_data: this.state.user_token
+        //token_data = this.state.user_token
+        //token_data: global_token_data
       }}
       />)
     }
+
 
     return (
       <div>

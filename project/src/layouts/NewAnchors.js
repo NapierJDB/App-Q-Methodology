@@ -57,6 +57,7 @@ class NewAnchors extends Component {
     deleteAnchor = (i) => {
         let anchors = this.state.anchors.filter((u,index) =>{ 
             return index !== i;
+            
         });
         this.setState({
             anchors
