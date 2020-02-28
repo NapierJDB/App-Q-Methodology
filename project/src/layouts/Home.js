@@ -14,6 +14,7 @@ import {
   Redirect,
   MemoryRouter
 } from 'react-router-dom';
+import './App.css';
 
 //import { push } from 'connected-react-router';
 
@@ -58,8 +59,6 @@ export default class Home extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    
 
     axios
       .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/login",
@@ -133,35 +132,41 @@ export default class Home extends React.Component {
       
         <div className = 'TextCenter'>
           <img src={logo}/>
-        <form onSubmit={this.handleSubmit} 
-          mUserToken={this.state.user_token}>
-          <h1 className = 'primary'>Q-METHODOLOGY</h1>
-          <input className = 'space'
-            type="email"
-            name="email"
-            placeholder="Email"
-            email={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
+          
+          <form onSubmit={this.handleSubmit} 
+            mUserToken={this.state.user_token}>
+          
+            <h1 className = 'primary'>Q-METHODOLOGY</h1>
 
-          <input className = 'space'
-            type="password"
-            name="password"
-            placeholder="Password"
-            password={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
+            <input className = 'space textbox'
+              type="email"
+              name="email"
+              placeholder="Email"
+              email={this.state.email}
+              onChange={this.handleChange}
+              required
+            />
 
+            <input className = 'space textbox'
+              type="password"
+              name="password"
+              placeholder="Password"
+              password={this.state.password}
+              onChange={this.handleChange}
+              required
+            />
 
-          <button type="submit" className = 'space'>
-            Login
-          </button>
+            <button 
+              type="submit" 
+              className = 'space button button3'>
+                Login
+            </button>
 
           <Link to={'/RegForm'}>
-            <button type="submit" className = 'space'>
-              Register
+            <button 
+              type="submit" 
+              className = 'space button button3'>
+                Register
             </button>
           </Link>
         </form>
@@ -169,12 +174,6 @@ export default class Home extends React.Component {
     );
   }
 }
-
-/*      <div>
-          <h3>{ this.state.userData.map(
-         mUserData => <li>{mUserData.id}</li>) }</h3>
-       </div>
-*/
 
 
 

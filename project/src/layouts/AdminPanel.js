@@ -16,115 +16,56 @@ export default class AdminPanel extends React.Component {
 
         this.state = {
             //A_user_token: this.props.location.token_data
-            
+
         };
 
-        //this.setUserToken = this.setUserToken.bind(this);
-
-        //const { data } = this.props.location
-
-       //var Global = require('react-global');
-
-        //Global.get('globalToken')
+        this.handleLogout = this.handleLogout.bind(this);
+        this.getData = this.getData.bind(this);
         
       }
 
-    //setUserToken = event =>  {
-      //  this.setState({
-        //    user_token : data
-        //})
-    //}
+
+    handleLogout = event => {
+        // This method clears the token_data variable
+        window.token_data = null
+    }
+
+    getData(event) {
+  
+
+    }
+    
 
     render() {
 
-        //const { token_data } = this.props.location
-        //var Global = require('react-global');
         return (
             <div>
-                <h1>{window.token_data}</h1>
                 <Link to='/'>
-                    <button>log out</button>
+                    <button onClick={this.handleLogout}>log out</button>
                 </Link>
+                <div>
+                <h1>Admin Panel</h1>
 
-                <br></br>
-                <h1>Active</h1>
+                    <Link 
+                        to={{
+                            pathname: '/CreateSurvey',
+                            //B_user_token: this.state.A_user_token
+                            }}>
+                        <button>
+                            New Survey
+                        </button>
+                    </Link>
 
-
-                <Link 
-                    to={{
-                        pathname: '/CreateSurvey',
-                        //B_user_token: this.state.A_user_token
-                        }}>
-                    <button>
-                        New Survey
-                    </button>
-                </Link>
-
-                
+                    <Link 
+                        to={{
+                            pathname: '/SurveyOverview'
+                            }}>
+                        <button>
+                            View surveys
+                        </button>
+                    </Link>
+                </div>                
             </div>
         )
     }
 }
-
-
-/*<br></br>
-                <br></br>
-                <Box width={256} sx={{
-                    borderRadius: 2,
-                    boxShadow: '0 0 16px rgba(0, 0, 0, .25)'
-                }}>
-                    <text>Name of survey</text>
-                    <br></br>
-                    <text>872312</text>
-                    <br></br>
-                    <text>Survey description...</text>
-                </Box>
-
-                <br></br>
-                <Box width={256} sx={{
-                    borderRadius: 2,
-                    boxShadow: '0 0 16px rgba(0, 0, 0, .25)'
-                }}>
-                    <text>Name of survey</text>
-                    <br></br>
-                    <text>872312</text>
-                    <br></br>
-                    <text>Survey description...</text>
-                    <br></br>
-                    <text>12/30 completed</text>
-                    <br></br>
-                    <button>Edit</button>
-                    <button>Archive</button>
-                </Box>
-
-                <hr></hr>
-                <br></br>
-                <h1>Archived</h1>
-                <Box width={256} sx={{
-                    borderRadius: 2,
-                    boxShadow: '0 0 16px rgba(0, 0, 0, .25)'
-                }}>
-                    <text>Name of survey</text>
-                    <br></br>
-                    <text>872312</text>
-                    <br></br>
-                    <text>Survey description...</text>
-                </Box>
-
-                <br></br>
-                <Box width={256} sx={{
-                    borderRadius: 2,
-                    boxShadow: '0 0 16px rgba(0, 0, 0, .25)'
-                }}>
-                    <text>Name of survey</text>
-                    <br></br>
-                    <text>872312</text>
-                    <br></br>
-                    <text>Survey description...</text>
-                    <br></br>
-                    <text>12/30 completed</text>
-                    <br></br>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </Box>
-                <br></br>*/

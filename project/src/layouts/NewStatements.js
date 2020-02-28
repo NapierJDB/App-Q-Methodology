@@ -11,6 +11,7 @@ class NewStatements extends Component {
 
         statements: [],
         //G_user_token: this.props.location.F_user_token.toString()
+        total: window.totalNumberOfItems
     }
 
     this.sendStatementsToBackend = this.sendStatementsToBackend.bind(this);
@@ -20,8 +21,11 @@ class NewStatements extends Component {
     addStatement = (newStatement) => {
         let statements = [...this.state.statements, newStatement];
         this.setState({
-            statements
+            statements,
         });
+
+        this.state.total = parseInt(this.state.total) - 1
+
     }
 
     // When press edit button 
@@ -55,6 +59,8 @@ class NewStatements extends Component {
         this.setState({
             statements
         });
+
+        this.state.total = parseInt(this.state.total) + 1
     }
 
     sendStatementsToBackend(event) {
@@ -95,6 +101,8 @@ class NewStatements extends Component {
             <div>
                 <div>
                     <h1>Q-sort cards</h1>
+                    <h3>Available statements</h3>
+                    <h2>{this.state.total}</h2>
                 </div>
                 <div>
                     <Statements 

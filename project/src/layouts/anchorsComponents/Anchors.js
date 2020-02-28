@@ -16,7 +16,7 @@ class Anchors extends Component{
         this.props.updateAnchor(
             this.indexNum,
             this.markerNumber.value,
-            this.numberOfItems.value
+            this.numberOfItems.value,
         )
        
     }
@@ -63,13 +63,6 @@ class Anchors extends Component{
                 
                                      
             }
-
-            //this.anchorRemoved = () => {
-              //  anchor.total = parseInt(anchor.total) - this.state.value
-                //console.log(anchor.total)
-            //}
-
-            
             
             return anchor.isEditing === true ? (
 
@@ -122,10 +115,6 @@ class Anchors extends Component{
                             onClick={() => deleteAnchor(index), this.handleRegionClick}
                             id="btnDelete">
                             Delete
-                        </button>
-                        <button
-                            onClick={this.anchorRemoved}>
-                            Remove
                         </button>
                     </td>
                     

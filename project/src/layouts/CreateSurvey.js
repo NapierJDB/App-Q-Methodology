@@ -19,7 +19,11 @@ export default class CreateSurvey_1 extends React.Component {
         box1: "",
         box2: "",
         box3: "",
+        privacy: '',
+        debrief: '',
         //C_user_token: this.props.location.B_user_token.toString()
+        surveyData: '',
+        //user_token: window.token_data.toString(),
        
       };
   
@@ -37,6 +41,7 @@ export default class CreateSurvey_1 extends React.Component {
   
         event.preventDefault()
         this.setState({ Redirect: true });
+        //console.log(window.token_data)
         /*
         Passing values to store in a database
         */
@@ -57,6 +62,9 @@ export default class CreateSurvey_1 extends React.Component {
        
        .then(function (response) {
          console.log(response);
+
+         //this.state.surveyData = response.data;
+         //console.log(this.state.surveyData);
          
        })
        .catch(function (error) {
@@ -73,7 +81,7 @@ export default class CreateSurvey_1 extends React.Component {
     render() {
 
         if (this.state.Redirect) {
-            return (
+            return (           
             <Redirect to={{
               pathname: '/NewAnchors',
               //D_user_token: this.state.C_user_token
@@ -84,7 +92,7 @@ export default class CreateSurvey_1 extends React.Component {
         return (
           <div>
             <h1>Create new research</h1>
-
+              <h2>{window.token_data}</h2>
             <div>
                 <h2>Research information</h2>
                 <form>
@@ -142,6 +150,29 @@ export default class CreateSurvey_1 extends React.Component {
                         required
                         />                    
                     </div>
+
+                    <div>
+                        <input
+                        type="text"
+                        name="privacy"
+                        placeholder="Privacy statement"
+                        privacy={this.state.privacy}
+                        onChange={this.handleChange}
+                        required
+                        />                    
+                    </div>
+
+                    <div>
+                        <input
+                        type="text"
+                        name="debrief"
+                        placeholder="Debrief"
+                        debrief={this.state.debrief}
+                        onChange={this.handleChange}
+                        required
+                        />                    
+                    </div>
+
                     <div>
                         <button onClick={this.sendResearchInfoToBackend}>
                             Next

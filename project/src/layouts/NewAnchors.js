@@ -12,10 +12,13 @@ class NewAnchors extends Component {
         anchors: [],
         //E_user_token: this.props.location.D_user_token.toString(),
         oldValue: '',
+        surveyData: '',
+        total: 0,
 
     }
 
     this.sendAnchorsToBackend = this.sendAnchorsToBackend.bind(this);
+    this.show = this.show.bind(this);
 }
 
     //(newAnchor) is received from AddAnchor.js
@@ -24,6 +27,7 @@ class NewAnchors extends Component {
         this.setState({
             anchors
         });
+        //alert('total ' + anchors[0])
 
         //this.state.total = this.state.total + 1;
     }
@@ -37,6 +41,7 @@ class NewAnchors extends Component {
             anchors,
             oldValue: anchors[i].numberOfItems
         });
+
     }
 
 
@@ -82,6 +87,9 @@ class NewAnchors extends Component {
        })
        .then(function (response) {
          console.log(response);
+         
+         //this.state.surveyData = response.data;
+         //console.log(this.state.surveyData);
 
        })
        .catch(function (error) {
@@ -89,6 +97,12 @@ class NewAnchors extends Component {
        }); 
   
     }
+
+    show(event) {
+        //This method is used to show values of the anchors array
+        console.log(this.state.anchors);
+    }
+
 
     render(){
     
@@ -105,6 +119,7 @@ class NewAnchors extends Component {
                 <div>
                     <h1>Rating scale</h1>
                 </div>
+                <button onClick={this.setTotal}>Show in console</button>
                 <div>
                     <Anchors 
                         allAnchors={this.state.anchors}
@@ -118,8 +133,7 @@ class NewAnchors extends Component {
                     />
                 </div>
                 <div>
-                    <button
-                    onClick={this.sendAnchorsToBackend}>
+                    <button onClick={this.sendAnchorsToBackend}>
                         Next
                     </button>
                 </div>
