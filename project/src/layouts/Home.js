@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
+import './App.css';
+import logo from './images/logo2.png'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -41,6 +44,7 @@ export default class Home extends React.Component {
     });
   }
 
+  
 
   //getGlobal = event => {
     //var Global = require('react-global');
@@ -126,11 +130,13 @@ export default class Home extends React.Component {
 
 
     return (
-      <div>
+      
+        <div className = 'TextCenter'>
+          <img src={logo}/>
         <form onSubmit={this.handleSubmit} 
           mUserToken={this.state.user_token}>
-          <h1>Q-METHODOLOGY</h1>
-          <input
+          <h1 className = 'primary'>Q-METHODOLOGY</h1>
+          <input className = 'space'
             type="email"
             name="email"
             placeholder="Email"
@@ -139,7 +145,7 @@ export default class Home extends React.Component {
             required
           />
 
-          <input
+          <input className = 'space'
             type="password"
             name="password"
             placeholder="Password"
@@ -149,19 +155,17 @@ export default class Home extends React.Component {
           />
 
 
-          <button type="submit">
+          <button type="submit" className = 'space'>
             Login
           </button>
 
           <Link to={'/RegForm'}>
-            <button type="submit">
+            <button type="submit" className = 'space'>
               Register
             </button>
           </Link>
         </form>
       </div>
-
-
     );
   }
 }
