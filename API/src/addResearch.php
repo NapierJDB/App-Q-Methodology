@@ -14,13 +14,14 @@ function addResearch(Request $request, Response $response)
     $code = generateCode();
     $date = date('Y-m-d');
 
-    if (isset($data->researcherID) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3)) {
+    if (isset($data->researcherID) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief)) {
 
         $object = checkName($data);
 
         if (!$object) {
 
-            $sql = "INSERT INTO research (name, description, box1, box2, box3, code, created_date, researcherID) VALUES (:name, :description, :box1, :box2, :box3, :code, :created_date, :researcherID)";
+            $sql = "INSERT INTO research (name, description, box1, box2, box3, code, created_date, researcherID, privacy_statement, debrief) 
+                    VALUES (:name, :description, :box1, :box2, :box3, :code, :created_date, :researcherID, :privacy_statement, :debrief)";
 
             try {
 
@@ -32,6 +33,8 @@ function addResearch(Request $request, Response $response)
                 $stmt->bindParam("box1", $data->box1);
                 $stmt->bindParam("box2", $data->box2);
                 $stmt->bindParam("box3", $data->box3);
+                $stmt->bindParam("privacy_statement", $data->privacy_statement);
+                $stmt->bindParam("debrief", $data->debrief);
                 $stmt->bindParam("code", $code);
                 $stmt->bindParam("created_date", $date);
 
@@ -53,7 +56,7 @@ function addResearch(Request $request, Response $response)
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (researcherID, name, description, box1, box2 and box3 required)']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (researcherID, name, description, box1, box2, box3, privacy_statement and debrief required)']);
 
     }
 
