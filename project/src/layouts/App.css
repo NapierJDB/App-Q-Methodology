@@ -35,20 +35,23 @@ body {
 }
 
 .textbox {
-  height: 30px;
+  height: 20px;
   position: relative;
   border: 2px solid #832929;
   border-color: rgba(0, 0, 0, .14);
   background-color: rgb(255, 255, 255);
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 7px;
   width: 250px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-family: Helvetica;
 }
 
 
 .button {
   height: 30px;
-  border: none;
+  border: 2px solid rgba(0, 0, 0, .14);
   color: white;
   text-align: center;
   font-size: 16px;
@@ -56,6 +59,9 @@ body {
   cursor: pointer;
   width: 100px;
   border-radius: 7px;
+  margin: 8px 0;
+  margin: 10px;
+  font-family: Helvetica;
 }
 
 .button3:hover {
@@ -65,7 +71,25 @@ body {
 }
 
 .button3 {
-  background-color: #f44336;
+  background-color: firebrick;
   color: white;
-  border: 2px solid #f44336;
+  border: 2px solid rgba(0, 0, 0, .14);
+}
+
+.column {
+  display: inline-block;
+}
+
+.border {
+  border-radius: 15px;
+  background-color: #ece9e9;
+  padding: 20px;
+  height: 180px;
+  width: 300px;
+}
+
+.buttonContainer {
+  align-items: center;
+ 
+
 }

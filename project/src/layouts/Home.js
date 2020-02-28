@@ -29,6 +29,7 @@ export default class Home extends React.Component {
       userData: '',
       user_token: '',
       token: '',
+      researcher_id: '',
 
     };
 
@@ -78,8 +79,8 @@ export default class Home extends React.Component {
         });
 
         // ---STORING USER ID---
-        //var id = this.state.userData.map(
-          //mUserData => mUserData.id);
+        this.state.id = this.state.userData.map(
+          mUserData => mUserData.id);
         
         // ---STORING USER ERROR---
         var mError = this.state.userData.map(
@@ -90,7 +91,9 @@ export default class Home extends React.Component {
           mUserData => mUserData.token);
 
         this.setState({
-          user_token: this.state.token
+          user_token: this.state.token,
+          
+          
         })
                 
         if(mError == 'false'){
@@ -117,6 +120,7 @@ export default class Home extends React.Component {
 
     //const global_token_data = window.global_token_data;
     window.token_data = this.state.user_token;
+    window.researcher_id = this.state.id;
     if (this.state.Redirect) {
       return (
       <Redirect to={{
@@ -138,37 +142,55 @@ export default class Home extends React.Component {
           
             <h1 className = 'primary'>Q-METHODOLOGY</h1>
 
-            <input className = 'space textbox'
-              type="email"
-              name="email"
-              placeholder="Email"
-              email={this.state.email}
-              onChange={this.handleChange}
-              required
-            />
+            <div> 
 
-            <input className = 'space textbox'
-              type="password"
-              name="password"
-              placeholder="Password"
-              password={this.state.password}
-              onChange={this.handleChange}
-              required
-            />
+              <div className = 'column'>
 
-            <button 
-              type="submit" 
-              className = 'space button button3'>
-                Login
-            </button>
+                <input className = 'space textbox'
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  email={this.state.email}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
 
-          <Link to={'/RegForm'}>
-            <button 
-              type="submit" 
-              className = 'space button button3'>
-                Register
-            </button>
-          </Link>
+              <div>
+
+                <input className = 'space textbox'
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  password={this.state.password}
+                  onChange={this.handleChange}
+                  required
+                />
+
+              </div>
+              
+              <div className = 'buttonContainer'>
+
+                <button 
+                  type="submit" 
+                  className = 'space button button3'>
+                    Login
+                </button>
+
+                <Link to={'/RegForm'}>
+                  <button 
+                    type="submit" 
+                    className = 'space button button3'>
+                      Register
+                  </button>
+                </Link>
+
+              </div>
+
+            </div>
+
+            
+           
         </form>
       </div>
     );

@@ -28,7 +28,7 @@ export default class CreateSurvey_1 extends React.Component {
       };
   
       this.handleChange = this.handleChange.bind(this);
-      this.sendResearchInfoToBackend = this.sendResearchInfoToBackend.bind(this);
+      this.send = this.send.bind(this);
     }
 
     handleChange = event =>  {
@@ -37,11 +37,10 @@ export default class CreateSurvey_1 extends React.Component {
         })
     }
 
-    sendResearchInfoToBackend(event) {
+    send(event) {
   
         event.preventDefault()
         this.setState({ Redirect: true });
-        //console.log(window.token_data)
         /*
         Passing values to store in a database
         */
@@ -52,11 +51,14 @@ export default class CreateSurvey_1 extends React.Component {
                'Authorization': window.token_data,
                'Content-Type': 'application/json'         
            },
-            survey_name: this.state.survey_name,
+            researcherID: window.researcher_id,
+            name: this.state.survey_name,
             description: this.state.description,
             box1: this.state.box1,
             box2: this.state.box2,
             box3: this.state.box3,
+            privacy: this.state.privacy,
+            debrief: this.state.debrief,
                   
        })
        
@@ -92,10 +94,12 @@ export default class CreateSurvey_1 extends React.Component {
         return (
           <div>
             <h1>Create new research</h1>
-              <h2>{window.token_data}</h2>
             <div>
                 <h2>Research information</h2>
                 <form>
+                  <button onClick={this.send}>
+                    create
+                  </button>
                     <div>
                         <input
                         type="text"
@@ -174,7 +178,7 @@ export default class CreateSurvey_1 extends React.Component {
                     </div>
 
                     <div>
-                        <button onClick={this.sendResearchInfoToBackend}>
+                        <button onClick={this.send.bind(this)}>
                             Next
                         </button>            
                     </div>
