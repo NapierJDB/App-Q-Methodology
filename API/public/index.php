@@ -17,6 +17,8 @@ require '../src/activate.php';
 
 require '../src/addResearch.php';
 
+require '../src/viewResearch.php';
+
 $app->run();
 
 ?>

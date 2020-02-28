@@ -2,38 +2,93 @@
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-//Register researcher
+//Add research
 function addResearch(Request $request, Response $response)
 {
-    return $response->withJson(['error' => false, 'message' => 'Test']); // test response
-    
-/*     require_once '../config/connection.php';
 
-    $id = $request->getParam('id');
+    // return $response->withJson(['error' => false, 'message' => generateCode()]); // test response
 
-    if (!$id) {
+    require_once '../config/connection.php';
 
-        return $response->withJson(['error' => true, 'message' => 'Missing parameter in URL string. (forename, surname, email and password required']);
+    $data = json_decode($request->getBody());
+    $code = generateCode();
+    $date = date('Y-m-d');
 
-    } else {
+    if (isset($data->researcherID) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3)) {
 
-        $sql = "";
+        $object = checkName($data);
 
-        try {
+        if (!$object) {
 
-            $db = connect();
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam("id", $id);
-            $stmt->execute();
+            $sql = "INSERT INTO research (name, description, box1, box2, box3, code, created_date, researcherID) VALUES (:name, :description, :box1, :box2, :box3, :code, :created_date, :researcherID)";
 
-            return $response->withJson(['error' => false, 'message' => 'The Research has been successfully created']);
+            try {
 
-        } catch (PDOException $e) {
+                $db = connect();
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam("researcherID", $data->researcherID);
+                $stmt->bindParam("name", $data->name);
+                $stmt->bindParam("description", $data->description);
+                $stmt->bindParam("box1", $data->box1);
+                $stmt->bindParam("box2", $data->box2);
+                $stmt->bindParam("box3", $data->box3);
+                $stmt->bindParam("code", $code);
+                $stmt->bindParam("created_date", $date);
 
-            return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+                $stmt->execute();
+
+                return $response->withJson(['error' => false, 'message' => 'The Research has been successfully created']);
+
+            } catch (PDOException $e) {
+
+                return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+
+            }
+
+        } else {
+
+            return $response->withJson(['error' => true, 'message' => 'The research already exists']);
 
         }
 
-    } */
+    } else {
+
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (researcherID, name, description, box1, box2 and box3 required)']);
+
+    }
+
+}
+//Generate access code
+function generateCode()
+{
+
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomStr = '';
+    $strLength = 1;
+
+    for ($i = 0; $i < $strLength; $i++) {
+
+        $index = rand(0, strlen($characters) - 1);
+        $randomStr .= $characters[$index];
+        $randomStr = 'Q' . $randomStr . date("is");
+
+    }
+
+    return $randomStr;
+
+}
+//Check if research already exists
+function checkName($data)
+{
+
+    $sql = "SELECT * FROM research WHERE name = :name";
+
+    $db = connect();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("name", $data->name);
+    $stmt->execute();
+    $object = $stmt->fetchObject();
+
+    return $object;
 
 }
