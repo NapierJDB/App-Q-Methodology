@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
+import './App.css';
+import logo from './images/logo2.png'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -42,6 +45,7 @@ export default class Home extends React.Component {
     });
   }
 
+  
 
   //getGlobal = event => {
     //var Global = require('react-global');
@@ -125,57 +129,51 @@ export default class Home extends React.Component {
 
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} 
-          mUserToken={this.state.user_token}>
-          <h1>Q-METHODOLOGY</h1>
-          <input
-            class='textbox'
-            type="email"
-            name="email"
-            placeholder="Email"
-            email={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
+      
+        <div className = 'TextCenter'>
+          <img src={logo}/>
+          
+          <form onSubmit={this.handleSubmit} 
+            mUserToken={this.state.user_token}>
+          
+            <h1 className = 'primary'>Q-METHODOLOGY</h1>
 
-          <input
-            class='textbox'
-            type="password"
-            name="password"
-            placeholder="Password"
-            password={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
+            <input className = 'space textbox'
+              type="email"
+              name="email"
+              placeholder="Email"
+              email={this.state.email}
+              onChange={this.handleChange}
+              required
+            />
 
+            <input className = 'space textbox'
+              type="password"
+              name="password"
+              placeholder="Password"
+              password={this.state.password}
+              onChange={this.handleChange}
+              required
+            />
 
-          <button 
-            type="submit"
-            class="button button3">
-            Login
-          </button>
+            <button 
+              type="submit" 
+              className = 'space button button3'>
+                Login
+            </button>
 
           <Link to={'/RegForm'}>
             <button 
-              type="submit"
-              class="button button3">
-              Register
+              type="submit" 
+              className = 'space button button3'>
+                Register
             </button>
           </Link>
         </form>
       </div>
-
-
     );
   }
 }
-
-/*      <div>
-          <h3>{ this.state.userData.map(
-         mUserData => <li>{mUserData.id}</li>) }</h3>
-       </div>
-*/
 
 
 
