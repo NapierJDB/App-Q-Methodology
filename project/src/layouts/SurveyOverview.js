@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import logo from './images/logo2.png'
 
 export default class SurveyOverview extends React.Component {
     constructor(props) {
@@ -58,49 +59,50 @@ export default class SurveyOverview extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className ='TextCenter'>
+                <img src={logo}/>
                 <h1>{window.researcher_id}</h1>
-                <button onClick={this.handleSubmit}>Display</button>
-                <h1>Survey Overview</h1>
-                <h2>
+                <button className = 'space button button3' onClick={this.handleSubmit}>Display</button>
+                <h1 className = 'primary'>Survey Overview</h1>
+                <h2 className = 'primary'>
                     Review your research survey
                 </h2>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Survey Name:
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Description:
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Box 1:
-                    </label>
+                    </label >
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Box 2:
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Box 3:
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Anchors quantity:
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className = 'primary'>
                         Statements quantity:
                     </label>
                 </div>
-                <button>
+                <button className = 'space button button3'>
                     Create survey
                 </button>
             </div>
