@@ -26,7 +26,10 @@ export default class SurveyOverview extends React.Component {
                     'Authorization': window.token_data,
                     'Content-Type': 'application/json'         
                 },
-                 researcherID: '111',
+                body: JSON.stringify({
+                    'researcherID': this.state.id,
+                })
+                 
     
             })
             .then((response) => response.json())
