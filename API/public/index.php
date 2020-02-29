@@ -15,9 +15,7 @@ require '../src/register.php';
 
 require '../src/activate.php';
 
-require '../src/addResearch.php';
-
-require '../src/viewResearch.php';
+require '../src/research.php';
 
 $app->run();
 
