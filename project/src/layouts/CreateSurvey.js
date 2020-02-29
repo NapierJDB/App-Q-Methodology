@@ -27,6 +27,7 @@ export default class CreateSurvey_1 extends React.Component {
       //C_user_token: this.props.location.B_user_token.toString()
       surveyData: '',
       //user_token: window.token_data.toString(),
+      id: window.researcher_id.toString(),
 
 
     };
@@ -56,7 +57,7 @@ export default class CreateSurvey_1 extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'researcherID': 113, //window.researcher_id, - nie dziala 
+        'researcherID': this.state.id,
         'name': this.state.survey_name,
         'description': this.state.description,
         'box1': this.state.box1,

@@ -8,7 +8,7 @@ export default class SurveyOverview extends React.Component {
         this.state = {
 
             research: '',
-            id: window.researcher_id,
+            id: window.researcher_id.toString(),
     
         };
     
@@ -28,7 +28,7 @@ export default class SurveyOverview extends React.Component {
                     'Content-Type': 'application/json'         
                 },
                 body: JSON.stringify({
-                    'researcherID': 113 // this.state.id, nie dziala
+                    'researcherID': this.state.id
                 })
                  
     

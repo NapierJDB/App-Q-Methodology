@@ -128,7 +128,7 @@ class Anchors extends Component{
         
         return(
             <div className='center TextCenter'>
-                <table class="center">
+                <table className="center">
                     <thead>
                         <tr>
                         <th>Marker number</th>
