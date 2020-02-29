@@ -1,14 +1,11 @@
+@import url('nhttps://fonts.google.com/specimen/Titillium+Web?selection.family=Titillium+Web');
+
 .primary
 {
-  color: firebrick;
+  color:#000000; font-family: 'Titillium Web';
 }
 
-body {
-  background-size: 100% auto;
-  background-image: url(./images/background-desktop.png);
-  background-repeat: no-repeat;
-  font-family: Arial;
-}
+.logo {float:left;}
 
 .imgContainer{
   margin-top: 1%;
@@ -21,6 +18,8 @@ body {
 .container{
   width: 80%;
 }
+
+
 
 .TextCenter {
   text-align: center;
@@ -51,6 +50,7 @@ body {
 
 .button {
   height: 30px;
+  font-family: 'Titillium Web';
   border: 2px solid rgba(0, 0, 0, .14);
   color: white;
   text-align: center;
@@ -61,20 +61,22 @@ body {
   border-radius: 7px;
   margin: 8px 0;
   margin: 10px;
-  font-family: Helvetica;
+  font-family: 'Titillium Web';
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .button3:hover {
-  background-color: white; 
+ 
   color: black; 
+  background-color:#dbdbdb;
   
 }
 
 .button3 {
-  background-color: firebrick;
-  color: white;
+  background-color: white; 
+  color: black; 
+  
   border: 2px solid rgba(0, 0, 0, .14);
 }
 
