@@ -6,6 +6,7 @@ import {BrowserRouter as Router,
     Link,
     Switch,
     Redirect,} from 'react-router-dom';
+import logo from './images/logo2.png'
 
 
 
@@ -24,6 +25,7 @@ export default class CreateSurvey_1 extends React.Component {
         //C_user_token: this.props.location.B_user_token.toString()
         surveyData: '',
         //user_token: window.token_data.toString(),
+        
        
       };
   
@@ -44,8 +46,8 @@ export default class CreateSurvey_1 extends React.Component {
         /*
         Passing values to store in a database
         */
-
-      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
+      
+      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch ',  {
         method: 'POST',
         headers: {
                'Authorization': window.token_data,
@@ -57,16 +59,16 @@ export default class CreateSurvey_1 extends React.Component {
             box1: this.state.box1,
             box2: this.state.box2,
             box3: this.state.box3,
-            privacy: this.state.privacy,
+            privacy_statement: this.state.privacy,
             debrief: this.state.debrief,
                   
        })
        
-       .then(function (response) {
+       .then((response) => {
          console.log(response);
 
-         //this.state.surveyData = response.data;
-         //console.log(this.state.surveyData);
+         this.state.surveyData = response.data;
+         console.log('response: ' + this.state.surveyData);
          
        })
        .catch(function (error) {
@@ -92,15 +94,21 @@ export default class CreateSurvey_1 extends React.Component {
           }
 
         return (
-          <div>
-            <h1>Create new research</h1>
+          <div className = 'TextCenter'>
+            <img src={logo}/>
+            <h1 className = 'primary'>Create new research</h1>
+
             <div>
-                <h2>Research information</h2>
+
+                <h2 className = 'primary'>Research information</h2>
                 <form>
                   <button onClick={this.send}>
                     create
                   </button>
-                    <div>
+
+                  <div>
+
+                  <div>
                         <input
                         type="text"
                         name="survey_name"
@@ -182,6 +190,9 @@ export default class CreateSurvey_1 extends React.Component {
                             Next
                         </button>            
                     </div>
+
+                  </div>
+                    
              </form>
             </div>
 

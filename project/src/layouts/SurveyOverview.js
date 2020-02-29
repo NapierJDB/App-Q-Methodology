@@ -7,6 +7,7 @@ export default class SurveyOverview extends React.Component {
         this.state = {
 
             research: '',
+            id: window.researcher_id,
     
         };
     
@@ -17,23 +18,33 @@ export default class SurveyOverview extends React.Component {
       handleSubmit(event) {
         event.preventDefault()
     
-        axios
-          .post("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch",
+        
+          fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
             {
-                researcherID: window.researcher_id
+                method: 'POST',
+                headers: {
+                    'Authorization': window.token_data,
+                    'Content-Type': 'application/json'         
+                },
+                 researcherID: '111',
     
             })
-          .then((response) => {
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                alert(this.state.id)
+            })
+           //.then((response) => {
     
-            console.log(response);
+            //console.log(response);
     
-            this.state.research = response.data;
-            console.log(this.state.research);
+            //this.state.research = response.data;
+            //console.log(this.state.research);
 
-          }, 
-          (error) => {
-            console.log(error);
-          })
+          //}, 
+          //error) => {
+            //console.log(error);
+          //})
           .catch(function (error) {
             console.log(error);
           })
