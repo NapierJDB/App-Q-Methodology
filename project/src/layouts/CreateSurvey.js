@@ -6,6 +6,7 @@ import {BrowserRouter as Router,
     Link,
     Switch,
     Redirect,} from 'react-router-dom';
+import logo from './images/logo2.png'
 
 
 
@@ -24,11 +25,12 @@ export default class CreateSurvey_1 extends React.Component {
         //C_user_token: this.props.location.B_user_token.toString()
         surveyData: '',
         //user_token: window.token_data.toString(),
+        
        
       };
   
       this.handleChange = this.handleChange.bind(this);
-      this.sendResearchInfoToBackend = this.sendResearchInfoToBackend.bind(this);
+      this.send = this.send.bind(this);
     }
 
     handleChange = event =>  {
@@ -37,34 +39,36 @@ export default class CreateSurvey_1 extends React.Component {
         })
     }
 
-    sendResearchInfoToBackend(event) {
+    send(event) {
   
         event.preventDefault()
         this.setState({ Redirect: true });
-        //console.log(window.token_data)
         /*
         Passing values to store in a database
         */
-
-      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
+      
+      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch ',  {
         method: 'POST',
         headers: {
                'Authorization': window.token_data,
                'Content-Type': 'application/json'         
            },
-            survey_name: this.state.survey_name,
+            researcherID: window.researcher_id,
+            name: this.state.survey_name,
             description: this.state.description,
             box1: this.state.box1,
             box2: this.state.box2,
             box3: this.state.box3,
+            privacy_statement: this.state.privacy,
+            debrief: this.state.debrief,
                   
        })
        
-       .then(function (response) {
+       .then((response) => {
          console.log(response);
 
-         //this.state.surveyData = response.data;
-         //console.log(this.state.surveyData);
+         this.state.surveyData = response.data;
+         console.log('response: ' + this.state.surveyData);
          
        })
        .catch(function (error) {
@@ -90,13 +94,21 @@ export default class CreateSurvey_1 extends React.Component {
           }
 
         return (
-          <div>
-            <h1>Create new research</h1>
-              <h2>{window.token_data}</h2>
+          <div className = 'TextCenter'>
+            <img src={logo}/>
+            <h1 className = 'primary'>Create new research</h1>
+
             <div>
-                <h2>Research information</h2>
+
+                <h2 className = 'primary'>Research information</h2>
                 <form>
-                    <div>
+                  <button onClick={this.send}>
+                    create
+                  </button>
+
+                  <div>
+
+                  <div>
                         <input
                         type="text"
                         name="survey_name"
@@ -174,10 +186,13 @@ export default class CreateSurvey_1 extends React.Component {
                     </div>
 
                     <div>
-                        <button onClick={this.sendResearchInfoToBackend}>
+                        <button onClick={this.send.bind(this)}>
                             Next
                         </button>            
                     </div>
+
+                  </div>
+                    
              </form>
             </div>
 

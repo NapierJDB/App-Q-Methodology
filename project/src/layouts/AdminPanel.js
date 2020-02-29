@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios"
 import { Box } from 'rebass'
+import logo from './images/logo2.png'
+
 import {
     BrowserRouter as Router,
     Route,
@@ -40,18 +42,22 @@ export default class AdminPanel extends React.Component {
 
         return (
             <div>
+                <div className = 'buttonContainer'>
                 <Link to='/'>
-                    <button onClick={this.handleLogout}>log out</button>
+                    <button className = 'space button button3' onClick={this.handleLogout}>log out</button>
                 </Link>
-                <div>
-                <h1>Admin Panel</h1>
-
+                </div>
+                
+                <div className = 'TextCenter'>
+                <img src={logo}/>
+                <h1 className = 'primary'>Admin Panel</h1>
+                    <div className = 'buttonContainer'>
                     <Link 
                         to={{
                             pathname: '/CreateSurvey',
                             //B_user_token: this.state.A_user_token
                             }}>
-                        <button>
+                        <button className = 'space button button3'>
                             New Survey
                         </button>
                     </Link>
@@ -60,10 +66,11 @@ export default class AdminPanel extends React.Component {
                         to={{
                             pathname: '/SurveyOverview'
                             }}>
-                        <button>
+                        <button className = 'space button button3'>
                             View surveys
                         </button>
                     </Link>
+                    </div>
                 </div>                
             </div>
         )
