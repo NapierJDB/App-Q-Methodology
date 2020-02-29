@@ -89,13 +89,14 @@ class Anchors extends Component{
                     </td>
 
                     <td>
-                        <input 
-                            type="button"
-                            value="Update"
+                        <button 
                             onClick={this.handleUpdate}
+                            className = 'space tableButton tableButton3'
                             ref={() =>
                                 {this.indexNum = index}}
-                        />
+                        >
+                            Update
+                        </button>
                     </td>
 
                      
@@ -108,12 +109,13 @@ class Anchors extends Component{
                     <td>{anchor.numberOfItems}</td>
                     <td>
                         <button
-                            onClick={() => editButton(index)}>
+                            onClick={() => editButton(index)}
+                            className = 'space tableButton tableButton3'>
                             Edit                           
                         </button>
                         <button
-                            onClick={() => deleteAnchor(index), this.handleRegionClick}
-                            id="btnDelete">
+                            onClick={() => deleteAnchor(index)}
+                            className = 'space tableButton tableButton3'>
                             Delete
                         </button>
                     </td>
@@ -125,8 +127,8 @@ class Anchors extends Component{
         });
         
         return(
-            <div>
-                <table>
+            <div className='center TextCenter'>
+                <table class="center">
                     <thead>
                         <tr>
                         <th>Marker number</th>

@@ -96,111 +96,105 @@ export default class CreateSurvey_1 extends React.Component {
     }
 
     return (
-      <div className='TextCenter'>
-        <img src={logo} />
-        <h1 className='primary'>Create new research</h1>
-
-        <div>
-
-          <h2 className='primary'>Research information</h2>
-          <form>
-            <button onClick={this.send}>
-              create
-                  </button>
+      <div className = 'TextCenter'>
+            <img src={logo}/>
+            <h1 className = 'primary'>Create new research</h1>
 
             <div>
 
-              <div>
-                <input
-                  type="text"
-                  name="survey_name"
-                  placeholder="Research name"
-                  survey_name={this.state.survey_name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                <h2 className = 'primary'>Research information</h2>
+                <form>
+                  <div>
+                    <div className = 'column'>
+                          <input className = 'space textbox'
+                          type="text"
+                          name="survey_name"
+                          placeholder="Research name"
+                          survey_name={this.state.survey_name}
+                          onChange={this.handleChange}
+                          required
+                          />
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Description..."
-                  description={this.state.description}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <textarea className = 'space descriptionTextbox'
+                          type="text"
+                          name="description"
+                          placeholder="Description..."
+                          description={this.state.description}
+                          onChange={this.handleChange}
+                          required
+                          />       
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="box1"
-                  placeholder="Box 1"
-                  box1={this.state.box1}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <input className = 'space textbox'
+                          type="text"
+                          name="box1"
+                          placeholder="Box 1"
+                          box1={this.state.box1}
+                          onChange={this.handleChange}
+                          required
+                          />                   
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="box2"
-                  placeholder="Box 2"
-                  box2={this.state.box2}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <input className = 'space textbox'
+                          type="text"
+                          name="box2"
+                          placeholder="Box 2"
+                          box2={this.state.box2}
+                          onChange={this.handleChange}
+                          required
+                          />                     
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="box3"
-                  placeholder="Box 3"
-                  box3={this.state.box3}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <input className = 'space textbox'
+                          type="text"
+                          name="box3"
+                          placeholder="Box 3"
+                          box3={this.state.box3}
+                          onChange={this.handleChange}
+                          required
+                          />                    
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="privacy"
-                  placeholder="Privacy statement"
-                  privacy={this.state.privacy}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <textarea className = 'space descriptionTextbox'
+                          type="text"
+                          name="privacy"
+                          placeholder="Privacy statement"
+                          privacy={this.state.privacy}
+                          onChange={this.handleChange}
+                          required
+                          />                    
+                      </div>
 
-              <div>
-                <input
-                  type="text"
-                  name="debrief"
-                  placeholder="Debrief"
-                  debrief={this.state.debrief}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+                      <div>
+                          <textarea className = 'space descriptionTextbox'
+                          type="text"
+                          name="debrief"
+                          placeholder="Debrief"
+                          debrief={this.state.debrief}
+                          onChange={this.handleChange}
+                          required
+                          />                    
+                      </div>
 
-              <div>
-                <button onClick={this.send.bind(this)}>
-                  Next
-                        </button>
-              </div>
-
+                      <div>
+                          <button onClick={this.send.bind(this)}
+                          className = 'space button button3'>
+                              Next
+                          </button>            
+                      </div>
+                  </div>                   
+             </form>
             </div>
 
-          </form>
-        </div>
+           
 
-
-
-      </div>
+          </div>
     );
   }
 }
