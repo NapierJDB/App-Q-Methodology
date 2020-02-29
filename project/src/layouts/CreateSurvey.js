@@ -95,59 +95,10 @@ export default class CreateSurvey_1 extends React.Component {
       )
     }
 
-    handleChange = event =>  {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    send(event) {
-  
-        event.preventDefault()
-        this.setState({ Redirect: true });
-        /*
-        Passing values to store in a database
-        */
-      
-      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch ',  {
-        method: 'POST',
-        headers: {
-               'Authorization': window.token_data,
-               'Content-Type': 'application/json'         
-           },
-           body: JSON.stringify({
-            'researcherID': window.researcher_id,
-            'name': this.state.survey_name,
-            'description': this.state.description,
-            'box1': this.state.box1,
-            'box2': this.state.box2,
-            'box3': this.state.box3,
-            'privacy_statement': this.state.privacy,
-            'debrief': this.state.debrief,
-        })
-            
-                  
-       })
-       
-       .then((response) => {
-         console.log(response);
-
-         //this.state.surveyData = response.data;
-         //console.log('response: ' + this.state.surveyData);
-         
-       })
-       .catch(function (error) {
-         console.log(error);
-       }); 
-  
-    }
-
-    //twoFunctions(event) {
-       // //this.setToken();
-        //this.handleSubmit();
-   // }
-
-    render() {
+    return (
+      <div className='TextCenter'>
+        <img src={logo} />
+        <h1 className='primary'>Create new research</h1>
 
         <div>
 
