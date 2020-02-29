@@ -47,6 +47,29 @@
   font-family: Helvetica;
 }
 
+.descriptionTextbox {
+  height: 150px;
+  position: relative;
+  border: 2px solid #832929;
+  border-color: rgba(0, 0, 0, .14);
+  background-color: rgb(255, 255, 255);
+  font-size: 16px;
+  border-radius: 7px;
+  width: 250px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-family: Helvetica;
+}
+
+::placeholder {
+  color: rgba(178, 34, 34, 0.50);
+  opacity: 1; /* Firefox */
+}
+
+.rowContainer {
+  align-items: center;
+}
+
 
 .button {
   height: 30px;
