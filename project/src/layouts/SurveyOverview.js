@@ -27,7 +27,7 @@ export default class SurveyOverview extends React.Component {
                     'Content-Type': 'application/json'         
                 },
                 body: JSON.stringify({
-                    'researcherID': this.state.id,
+                    'researcherID': 113 // this.state.id, nie dziala
                 })
                  
     
