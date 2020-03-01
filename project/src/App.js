@@ -9,6 +9,12 @@ import Reject from './layouts/Reject'
 import NewAnchors from './layouts/NewAnchors';
 import NewStatements from './layouts/NewStatements';
 import Debrief from './layouts/Debrief'
+import Splash from './layouts/Splash';
+import Participant from './layouts/Participant';
+import InfoParticipant from './layouts/InfoParticipant';
+import QSort1 from './layouts/QSort1';
+import QSort2 from './layouts/QSort2';
+import End from './layouts/End';
 import {
   BrowserRouter as Router,
   Switch,
@@ -50,6 +56,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
 export default class App extends React.Component {
   render() {
     return (
+<<<<<<< HEAD
       <MyProvider>     
         <Router>
           <div>
@@ -68,13 +75,38 @@ export default class App extends React.Component {
           </div>
         </Router>
       </MyProvider>
+=======
+      <Router>
+        <div>
+          <Switch>
+            <Route path='/' exact component={Splash} />
+            <Route path='/Home' component={Home} />
+            <Route path='/RegForm' component={RegForm} />
+            <Route path='/AdminPanel' component={AdminPanel} />
+            <Route path='/SurveyOverview' component={SurveyOverview} />
+            <Route path='/CreateSurvey' component={CreateSurvey} />
+            <Route path='/NewAnchors' component={NewAnchors} />
+            <Route path='/NewStatements' component={NewStatements} />
+            <Route path='/PrivacyScreen' component={PrivacyScreen} />
+            <Route path='/Reject' component={Reject} />
+            <Route path='/Debrief' component={Debrief} />
+            <Route path='/Splash' component={Splash} />
+            <Route path='/Participant' component={Participant}/>
+            <Route path='/InfoParticipant' component={InfoParticipant}/>
+            <Route path='/QSort1' component={QSort1}/>
+            <Route path='/QSort2' component={QSort2}/>
+            <Route path='/End' component={End}/>
+          </Switch>
+        </div>
+      </Router>
+>>>>>>> 826dcd8d7c7878dc9eea8f1f23c6afaefdede8d7
     );
   }
 }
 
 const HomePage = () => (
   <div>
-    <Home />
+    <Splash />
   </div>
 );
 

@@ -4,9 +4,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 function activate(Request $request, Response $response, $args)
 {
-
-    require_once '../config/connection.php';
-
+    
     $token = $request->getParam('token');
 
     $object = checkToken($token);
