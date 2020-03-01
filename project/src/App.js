@@ -11,6 +11,9 @@ import NewStatements from './layouts/NewStatements';
 import Debrief from './layouts/Debrief'
 import Splash from './layouts/Splash';
 import Participant from './layouts/Participant';
+import InfoParticipant from './layouts/InfoParticipant';
+import QSort1 from './layouts/QSort1';
+import QSort2 from './layouts/QSort2';
 import End from './layouts/End';
 import {
   BrowserRouter as Router,
@@ -37,6 +40,9 @@ export default class App extends React.Component {
             <Route path='/Debrief' component={Debrief} />
             <Route path='/Splash' component={Splash} />
             <Route path='/Participant' component={Participant}/>
+            <Route path='/InfoParticipant' component={InfoParticipant}/>
+            <Route path='/QSort1' component={QSort1}/>
+            <Route path='/QSort2' component={QSort2}/>
             <Route path='/End' component={End}/>
           </Switch>
         </div>

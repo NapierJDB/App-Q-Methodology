@@ -65,7 +65,7 @@ export default class PrivacyScreen extends React.Component {
 
 
                 <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
-                <Link to={'./Debrief'}>
+                <Link to={'./InfoParticipant'}>
                   <button 
                     type="submit" 
                     className = 'space button button3'>
