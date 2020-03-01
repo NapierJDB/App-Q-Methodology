@@ -9,6 +9,9 @@ import Reject from './layouts/Reject'
 import NewAnchors from './layouts/NewAnchors';
 import NewStatements from './layouts/NewStatements';
 import Debrief from './layouts/Debrief'
+import Splash from './layouts/Splash';
+import Participant from './layouts/Participant';
+import End from './layouts/End';
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,6 +34,9 @@ export default class App extends React.Component {
             <Route path='/PrivacyScreen' component={PrivacyScreen} />
             <Route path='/Reject' component={Reject} />
             <Route path='/Debrief' component={Debrief} />
+            <Route path='/Splash' component={Splash} />
+            <Route path='/Participant' component={Participant}/>
+            <Route path='/End' component={End}/>
           </Switch>
         </div>
       </Router>
