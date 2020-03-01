@@ -30,6 +30,8 @@ export default class Home extends React.Component {
       user_token: '',
       token: '',
       researcher_id: '',
+      id: '',
+      error: '',
 
     };
 
@@ -68,35 +70,77 @@ export default class Home extends React.Component {
           password: this.state.password
 
         })
+       /* .then(response => response.json())
+        .then(json => {
+          window.const = json.list;
+          console.log(window.const) */
+        
       .then((response) => {
 
         console.log(response);
 
         this.state.user = response.data;
+        //window.responseDetails = response.data;
+        //console.log(window.responseDetails);
+
+        //this.setState({ Redirect: true });
         console.log(this.state.user);
+
         this.setState({
           userData: this.state.user
         });
 
+        
         // ---STORING USER ID---
         this.state.id = this.state.userData.map(
           mUserData => mUserData.id);
         
+        console.log('ID: ' + this.state.id);
+        
+
         // ---STORING USER ERROR---
-        var mError = this.state.userData.map(
+        this.state.error = this.state.userData.map(
           mUserData => mUserData.error);
+
+        console.log('ERROR: ' + this.state.error);
           
         // ---STORING USER TOKEN
         this.state.token = this.state.userData.map(
           mUserData => mUserData.token);
 
-        this.setState({
-          user_token: this.state.token,
-          
-          
-        })
+        console.log('TOKEN: ' + this.state.token);
+
+       // this.setState({
+         // user_token: this.state.token,         
+        //})
+
+
+        /*
+        window.id = window.responseDetails.map(
+          mID => mID.id
+        )
+        console.log('ID is: ' + window.id);
+
+        window.token = window.responseDetails.map(
+          mToken => mToken.token
+        )
+        console.log('TOKEN is: ' + window.token);
+
+        window.error = window.responseDetails.map(
+          mError => mError.error
+        )
+        console.log('ERROR is: ' + window.error);
+
+        */
+
+        //MyProvider.state.id = this.state.id
+         // console.log(this.state.id.toString());
+        
+        
+
+        
                 
-        if(mError == 'false'){
+        if(this.state.error == 'false'){
           this.setState({ Redirect: true });
           //alert(this.state.userToken);
         }
@@ -119,21 +163,24 @@ export default class Home extends React.Component {
   render() {
 
     //const global_token_data = window.global_token_data;
-    window.token_data = this.state.user_token;
-    window.researcher_id = this.state.id;
+    //window.token_data = this.state.user_token;
+    //window.researcher_id = this.state.id;
+    //window.A_responseData = window.responseDetails 
+    //window.A_id = window.id
     if (this.state.Redirect) {
       return (
       <Redirect to={{
         pathname: '/AdminPanel',
-        //token_data = this.state.user_token
+        
+        token_data: this.state.token
         //token_data: global_token_data
+        //A_ID: this.state.id.toString()
       }}
       />)
     }
 
 
-    return (
-      
+    return (     
         <div className = 'TextCenter'>
           <img src={logo}/>
           

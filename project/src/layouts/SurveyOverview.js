@@ -8,17 +8,34 @@ export default class SurveyOverview extends React.Component {
         this.state = {
 
             research: '',
-            id: window.researcher_id.toString(),
+            id: '',
+            sName: '',
+            sDate: '',
+            sCode: '',
+            //surveyList: [],
+            surveyList: [ {sName: 'name', sDate: 'date', sCode: 'code'}]
     
         };
+
+        //this.setState({
+          //  surveyList = [ {sName: 'name', sDate: 'date', sCode: 'code'}]
+        //})
     
         this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleId = this.handleId.bind(this);
 
       }
+
+      //handleId(event) {
+        //this.setState({
+          //  id: window.researcher_id.toString()
+        //})
+     // }
 
       handleSubmit(event) {
         event.preventDefault()
     
+        
         
           fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
             {
@@ -28,7 +45,7 @@ export default class SurveyOverview extends React.Component {
                     'Content-Type': 'application/json'         
                 },
                 body: JSON.stringify({
-                    'researcherID': this.state.id
+                    'researcherID': 111
                 })
                  
     
@@ -36,7 +53,7 @@ export default class SurveyOverview extends React.Component {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                alert(this.state.id)
+                //alert(this.state.id)
             })
            //.then((response) => {
     
@@ -58,52 +75,35 @@ export default class SurveyOverview extends React.Component {
     //https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch
 
     render() {
+       //this.handleId()
+       // window.researcher_id
         return (
             <div className ='TextCenter'>
                 <img src={logo}/>
-                <h1>{window.researcher_id}</h1>
-                <button className = 'space button button3' onClick={this.handleSubmit}>Display</button>
+                <button onClick={this.handleSubmit}>Display</button>
                 <h1 className = 'primary'>Survey Overview</h1>
                 <h2 className = 'primary'>
                     Review your research survey
                 </h2>
-                <div>
-                    <label className = 'primary'>
-                        Survey Name:
-                    </label>
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Description:
-                    </label>
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Box 1:
-                    </label >
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Box 2:
-                    </label>
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Box 3:
-                    </label>
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Anchors quantity:
-                    </label>
-                </div>
-                <div>
-                    <label className = 'primary'>
-                        Statements quantity:
-                    </label>
-                </div>
+
+                    <div className='center TextCenter'>
+                        <table className="center">
+                            <thead>
+                                <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Code</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                {this.state.surveyList}                
+                            </tbody>        
+                        </table>
+                    </div>
+
                 <button className = 'space button button3'>
-                    Create survey
+                    Admin panel
                 </button>
             </div>
         )
