@@ -64,7 +64,12 @@ export default class PrivacyScreen extends React.Component {
                 <p>I accept the terms and conditions</p>
 
 
-                <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
+                <button 
+                    className = 'space button button3'
+                    onClick={this.handleDisagree.bind(this)}>
+                        Disagree
+                </button>
+
                 <Link to={'./InfoParticipant'}>
                   <button 
                     type="submit" 

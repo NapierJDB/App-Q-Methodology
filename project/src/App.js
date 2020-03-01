@@ -56,30 +56,11 @@ const AuthRoute = ({ component: Component, ...rest }) => (
 export default class App extends React.Component {
   render() {
     return (
-<<<<<<< HEAD
       <MyProvider>     
         <Router>
           <div>
             <Switch>
-              <Route path='/' exact component={HomePage} />
-              <Route path='/RegForm' component={RegForm} />
-              <Route path='/AdminPanel' component={AdminPanel} />
-              <Route path='/SurveyOverview' component={SurveyOverview} />
-              <Route path='/CreateSurvey' component={CreateSurvey} />
-              <Route path='/NewAnchors' component={NewAnchors} />
-              <Route path='/NewStatements' component={NewStatements} />
-              <Route path='/PrivacyScreen' component={PrivacyScreen} />
-              <Route path='/Reject' component={Reject} />
-              <Route path='/Debrief' component={Debrief} />
-            </Switch>
-          </div>
-        </Router>
-      </MyProvider>
-=======
-      <Router>
-        <div>
-          <Switch>
-            <Route path='/' exact component={Splash} />
+            <Route path='/' exact component={HomePage} />
             <Route path='/Home' component={Home} />
             <Route path='/RegForm' component={RegForm} />
             <Route path='/AdminPanel' component={AdminPanel} />
@@ -96,10 +77,10 @@ export default class App extends React.Component {
             <Route path='/QSort1' component={QSort1}/>
             <Route path='/QSort2' component={QSort2}/>
             <Route path='/End' component={End}/>
-          </Switch>
-        </div>
-      </Router>
->>>>>>> 826dcd8d7c7878dc9eea8f1f23c6afaefdede8d7
+            </Switch>
+          </div>
+        </Router>
+      </MyProvider>
     );
   }
 }
