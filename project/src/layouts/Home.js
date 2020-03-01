@@ -15,6 +15,7 @@ import {
   MemoryRouter
 } from 'react-router-dom';
 import './App.css';
+import { MyConsumer } from '../Context';
 
 //import { push } from 'connected-react-router';
 
@@ -24,12 +25,14 @@ export default class Home extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLogedin: false,
+      //isLogedin: false,
+
       user: '',
       userData: '',
       user_token: '',
       token: '',
       researcher_id: '',
+
       id: '',
       error: '',
 
@@ -110,6 +113,12 @@ export default class Home extends React.Component {
 
         console.log('TOKEN: ' + this.state.token);
 
+        const { local_token } = this.state.token;
+        localStorage.setItem('token', local_token);
+        var local = localStorage.getItem('token')
+        console.log(local)
+        
+
        // this.setState({
          // user_token: this.state.token,         
         //})
@@ -143,6 +152,17 @@ export default class Home extends React.Component {
         if(this.state.error == 'false'){
           this.setState({ Redirect: true });
           //alert(this.state.userToken);
+         /* return (
+            <MyConsumer>
+              {({ updateID }) => (
+                //this.state.id = updateID(event.target.state.id)
+                updateID(this.state.id)
+              )}
+
+              {({ id }) => console.log(id)}
+            </MyConsumer> 
+          ) */
+         
         }
         else {
           alert("Wrong login details")
@@ -167,20 +187,16 @@ export default class Home extends React.Component {
     //window.researcher_id = this.state.id;
     //window.A_responseData = window.responseDetails 
     //window.A_id = window.id
-    if (this.state.Redirect) {
-      return (
-      <Redirect to={{
-        pathname: '/AdminPanel',
-        
-        token_data: this.state.token
-        //token_data: global_token_data
-        //A_ID: this.state.id.toString()
-      }}
-      />)
-    }
-
-
-    return (     
+        if (this.state.Redirect) {
+          return (
+          <Redirect to={{
+            pathname: '/AdminPanel',
+          }} />)
+        }
+   return (
+    <MyConsumer>
+        {({ id }) => <h1>Welcome { id }</h1>}
+          
         <div className = 'TextCenter'>
           <img src={logo}/>
           
@@ -231,15 +247,14 @@ export default class Home extends React.Component {
                       Register
                   </button>
                 </Link>
-
               </div>
-
-            </div>
-
-            
-           
+            </div>        
         </form>
       </div>
+      
+    }
+      </MyConsumer>
+    
     );
   }
 }

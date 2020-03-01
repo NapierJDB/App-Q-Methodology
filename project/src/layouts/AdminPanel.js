@@ -10,6 +10,7 @@ import {
     Switch,
     Redirect
 } from 'react-router-dom';
+import { MyConsumer } from '../Context';
 //rebass used to get boxes
 
 export default class AdminPanel extends React.Component {
@@ -19,7 +20,8 @@ export default class AdminPanel extends React.Component {
         this.state = {
             B_ID: '',//this.props.location.A_ID
             //id: window.id
-            A_token: this.props.location.token_data
+            //A_token: this.props.location.token_data
+            id: this.props.A_id
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -35,9 +37,13 @@ export default class AdminPanel extends React.Component {
 
     render() {
 
-        console.log('TOKEN IN ADMIN PANEL: ' + this.state.A_token)
+        
+
+        console.log('TOKEN IN ADMIN PANEL: ' + this.state.id)
 
         return (
+            
+       
             <div>
                 <div className = 'buttonContainer'>
                 <Link to='/'>
@@ -70,6 +76,7 @@ export default class AdminPanel extends React.Component {
                     </div>
                 </div>                
             </div>
+
         )
     }
 }
