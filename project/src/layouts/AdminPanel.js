@@ -17,28 +17,25 @@ export default class AdminPanel extends React.Component {
         super(props);
 
         this.state = {
-            //A_user_token: this.props.location.token_data
-
+            B_ID: '',//this.props.location.A_ID
+            //id: window.id
+            A_token: this.props.location.token_data
         };
 
         this.handleLogout = this.handleLogout.bind(this);
-        this.getData = this.getData.bind(this);
         
       }
 
 
     handleLogout = event => {
         // This method clears the token_data variable
-        window.token_data = null
-    }
-
-    getData(event) {
-  
-
+        //window.token_data = null
     }
     
 
     render() {
+
+        console.log('TOKEN IN ADMIN PANEL: ' + this.state.A_token)
 
         return (
             <div>
