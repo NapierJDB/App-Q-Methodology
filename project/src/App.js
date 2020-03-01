@@ -24,7 +24,8 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Switch>
-            <Route path='/' exact component={HomePage} />
+            <Route path='/' exact component={Splash} />
+            <Route path='/Home' component={Home} />
             <Route path='/RegForm' component={RegForm} />
             <Route path='/AdminPanel' component={AdminPanel} />
             <Route path='/SurveyOverview' component={SurveyOverview} />
@@ -46,7 +47,7 @@ export default class App extends React.Component {
 
 const HomePage = () => (
   <div>
-    <Home />
+    <Splash />
   </div>
 );
 

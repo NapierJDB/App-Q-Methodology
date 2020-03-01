@@ -36,7 +36,7 @@ export default class Splash extends Component
                     </button>
                 </Link>
 
-                <Link to={'./'}>
+                <Link to={'/Home'}>
                   <button 
                     type="submit" 
                     className = 'space button button3'>
