@@ -9,8 +9,6 @@ function addResearch(Request $request, Response $response)
 
     // return $response->withJson(['error' => false, 'message' => generateCode()]); // test response
 
-    require_once '../config/connection.php';
-
     $data = json_decode($request->getBody());
 
     if (isset($data->researcherID) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief)) {
@@ -132,10 +130,10 @@ function checkId($data)
 
 }
 
+
 //View research
 function viewResearch(Request $request, Response $response)
 {
-    require_once '../config/connection.php';
 
     $data = json_decode($request->getBody());
 
@@ -170,8 +168,6 @@ function viewResearch(Request $request, Response $response)
 //Delete research
 function deleteResearch(Request $request, Response $response)
 {
-
-    require_once '../config/connection.php';
 
     $data = json_decode($request->getBody());
 
@@ -213,11 +209,10 @@ function deleteResearch(Request $request, Response $response)
 
 function editResearch(Request $request, Response $response)
 {
-    require_once '../config/connection.php';
 
     $data = json_decode($request->getBody());
 
-    if (isset($data->id) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief) ) {
+    if (isset($data->id) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief)) {
 
         $object = checkId($data);
 
@@ -248,7 +243,7 @@ function editResearch(Request $request, Response $response)
 
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The Research has been successfully modified']);
+                return $response->withJson(['error' => false, 'message' => 'The research has been successfully modified']);
 
             } catch (PDOException $e) {
 

@@ -3,17 +3,13 @@ use \Firebase\JWT\JWT;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-require '../config/connection.php';
 
 function login(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
-   /*  $header = $request->getHeaders();
-    $temp = $header ['HTTP_AUTHORIZATION'];
 
-    return $response->withJson(['error' => true, 'message' => implode($temp)]); */
-
+  
     if (isset($data->email) && isset($data->password)) {
 
         $sql = "SELECT * FROM researcher WHERE email = :email";
@@ -28,7 +24,6 @@ function login(Request $request, Response $response)
 
             return $response->withJson(validateCredentials($object, $data));
 
-//$decoded = JWT::decode($token, $key, array('HS256'));
         } catch (PDOException $e) {
 
             return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
