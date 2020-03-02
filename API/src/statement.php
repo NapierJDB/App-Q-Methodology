@@ -2,36 +2,30 @@
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-//add anchor
-function addAnchor(Request $request, Response $response)
+//add statement
+function addStatement(Request $request, Response $response)
 {
+
     $data = json_decode($request->getBody());
 
-    if (isset($data->markerNum) && isset($data->items) && isset($data->researchID)) {
+    if (isset($data->number) && isset($data->description) && isset($data->researchID)) {
 
-        $object = checkMarkerNum($data);
+        $object = checkNumber($data);
 
         if (!$object) {
 
-            if ($data->markerNum != 0) {
-
-                $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID),(:markerNum-(:markerNum*2), :items, :researchID)';
-
-            } else {
-
-                $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID)';
-            }
+            $sql = 'INSERT INTO q_sort_cards (number, description, researchID) VALUES (:number, :description, :researchID)';
 
             try {
 
                 $db = connect();
                 $stmt = $db->prepare($sql);
-                $stmt->bindParam('markerNum', $data->markerNum);
-                $stmt->bindParam('items', $data->items);
+                $stmt->bindParam('number', $data->number);
+                $stmt->bindParam('description', $data->description);
                 $stmt->bindParam('researchID', $data->researchID);
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The anchor has been succesfully created']);
+                return $response->withJson(['error' => false, 'message' => 'The statement has been succesfully created']);
 
             } catch (PDOException $e) {
 
@@ -41,25 +35,35 @@ function addAnchor(Request $request, Response $response)
 
         } else {
 
-            return $response->withJson(['error' => true, 'message' => 'The anchor already exists']);
+            if (is_array($object)) {
+
+                return $response->withJson($object);
+
+            } else {
+
+                return $response->withJson(['error' => true, 'message' => 'The statement already exists']);
+
+            }
+
         }
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (markerNum, items, researchID required)']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (description, researchID required)']);
 
     }
 
 }
-//view anchor
-function viewAnchor(Request $request, Response $response)
+
+//view statement
+function viewStatement(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
 
     if (isset($data->researchID)) {
 
-        $sql = 'SELECT * FROM anchors WHERE researchID = :researchID';
+        $sql = 'SELECT * FROM q_sort_cards WHERE researchID = :researchID';
 
         try {
 
@@ -84,14 +88,16 @@ function viewAnchor(Request $request, Response $response)
     }
 
 }
-// delete anchor
-function deleteAnchor(Request $request, Response $response)
+
+//delete statement
+function deleteStatement(Request $request, Response $response)
 {
+
     $data = json_decode($request->getBody());
 
     if (isset($data->id)) {
 
-        $object = checkAnchor($data);
+        $object = checkStatement($data);
 
         if (!$object) {
 
@@ -101,13 +107,13 @@ function deleteAnchor(Request $request, Response $response)
 
             } else {
 
-                return $response->withJson(['error' => true, 'message' => 'The anchor does not exists']);
+                return $response->withJson(['error' => true, 'message' => 'The statement does not exists']);
 
             }
 
         } else {
 
-            $sql = 'DELETE FROM anchors WHERE id = :id';
+            $sql = 'DELETE FROM q_sort_cards WHERE id = :id';
 
             try {
 
@@ -116,7 +122,7 @@ function deleteAnchor(Request $request, Response $response)
                 $stmt->bindParam('id', $data->id);
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The anchor has been successfully deleted']);
+                return $response->withJson(['error' => false, 'message' => 'The statement has been successfully deleted']);
 
             } catch (PDOException $e) {
 
@@ -132,15 +138,15 @@ function deleteAnchor(Request $request, Response $response)
 
     }
 }
-//edit anchor
-function editAnchor(Request $request, Response $response)
+
+function editStatement(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
 
-    if (isset($data->id) && isset($data->markerNum) && isset($data->items)) {
+    if (isset($data->id) && isset($data->number) && isset($data->description)) {
 
-        $object = checkAnchor($data);
+        $object = checkStatement($data);
 
         if (!$object) {
 
@@ -150,13 +156,13 @@ function editAnchor(Request $request, Response $response)
 
             } else {
 
-                return $response->withJson(['error' => true, 'message' => 'The anchor does not exists']);
+                return $response->withJson(['error' => true, 'message' => 'The statement does not exists']);
 
             }
 
         } else {
 
-            $sql = 'UPDATE anchors SET markerNum = :markerNum, items = :items
+            $sql = 'UPDATE q_sort_cards SET number = :number, description = :description
             WHERE id = :id';
 
             try {
@@ -164,11 +170,11 @@ function editAnchor(Request $request, Response $response)
                 $db = connect();
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam('id', $data->id);
-                $stmt->bindParam('markerNum', $data->markerNum);
-                $stmt->bindParam('items', $data->items);
+                $stmt->bindParam('number', $data->number);
+                $stmt->bindParam('description', $data->description);
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The anchor has been successfully modified']);
+                return $response->withJson(['error' => false, 'message' => 'The statement has been successfully modified']);
 
             } catch (PDOException $e) {
 
@@ -185,17 +191,18 @@ function editAnchor(Request $request, Response $response)
     }
 
 }
-//Check if anchor id exists
-function checkAnchor($data)
+
+//check if statement already exists
+function checkNumber($data)
 {
 
-    $sql = 'SELECT * FROM anchors WHERE id = :id';
+    $sql = 'SELECT * FROM q_sort_cards WHERE number = :number';
 
     try {
 
         $db = connect();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam('id', $data->id);
+        $stmt->bindParam('number', $data->number);
         $stmt->execute();
         $object = $stmt->fetchObject();
 
@@ -206,19 +213,19 @@ function checkAnchor($data)
         return array(['error' => true, 'message' => $e->getMessage()]);
 
     }
-
 }
-//Check if research name already exists
-function checkMarkerNum($data)
+
+//check if statements id exists
+function checkStatement($data)
 {
 
-    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum';
+    $sql = 'SELECT * FROM q_sort_cards WHERE id = :id';
 
     try {
 
         $db = connect();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam('markerNum', $data->markerNum);
+        $stmt->bindParam('id', $data->id);
         $stmt->execute();
         $object = $stmt->fetchObject();
 

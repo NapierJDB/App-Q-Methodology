@@ -20,6 +20,8 @@ require '../src/research.php';
 
 require '../src/anchor.php';
 
+require '../src/statement.php';
+
 $app->run();
 
 ?>
