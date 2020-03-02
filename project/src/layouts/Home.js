@@ -16,6 +16,8 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import { MyConsumer, MyProvider } from '../Context';
+import Test from './Test';
+import Test2 from './Test2';
 
 //import { push } from 'connected-react-router';
 
@@ -195,8 +197,24 @@ export default class Home extends React.Component {
     }
     return (
       <MyProvider>
-        <div>
-          {({ id }) => <div><h1>Welcome {id}</h1></div>}}
+                <Test2 />
+                <Test />
+
+      </MyProvider>
+        
+        
+
+        
+      
+
+    )
+  }
+}
+
+/**
+ 
+<div>
+          
 
         <div className='TextCenter'>
             <img src={logo} />
@@ -254,12 +272,8 @@ export default class Home extends React.Component {
           </div>
         </div>
 
-        }
-      </MyProvider>
 
-    )
-  }
-}
+ */
 
 
 
