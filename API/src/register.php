@@ -6,8 +6,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 function register(Request $request, Response $response)
 {
 
-    require_once '../config/connection.php';
-
+    
     $data = json_decode($request->getBody());
 
     if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {

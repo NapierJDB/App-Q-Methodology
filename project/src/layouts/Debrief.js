@@ -75,7 +75,9 @@ export default class Debrief extends React.Component {
                 <p>I accept the terms and conditions <input type="checkbox" onChange={this.markComplete}/></p>
 
 
-                <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
+                <button
+                    className = 'space button button3'
+                    onClick={this.handleDisagree.bind(this)}>Disagree</button>
                 <Link to={'./End'}>
                   <button 
                     type="submit" 

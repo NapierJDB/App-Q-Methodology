@@ -18,42 +18,76 @@ import End from './layouts/End';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
+import decode from 'jwt-decode';
+import { MyProvider } from './Context';
+import Test from './layouts/Test'
+
+/*const checkAuth = () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const payload = decode(token);
+    console.log(payload)
+
+  } catch (e) {
+    return false;
+  }
+
+  return true;
+}
+
+const AuthRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    checkAuth() ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to={{ pathname: '/Home'}}/>
+    )
+  )} />
+)*/
 
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Switch>
-            <Route path='/' exact component={Splash} />
-            <Route path='/Home' component={Home} />
-            <Route path='/RegForm' component={RegForm} />
-            <Route path='/AdminPanel' component={AdminPanel} />
-            <Route path='/SurveyOverview' component={SurveyOverview} />
-            <Route path='/CreateSurvey' component={CreateSurvey} />
-            <Route path='/NewAnchors' component={NewAnchors} />
-            <Route path='/NewStatements' component={NewStatements} />
-            <Route path='/PrivacyScreen' component={PrivacyScreen} />
-            <Route path='/Reject' component={Reject} />
-            <Route path='/Debrief' component={Debrief} />
-            <Route path='/Splash' component={Splash} />
-            <Route path='/Participant' component={Participant}/>
-            <Route path='/InfoParticipant' component={InfoParticipant}/>
-            <Route path='/QSort1' component={QSort1}/>
-            <Route path='/QSort2' component={QSort2}/>
-            <Route path='/End' component={End}/>
-          </Switch>
-        </div>
-      </Router>
+      <MyProvider>
+        <Router>
+          <div>
+            <Switch>
+              <Route path='/' exact component={HomePage} />
+              <Route path='/Home' component={Home} />
+              <Route path='/RegForm' component={RegForm} />
+              <Route path='/AdminPanel' component={AdminPanel} />
+              <Route path='/SurveyOverview' component={SurveyOverview} />
+              <Route path='/CreateSurvey' component={CreateSurvey} />
+              <Route path='/NewAnchors' component={NewAnchors} />
+              <Route path='/NewStatements' component={NewStatements} />
+              <Route path='/PrivacyScreen' component={PrivacyScreen} />
+              <Route path='/Reject' component={Reject} />
+              <Route path='/Debrief' component={Debrief} />
+              <Route path='/Splash' component={Splash} />
+              <Route path='/Participant' component={Participant} />
+              <Route path='/InfoParticipant' component={InfoParticipant} />
+              <Route path='/QSort1' component={QSort1} />
+              <Route path='/QSort2' component={QSort2} />
+              <Route path='/End' component={End} />
+            </Switch>
+          </div>
+        </Router>
+      </MyProvider>
     );
   }
 }
 
 const HomePage = () => (
   <div>
-    <Splash />
+    <Home />
   </div>
 );
 
