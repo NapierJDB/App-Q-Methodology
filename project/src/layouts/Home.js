@@ -15,7 +15,7 @@ import {
   MemoryRouter
 } from 'react-router-dom';
 import './App.css';
-import { MyConsumer } from '../Context';
+import { MyConsumer, MyProvider } from '../Context';
 
 //import { push } from 'connected-react-router';
 
@@ -38,7 +38,7 @@ export default class Home extends React.Component {
 
     };
 
-    
+
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,16 +51,16 @@ export default class Home extends React.Component {
     });
   }
 
-  
+
 
   //getGlobal = event => {
-    //var Global = require('react-global');
+  //var Global = require('react-global');
 
-    //<Global values={{
-     // globalToken: this.props.user_token,
-    //}} />
- // }
-  
+  //<Global values={{
+  // globalToken: this.props.user_token,
+  //}} />
+  // }
+
 
 
   handleSubmit(event) {
@@ -73,11 +73,11 @@ export default class Home extends React.Component {
           password: this.state.password
 
         })
-       /* .then(response => response.json())
-        .then(json => {
-          window.const = json.list;
-          console.log(window.const) */
-        
+      /* .then(response => response.json())
+       .then(json => {
+         window.const = json.list;
+         console.log(window.const) */
+
       .then((response) => {
 
         console.log(response);
@@ -93,20 +93,20 @@ export default class Home extends React.Component {
           userData: this.state.user
         });
 
-        
+
         // ---STORING USER ID---
         this.state.id = this.state.userData.map(
           mUserData => mUserData.id);
-        
+
         console.log('ID: ' + this.state.id);
-        
+
 
         // ---STORING USER ERROR---
         this.state.error = this.state.userData.map(
           mUserData => mUserData.error);
 
         console.log('ERROR: ' + this.state.error);
-          
+
         // ---STORING USER TOKEN
         this.state.token = this.state.userData.map(
           mUserData => mUserData.token);
@@ -117,10 +117,10 @@ export default class Home extends React.Component {
         localStorage.setItem('token', local_token);
         var local = localStorage.getItem('token')
         console.log(local)
-        
 
-       // this.setState({
-         // user_token: this.state.token,         
+
+        // this.setState({
+        // user_token: this.state.token,         
         //})
 
 
@@ -143,39 +143,39 @@ export default class Home extends React.Component {
         */
 
         //MyProvider.state.id = this.state.id
-         // console.log(this.state.id.toString());
-        
-        
+        // console.log(this.state.id.toString());
 
-        
-                
-        if(this.state.error == 'false'){
+
+
+
+
+        if (this.state.error == 'false') {
           this.setState({ Redirect: true });
           //alert(this.state.userToken);
-         /* return (
-            <MyConsumer>
-              {({ updateID }) => (
-                //this.state.id = updateID(event.target.state.id)
-                updateID(this.state.id)
-              )}
+          /* return (
+             <MyConsumer>
+               {({ updateID }) => (
+                 //this.state.id = updateID(event.target.state.id)
+                 updateID(this.state.id)
+               )}
+ 
+               {({ id }) => console.log(id)}
+             </MyConsumer> 
+           ) */
 
-              {({ id }) => console.log(id)}
-            </MyConsumer> 
-          ) */
-         
         }
         else {
           alert("Wrong login details")
         }
 
-      }, 
-      (error) => {
-        console.log("Login error ", error);
-      })
+      },
+        (error) => {
+          console.log("Login error ", error);
+        })
       .catch(function (error) {
         console.log(error);
       })
-    
+
   }
 
 
@@ -187,75 +187,77 @@ export default class Home extends React.Component {
     //window.researcher_id = this.state.id;
     //window.A_responseData = window.responseDetails 
     //window.A_id = window.id
-        if (this.state.Redirect) {
-          return (
-          <Redirect to={{
-            pathname: '/AdminPanel',
-          }} />)
-        }
-   return (
-    <MyConsumer>
-        {({ id }) => <h1>Welcome { id }</h1>}
-          
-        <div className = 'TextCenter'>
-          <img src={logo}/>
-          
-          <form onSubmit={this.handleSubmit} 
-            mUserToken={this.state.user_token}>
-          
-            <h1 className = 'primary'>Q-METHODOLOGY</h1>
+    if (this.state.Redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/AdminPanel',
+        }} />)
+    }
+    return (
+      <MyProvider>
+        <div>
+          {({ id }) => <div><h1>Welcome {id}</h1></div>}}
 
-            <div> 
+        <div className='TextCenter'>
+            <img src={logo} />
 
-              <div className = 'column'>
+            <form onSubmit={this.handleSubmit}
+              mUserToken={this.state.user_token}>
 
-                <input className = 'space textbox'
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  email={this.state.email}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+              <h1 className='primary'>Q-METHODOLOGY</h1>
 
               <div>
 
-                <input className = 'space textbox'
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  password={this.state.password}
-                  onChange={this.handleChange}
-                  required
-                />
+                <div className='column'>
 
-              </div>
-              
-              <div className = 'buttonContainer'>
+                  <input className='space textbox'
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    email={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
 
-                <button 
-                  type="submit" 
-                  className = 'space button button3'>
+                <div>
+
+                  <input className='space textbox'
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    password={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                  />
+
+                </div>
+
+                <div className='buttonContainer'>
+
+                  <button
+                    type="submit"
+                    className='space button button3'>
                     Login
                 </button>
 
-                <Link to={'/RegForm'}>
-                  <button 
-                    type="submit" 
-                    className = 'space button button3'>
+                  <Link to={'/RegForm'}>
+                    <button
+                      type="submit"
+                      className='space button button3'>
                       Register
                   </button>
-                </Link>
+                  </Link>
+                </div>
               </div>
-            </div>        
-        </form>
-      </div>
-      
-    }
-      </MyConsumer>
-    
-    );
+            </form>
+          </div>
+        </div>
+
+        }
+      </MyProvider>
+
+    )
   }
 }
 
