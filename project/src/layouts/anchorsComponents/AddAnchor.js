@@ -47,7 +47,7 @@ class AddAnchor extends Component{
                 <form onSubmit={this.handleSubmit}>
 
                     <div>
-                        <input 
+                        <input className = 'space textbox'
                             name="markerNumber"
                             placeholder="Marker number"
                             required
@@ -57,7 +57,7 @@ class AddAnchor extends Component{
                     </div>
 
                     <div>
-                        <input 
+                        <input className = 'space textbox'
                             name="numberOfItems"
                             placeholder="Number of items"
                             required
@@ -67,10 +67,11 @@ class AddAnchor extends Component{
                     </div>
 
                     <div>
-                        <input 
+                        <button className = 'space button button3' 
                             type="submit" 
-                            value="Add +" 
-                        />
+                        >
+                            Add +
+                        </button>
                     </div>
                   
                     <div>

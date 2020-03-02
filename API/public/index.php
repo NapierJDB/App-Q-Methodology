@@ -4,6 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 
+require '../config/connection.php';
 
 $app = new \Slim\App;
 
@@ -15,7 +16,9 @@ require '../src/register.php';
 
 require '../src/activate.php';
 
-require '../src/addResearch.php';
+require '../src/research.php';
+
+require '../src/anchor.php';
 
 $app->run();
 

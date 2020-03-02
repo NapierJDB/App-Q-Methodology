@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Anchors from './anchorsComponents/Anchors';
 import AddAnchor from './anchorsComponents/AddAnchor';
 import { Redirect } from 'react-router-dom';
+import logo from './images/logo2.png';
 
 class NewAnchors extends Component {
     constructor(props) {
@@ -115,25 +116,29 @@ class NewAnchors extends Component {
             )
           }
         return(
-            <div>
+            <div className='center TextCenter'>
+                <img src={logo}/>
+                    <h1 className = 'primary' >Rating scale</h1>
+                    
+                    <div className='center'>
+                        <div>
+                            <AddAnchor 
+                            addAnchor={this.addAnchor}
+                            />
+                        </div>
+                        <div>
+                            <Anchors 
+                            allAnchors={this.state.anchors}
+                            editButton={this.editButton}
+                            updateAnchor={this.updateAnchor}
+                            deleteAnchor={this.deleteAnchor}
+                            oldValue={this.state.oldValue}
+                        />
+                         </div>
+                    </div>                       
                 <div>
-                    <h1>Rating scale</h1>
-                </div>
-                <button onClick={this.setTotal}>Show in console</button>
-                <div>
-                    <Anchors 
-                        allAnchors={this.state.anchors}
-                        editButton={this.editButton}
-                        updateAnchor={this.updateAnchor}
-                        deleteAnchor={this.deleteAnchor}
-                        oldValue={this.state.oldValue}
-                    />
-                    <AddAnchor 
-                        addAnchor={this.addAnchor}
-                    />
-                </div>
-                <div>
-                    <button onClick={this.sendAnchorsToBackend}>
+                    <button onClick={this.sendAnchorsToBackend}
+                    className = 'space button button3'>
                         Next
                     </button>
                 </div>

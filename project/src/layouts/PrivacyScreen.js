@@ -44,14 +44,14 @@ export default class PrivacyScreen extends React.Component {
                 }} />
             )
         }
-
+/*
         if (this.state.agreed == true) {
             alert("Terms agreed")
         }
-
+*/
 
         return (
-            <div>
+            <div className ='TextCenter'>
                 <h1>Consent Form</h1>
                 <p>Please read and accept the terms and conditions before continuing</p>
                 <br></br>
@@ -64,8 +64,20 @@ export default class PrivacyScreen extends React.Component {
                 <p>I accept the terms and conditions</p>
 
 
-                <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
-                <button onClick={this.handleAgree.bind(this)}>Agree</button>
+                <button 
+                    className = 'space button button3'
+                    onClick={this.handleDisagree.bind(this)}>
+                        Disagree
+                </button>
+
+                <Link to={'./InfoParticipant'}>
+                  <button 
+                    type="submit" 
+                    className = 'space button button3'>
+                      Agree
+                  </button>
+                </Link>
+                
 
             </div>
         )

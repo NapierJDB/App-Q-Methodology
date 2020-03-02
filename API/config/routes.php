@@ -21,6 +21,12 @@ $app->group('/api', function () use ($app) {
         $app->post('/viewResearch', 'viewResearch');
         $app->post('/editResearch', 'editResearch');
 
+        $app->post('/addAnchor', 'addAnchor');
+        $app->post('/deleteAnchor', 'deleteAnchor');
+        $app->post('/viewAnchor', 'viewAnchor');
+        $app->post('/editAnchor', 'editAnchor');
+
+
     })->add(function ($request, $response, $next) {
 
         $header = $request->getHeaders();
