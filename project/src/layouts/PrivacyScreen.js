@@ -13,42 +13,25 @@ import {
 
 
 export default class PrivacyScreen extends React.Component {
+
     constructor() {
         super();
 
         this.state = {
-            agreed: null
+            agreed: false,
+            style: false
         }
 
+        //this.enabled = this.enabled.bind(this)
+
     }
 
-    handleDisagree() {
-        this.setState({ agreed: false })
-    }
-
-    handleAgree() {
-        this.setState({ agreed: true })
-    }
-
-
-
+    handleCheckboxChange = (e) =>
+    this.setState({ agreed: e.target.value , style: e.target.value})
 
     render() {
 
-        if (this.state.agreed == false) {
-            //alert("Sorry, you must agree to the above terms and conditions to continue")
-            return (
-                <Redirect to={{
-                    pathname: '/Reject',
-
-                }} />
-            )
-        }
-/*
-        if (this.state.agreed == true) {
-            alert("Terms agreed")
-        }
-*/
+        let btn_style = this.state.style ? 'space button button3' : 'space button disabled';
 
         return (
             <div className ='TextCenter'>
@@ -61,19 +44,27 @@ export default class PrivacyScreen extends React.Component {
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions <input type="checkbox"/></p>
-                    
-
-                <button 
-                    className = 'space button button3'
-                    onClick={this.handleDisagree.bind(this)}>
-                        Disagree
-                </button>
-
-                <Link to={'./InfoParticipant'}>
+                <p>I accept the terms and conditions 
+                    <input 
+                    name ="agree"
+                    type="Checkbox"
+                    value={this.state.agreed}
+                    onChange={this.handleCheckboxChange}
+                    />
+                </p>
+                <Link to={'/Reject'}>
+                    <button
+                        className = 'space button button3'>Disagree
+                    </button>
+                </Link>
+                
+                <Link to={'/InfoParticipant'}>
                   <button 
+                    name=""
                     type="submit" 
-                    className = 'space button button3'>
+                    className = {btn_style}
+                    disabled={!this.state.agreed}
+                    >
                       Agree
                   </button>
                 </Link>
@@ -81,5 +72,8 @@ export default class PrivacyScreen extends React.Component {
 
             </div>
         )
+
     }
+
+    
 }

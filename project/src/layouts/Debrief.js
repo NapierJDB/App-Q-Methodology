@@ -22,28 +22,21 @@ export default class Debrief extends React.Component {
         super();
 
         this.state = {
-            agreed: null
+            agreed: false,
+            style: false
         }
         //this.state = {isChecked: false};
         //this.handleChecked = this.handleChecked.bind(this);
 
     }
 
-    markComplete = () =>{
-        
-        this.setState({isChecked: !this.state.isChecked});
-    }
-
-    handleDisagree() {
-        this.setState({ agreed: false })
-    }
-
-    handleAgree() {
-        this.setState({ agreed: true })
-    }
+    handleCheckboxChange = (e) =>
+    this.setState({ agreed: e.target.value , style: e.target.value})
     
     render() {
-        if (this.state.agreed == false) {
+
+        let btn_style = this.state.style ? 'space button button3' : 'space button disabled';
+/*        if (this.state.agreed == false) {
             //alert("Sorry, you must agree to the above terms and conditions to continue")
             return (
                 <Redirect to={{
@@ -52,7 +45,7 @@ export default class Debrief extends React.Component {
                 }} />
             )
         }
-/*
+
         if (this.state.agreed == true) {
             alert("Terms agreed")
         }
@@ -72,19 +65,26 @@ export default class Debrief extends React.Component {
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions <input type="checkbox" onChange={this.markComplete}/></p>
+                <p>I accept the terms and conditions 
+                    <input 
+                    name ="agree"
+                    type="Checkbox"
+                    value={this.state.agreed}
+                    onChange={this.handleCheckboxChange}
+                    />
+                </p>
 
-
-                <button
-                    className = 'space button button3'
-                    onClick={this.handleDisagree.bind(this)}>Disagree</button>
-                <Link to={'./End'}>
+                <Link to={'/Reject'}>
+                    <button
+                        className = 'space button button3'>Disagree
+                    </button>
+                </Link>
+                <Link to={'/End'}>
                   <button 
+                    name=""
                     type="submit" 
-                    className = 'space button button3'
-                    disabled={!this.state.value}
-                    className="add-item__button"
-                    onClick={this.add}
+                    className = {btn_style}
+                    disabled={!this.state.agreed}
                     >
                       Agree
                   </button>

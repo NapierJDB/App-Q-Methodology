@@ -48,13 +48,13 @@ export default class InfoParticipant extends Component {
                       </div>
 
                       <div>
-                          <textarea className = 'space textbox'
+                          <input className = 'space textbox'
                           
                           />                    
                       </div>
 
                       <div>
-                          <textarea className = 'space textbox'
+                          <input className = 'space textbox'
                           
                           />                    
                       </div>
