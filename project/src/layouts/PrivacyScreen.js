@@ -61,8 +61,8 @@ export default class PrivacyScreen extends React.Component {
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions</p>
-
+                <p>I accept the terms and conditions <input type="checkbox"/></p>
+                    
 
                 <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
                 <Link to={'./InfoParticipant'}>

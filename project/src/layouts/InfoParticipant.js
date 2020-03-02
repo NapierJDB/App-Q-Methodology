@@ -21,14 +21,53 @@ export default class InfoParticipant extends Component {
         return (
             <div className = 'TextCenter'>
                 <h1>Participant Information</h1>
+                <form>
+                  <div>
+                    <div className = 'column'>
+                          <input className = 'space textbox'
+ 
+                          />
+                      </div>
 
-                <div className='container'>
-                    <Link to = {'/QSort1'}>
-                        <button>
-                            Next
-                        </button>
-                    </Link>
-                </div>
+                      <div>
+                          <input className = 'space textbox'
+                          
+                          />                   
+                      </div>
+
+                      <div>
+                          <input className = 'space textbox'
+                          
+                          />                     
+                      </div>
+
+                      <div>
+                          <input className = 'space textbox'
+                          
+                          />                    
+                      </div>
+
+                      <div>
+                          <textarea className = 'space textbox'
+                          
+                          />                    
+                      </div>
+
+                      <div>
+                          <textarea className = 'space textbox'
+                          
+                          />                    
+                      </div>
+
+                  </div>                   
+             </form>
+
+                <Link to = {'/QSort1'}>
+                    <button className ='space button button3'>
+                        Next
+                    </button>
+                </Link>
+
             </div>
         )
     }

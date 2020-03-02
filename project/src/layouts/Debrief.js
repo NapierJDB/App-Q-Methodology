@@ -1,4 +1,5 @@
 import React, { Component, useState} from 'react'
+import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 import axios from 'axios';
 import './App.css';
@@ -23,7 +24,14 @@ export default class Debrief extends React.Component {
         this.state = {
             agreed: null
         }
+        //this.state = {isChecked: false};
+        //this.handleChecked = this.handleChecked.bind(this);
 
+    }
+
+    markComplete = () =>{
+        
+        this.setState({isChecked: !this.state.isChecked});
     }
 
     handleDisagree() {
@@ -49,6 +57,8 @@ export default class Debrief extends React.Component {
             alert("Terms agreed")
         }
 */
+        
+
         return (
             <div className ='TextCenter'>
                 <h1>Debrief</h1>
@@ -62,14 +72,18 @@ export default class Debrief extends React.Component {
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions</p>
+                <p>I accept the terms and conditions <input type="checkbox" onChange={this.markComplete}/></p>
 
 
                 <button onClick={this.handleDisagree.bind(this)}>Disagree</button>
                 <Link to={'./End'}>
                   <button 
                     type="submit" 
-                    className = 'space button button3'>
+                    className = 'space button button3'
+                    disabled={!this.state.value}
+                    className="add-item__button"
+                    onClick={this.add}
+                    >
                       Agree
                   </button>
                 </Link>
