@@ -21,7 +21,7 @@ class Statements extends Component{
                 <tr key={index}>
                     
                     <td>
-                        <input 
+                        <input className = 'spaceTextbox'
                             type="number"
                             ref={(val) => 
                             {this.statementNumber = val}}
@@ -31,7 +31,7 @@ class Statements extends Component{
                     </td>
 
                     <td>
-                        <input 
+                        <input className = 'spaceTextbox' 
                             type="text"
                             ref={(val) => 
                             {this.statement = val}}
@@ -41,7 +41,7 @@ class Statements extends Component{
                     </td>
 
                     <td>
-                        <input 
+                        <input className = 'spaceTextbox'
                             type="button"
                             value="Update"
                             onClick={this.handleUpdate}

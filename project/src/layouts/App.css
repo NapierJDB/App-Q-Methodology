@@ -1,4 +1,4 @@
-@import url('nhttps://fonts.google.com/specimen/Titillium+Web?selection.family=Titillium+Web');
+
 
 .primary
 {
@@ -79,6 +79,9 @@
   
   border: 2px solid rgba(0, 0, 0, .14);
 }
+
+.log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
+  box-shadow: 2px 2px grey; border-radius: 10px; float:right;}
 
 .column {
   display: inline-block;

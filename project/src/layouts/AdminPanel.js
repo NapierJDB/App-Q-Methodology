@@ -44,7 +44,7 @@ export default class AdminPanel extends React.Component {
             <div>
                 <div className = 'buttonContainer'>
                 <Link to='/'>
-                    <button className = 'space button button3' onClick={this.handleLogout}>log out</button>
+                    <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
                 </Link>
                 </div>
                 
