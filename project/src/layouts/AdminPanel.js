@@ -42,10 +42,10 @@ export default class AdminPanel extends React.Component {
         return (
             
        
-            <container>
+            <div>
 
                 
-                    <div class="col-md-auto">
+                    <div className="col-md-auto">
                          <Link to='/'>
                          <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
                          </Link>
@@ -54,11 +54,11 @@ export default class AdminPanel extends React.Component {
                     </div>
                
                 
-                <div class="row justify-content-md-center">
-                    <div class="col-md-auto">
+                <div className="row justify-content-md-center">
+                    <div className="col-md-auto">
                         <h1>Admin Panel</h1>
                     </div>
-                    <div class="col-md-auto">
+                    <div className="col-md-auto">
                             <Link 
                              to={{
                             pathname: '/CreateSurvey',
@@ -80,7 +80,7 @@ export default class AdminPanel extends React.Component {
                         </div>
                     </div>
                                 
-            </container>
+            </div>
 
         )
     }

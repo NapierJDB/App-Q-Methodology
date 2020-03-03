@@ -161,7 +161,7 @@ table {
 th {
   text-align: center;
   padding: 8px;
-  background-color: #525252;
+  background-color: #b22222;
   color: white;
 }
 
@@ -245,14 +245,14 @@ AdminPanel.js
 User
 */
 
-body {
+/*body {
   background: url(./images/background-desktop.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 
-}
+}*/
 
 p {font-family: 'Titillium Web';}
 
