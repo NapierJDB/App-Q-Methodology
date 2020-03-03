@@ -11,14 +11,13 @@ class NewAnchors extends Component {
     this.state = {
 
         anchors: [],
-        //E_user_token: this.props.location.D_user_token.toString(),
         oldValue: '',
         surveyData: '',
         total: 0,
 
     }
 
-    this.sendAnchorsToBackend = this.sendAnchorsToBackend.bind(this);
+    this.send = this.send.bind(this);
     this.show = this.show.bind(this);
 }
 
@@ -28,9 +27,6 @@ class NewAnchors extends Component {
         this.setState({
             anchors
         });
-        //alert('total ' + anchors[0])
-
-        //this.state.total = this.state.total + 1;
     }
 
     // When press edit button 
@@ -70,32 +66,52 @@ class NewAnchors extends Component {
         });
     }
 
-    sendAnchorsToBackend(event) {
+    send(event) {
   
         event.preventDefault()
-        this.setState({ Redirect: true }); 
-        /*
-        Passing values to store in a database
-        */    
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
         method: 'POST',
         headers: {
-               'Authorization': window.token_data,
+               'Authorization': token,
                'Content-Type': 'application/json'         
            },
-            anchors: this.state.anchors
-                  
-       })
-       .then(function (response) {
-         console.log(response);
-         
-         //this.state.surveyData = response.data;
-         //console.log(this.state.surveyData);
+        body: JSON.stringify({
 
-       })
-       .catch(function (error) {
-         console.log(error);
-       }); 
+            'researcherID': researcherID,
+            anchors: this.state.anchors
+          })
+          })
+          .then((response) => {
+            return response.json();
+    
+          })
+          .then((data) => {
+            console.log(data);
+    
+            this.state.error = data.error;
+            
+            if (this.state.error == false) {
+              this.setState({ Redirect: true });
+            }
+            else {
+              alert("Upps...\nSomething went wrong!") 
+              this.setState({ Redirect: true });
+            }
+    
+    
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    
+
+       
   
     }
 
@@ -111,7 +127,6 @@ class NewAnchors extends Component {
             return (
             <Redirect to={{
               pathname: '/NewStatements',
-              //F_user_token: this.state.E_user_token
             }}/>
             )
           }
@@ -137,7 +152,7 @@ class NewAnchors extends Component {
                          </div>
                     </div>                       
                 <div>
-                    <button onClick={this.sendAnchorsToBackend}
+                    <button onClick={this.send}
                     className = 'space button button3'>
                         Next
                     </button>

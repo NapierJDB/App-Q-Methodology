@@ -75,7 +75,7 @@ class AddAnchor extends Component{
                     </div>
                   
                     <div>
-                        <h3>{ this.state.total }</h3>
+                        <h2>Total number of items: { this.state.total }</h2>
                     </div>
                 </form>
             </div>
