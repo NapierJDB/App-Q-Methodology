@@ -18,20 +18,22 @@ export default class PrivacyScreen extends React.Component {
         super();
 
         this.state = {
-            agreed: false,
-            style: false
+            agreed: false
         }
 
         //this.enabled = this.enabled.bind(this)
 
     }
 
-    handleCheckboxChange = (e) =>
-    this.setState({ agreed: e.target.value , style: e.target.value})
+    handleCheckboxChange = (e) => {
+        this.setState(previousState => { 
+            return {agreed: !previousState.agreed}
+            })
+        }
 
     render() {
 
-        let btn_style = this.state.style ? 'space button button3' : 'space button disabled';
+        let btn_style = this.state.agreed ? 'space button enabled' : 'space button disabled';
 
         return (
             <div className ='TextCenter'>
@@ -68,8 +70,6 @@ export default class PrivacyScreen extends React.Component {
                       Agree
                   </button>
                 </Link>
-                
-
             </div>
         )
 

@@ -111,8 +111,13 @@
 .disabled {
   background-color: white; 
   color: red; 
-  
-  border: 2px solid rgba(255, 0, 0, 0.486);
+  border: 2px solid rgba(255, 0, 0, 0.14);
+}
+
+.enabled {
+  background-color: white; 
+  color: rgb(0, 196, 10); 
+  border: 2px solid rgba(0, 255, 13, 0.356);
 }
 
 .log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
@@ -201,7 +206,7 @@ table.center {
   margin: 8px 0;
   font-family: Helvetica;
 }
-
+/*
 .componentsRow {
   align-items: ;
-}
+}*/

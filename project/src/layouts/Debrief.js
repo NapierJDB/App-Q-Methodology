@@ -22,35 +22,19 @@ export default class Debrief extends React.Component {
         super();
 
         this.state = {
-            agreed: false,
-            style: false
+            agreed: false
         }
-        //this.state = {isChecked: false};
-        //this.handleChecked = this.handleChecked.bind(this);
-
     }
 
-    handleCheckboxChange = (e) =>
-    this.setState({ agreed: e.target.value , style: e.target.value})
+    handleCheckboxChange = (e) => {
+        this.setState(previousState => { 
+            return {agreed: !previousState.agreed}
+            })
+        }
     
     render() {
 
-        let btn_style = this.state.style ? 'space button button3' : 'space button disabled';
-/*        if (this.state.agreed == false) {
-            //alert("Sorry, you must agree to the above terms and conditions to continue")
-            return (
-                <Redirect to={{
-                    pathname: '/Reject',
-
-                }} />
-            )
-        }
-
-        if (this.state.agreed == true) {
-            alert("Terms agreed")
-        }
-*/
-        
+        let btn_style = this.state.agreed ? 'space button enabled' : 'space button disabled';
 
         return (
             <div className ='TextCenter'>
