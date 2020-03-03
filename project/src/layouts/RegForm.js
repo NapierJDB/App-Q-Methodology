@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import logo from './images/logo2.png'
+import { Link } from "rebass";
 /*
     TO IMPLEMENT:
         password confirmation
@@ -81,11 +82,17 @@ export default class RegForm extends React.Component {
           console.log(error);
         });
     }
+   /* else{
+      alert("Account Already Exists")
+    }*/
   }
 
-
   render() {
+
+    let regNav = this.state.passwordsCorrect ? '/Home' : ''
+
     return (
+
       <div className = 'TextCenter'>
         <img src={logo}/>
         <h1 className = 'primary'>CREATE ACCOUNT</h1>
@@ -153,9 +160,13 @@ export default class RegForm extends React.Component {
           </div>
           
           <div className = 'buttonContainer'>
-            <button type="submit" className = 'space button button3'>
-            Register
-            </button>
+            <Link to={regNav}>
+              <button 
+                type="submit" 
+                className = 'space button button3'>
+              Register
+              </button>
+            </Link>
           </div>
         
         </div>

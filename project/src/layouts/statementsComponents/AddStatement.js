@@ -14,6 +14,7 @@ class AddStatement extends Component{
         e.preventDefault();
         this.props.addStatement(this.state);
         e.target.reset();
+        this.send();
     }
 
     //update state
@@ -23,13 +24,99 @@ class AddStatement extends Component{
         });
     }
 
+    getResearchID(event) {
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+        this.state.TOKEN = token;
+        this.state.ID = researcherID
+           
+          fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': this.state.TOKEN,
+                    'Content-Type': 'application/json'         
+                },
+                body: JSON.stringify({
+                    'researcherID': this.state.ID,
+                })
+            })
+            .then((response) => {
+              return response.json();
+      
+            })
+            .then((data) => {
+              console.log(data);
+
+              //---STORING THE RESEARCH ID---
+              this.state.researchID = data.map(({ id }) => id)
+              console.log("List of research IDs: " + this.state.researchID);
+
+              //---GET LAST ID---
+              this.state.lastID = this.state.researchID.slice(-1)[0]
+              console.log("Last ID: " + this.state.lastID)
+
+      
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    }
+
+    send(event) {
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addStatement',  {
+        method: 'POST',
+        headers: {
+               'Authorization': token,
+               'Content-Type': 'application/json'         
+           },
+        body: JSON.stringify({
+
+            'number': this.state.statementNumber,
+            'description': this.state.statement,
+            'researchID': this.state.lastID,
+          })
+          })
+          .then((response) => {
+            return response.json();
+    
+          })
+          .then((data) => {
+            console.log(data);
+    
+            this.state.error = data.error;
+            
+            if (this.state.error == true) {
+                alert("This statement already exist!") 
+            }  
+    
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+
+    componentDidMount(){
+        this.getResearchID();
+    }
+
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
 
                     <div>
-                        <input 
+                        <input className = 'space textbox'
                             name="statementNumber"
                             placeholder="Statement number"
                             required
@@ -39,7 +126,7 @@ class AddStatement extends Component{
                     </div>
 
                     <div>
-                        <input 
+                        <input className = 'space textbox'
                             name="statement"
                             placeholder="Statement"
                             required
@@ -49,11 +136,12 @@ class AddStatement extends Component{
                     </div>
 
                     <div>
-                        <input 
-                            type="submit" 
-                            value="Add +" 
-                        />
+                        <button className = 'space button button3' 
+                            type="submit" >
+                            Add +
+                        </button>
                     </div>
+
                 </form>
             </div>
         );

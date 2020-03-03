@@ -24,40 +24,34 @@ export default class InfoParticipant extends Component {
                 <form>
                   <div>
                     <div className = 'column'>
+                    
                           <input className = 'space textbox'
- 
+                            placeholder="Forename"
                           />
                       </div>
 
                       <div>
+                      
                           <input className = 'space textbox'
-                          
+                          placeholder="Surname "
                           />                   
                       </div>
 
                       <div>
+                      
                           <input className = 'space textbox'
-                          
+                          placeholder="Sport"
                           />                     
                       </div>
 
                       <div>
+                      
                           <input className = 'space textbox'
-                          
+                          placeholder="Survey Code"
                           />                    
                       </div>
 
-                      <div>
-                          <input className = 'space textbox'
-                          
-                          />                    
-                      </div>
 
-                      <div>
-                          <input className = 'space textbox'
-                          
-                          />                    
-                      </div>
 
                   </div>                   
              </form>

@@ -3,6 +3,7 @@ import Anchors from './anchorsComponents/Anchors';
 import AddAnchor from './anchorsComponents/AddAnchor';
 import { Redirect } from 'react-router-dom';
 import logo from './images/logo2.png';
+import {Link} from 'react-router-dom';
 
 class NewAnchors extends Component {
     constructor(props) {
@@ -11,15 +12,11 @@ class NewAnchors extends Component {
     this.state = {
 
         anchors: [],
-        //E_user_token: this.props.location.D_user_token.toString(),
         oldValue: '',
         surveyData: '',
         total: 0,
-
+        
     }
-
-    this.sendAnchorsToBackend = this.sendAnchorsToBackend.bind(this);
-    this.show = this.show.bind(this);
 }
 
     //(newAnchor) is received from AddAnchor.js
@@ -28,9 +25,6 @@ class NewAnchors extends Component {
         this.setState({
             anchors
         });
-        //alert('total ' + anchors[0])
-
-        //this.state.total = this.state.total + 1;
     }
 
     // When press edit button 
@@ -70,51 +64,8 @@ class NewAnchors extends Component {
         });
     }
 
-    sendAnchorsToBackend(event) {
-  
-        event.preventDefault()
-        this.setState({ Redirect: true }); 
-        /*
-        Passing values to store in a database
-        */    
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
-        method: 'POST',
-        headers: {
-               'Authorization': window.token_data,
-               'Content-Type': 'application/json'         
-           },
-            anchors: this.state.anchors
-                  
-       })
-       .then(function (response) {
-         console.log(response);
-         
-         //this.state.surveyData = response.data;
-         //console.log(this.state.surveyData);
-
-       })
-       .catch(function (error) {
-         console.log(error);
-       }); 
-  
-    }
-
-    show(event) {
-        //This method is used to show values of the anchors array
-        console.log(this.state.anchors);
-    }
-
-
     render(){
     
-        if (this.state.Redirect) {
-            return (
-            <Redirect to={{
-              pathname: '/NewStatements',
-              //F_user_token: this.state.E_user_token
-            }}/>
-            )
-          }
         return(
             <div className='center TextCenter'>
                 <img src={logo}/>
@@ -135,15 +86,15 @@ class NewAnchors extends Component {
                             oldValue={this.state.oldValue}
                         />
                          </div>
-                    </div>                       
-                <div>
-                    <button onClick={this.sendAnchorsToBackend}
-                    className = 'space button button3'>
-                        Next
-                    </button>
-                </div>
-                
-               
+                    </div> 
+
+                    <div>
+                        <Link to={'/NewStatements'}>
+                        <button className = 'space button button3'>
+                            Next
+                        </button>
+                        </Link>
+                    </div>             
             </div>
 
         );

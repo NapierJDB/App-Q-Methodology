@@ -24,11 +24,7 @@ export default class CreateSurvey_1 extends React.Component {
       box3: "",
       privacy: '',
       debrief: '',
-      //C_user_token: this.props.location.B_user_token.toString()
-      surveyData: '',
-      //user_token: window.token_data.toString(),
-      id: window.researcher_id.toString(),
-
+      error: '',
 
     };
 
@@ -42,22 +38,25 @@ export default class CreateSurvey_1 extends React.Component {
     })
   }
 
+
   send(event) {
 
     event.preventDefault()
-    this.setState({ Redirect: true });
-    /*
-    Passing values to store in a database
-    */
+
+    // ---GET ITEMS FROM LOCAL STORAGE---
+    const researcherID = localStorage.getItem('ID');
+    const token = localStorage.getItem('TOKEN');
+    this.setState({ researcherID, token });
+
 
     fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch ', {
       method: 'POST',
       headers: {
-        'Authorization': window.token_data,
+        'Authorization': token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'researcherID': this.state.id,
+        'researcherID': researcherID,
         'name': this.state.survey_name,
         'description': this.state.description,
         'box1': this.state.box1,
@@ -66,24 +65,31 @@ export default class CreateSurvey_1 extends React.Component {
         'privacy_statement': this.state.privacy,
         'debrief': this.state.debrief
       })
-    })
+      })
+      .then((response) => {
+        return response.json();
 
-      .then((response) => response.json())
+      })
       .then((data) => {
-      //this.state.surveyData = data;
-      console.log('response: ' + data.error); // data = object aby zmienic na string uzyj JSON.stringify(data) albo uzyj jedna z wlasciwosci objektu data.error albo data message
-      }
-      )
+        console.log(data);
+
+        this.state.error = data.error;
+        
+        if (this.state.error == false) {
+          this.setState({ Redirect: true });
+        }
+        else {
+          alert("Upps...\nIt looks like this survey already exist!")
+        }
+
+
+      })
       .catch(function (error) {
         console.log(error);
       });
 
-  }
 
-  //twoFunctions(event) {
-  // //this.setToken();
-  //this.handleSubmit();
-  // }
+  }
 
   render() {
 
@@ -91,7 +97,6 @@ export default class CreateSurvey_1 extends React.Component {
       return (
         <Redirect to={{
           pathname: '/NewAnchors',
-          //D_user_token: this.state.C_user_token
         }} />
       )
     }
@@ -184,7 +189,7 @@ export default class CreateSurvey_1 extends React.Component {
                       </div>
 
                       <div>
-                          <button onClick={this.send.bind(this)}
+                          <button onClick={this.send}
                           className = 'space button button3'>
                               Next
                           </button>            

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Statements from './statementsComponents/Statements';
 import AddStatement from './statementsComponents/AddStatement';
-import { Redirect } from 'react-router-dom';
+import logo from './images/logo2.png';
+import {Link} from 'react-router-dom';
 
 class NewStatements extends Component {
     constructor(props) {
@@ -10,12 +11,16 @@ class NewStatements extends Component {
     this.state = {
 
         statements: [],
-        //G_user_token: this.props.location.F_user_token.toString()
-        total: window.totalNumberOfItems
+        total: 0,
     }
 
-    this.sendStatementsToBackend = this.sendStatementsToBackend.bind(this);
 }
+
+    componentDidMount(){
+        const sTotal = localStorage.getItem('TOTAL');
+        this.setState({ sTotal });
+        this.state.total = sTotal;
+    }
 
     //(newStatement) is received from AddStatement.js
     addStatement = (newStatement) => {
@@ -63,63 +68,35 @@ class NewStatements extends Component {
         this.state.total = parseInt(this.state.total) + 1
     }
 
-    sendStatementsToBackend(event) {
-  
-        event.preventDefault()
-        this.setState({ Redirect: true }); 
-        /*
-        Passing values to store in a database
-        */    
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
-        method: 'POST',
-        headers: {
-               'Authorization': window.token_data,
-               'Content-Type': 'application/json'         
-           },
-            statements: this.state.statements
-                  
-       })
-       .then(function (response) {
-         console.log(response);
-       })
-       .catch(function (error) {
-         console.log(error);
-       }); 
-  
-    }
+   
 
     render(){
-        if (this.state.Redirect) {
-            return (
-            <Redirect to={{
-              pathname: '/AdminPanel',
-              //H_user_token: this.state.G_user_token
-            }}/>
-            )
-          }
         return(
-            <div>
-                <div>
-                    <h1>Q-sort cards</h1>
+            <div className='center TextCenter'>
+                <img src={logo}/>
+                
+                <h1 className = 'primary' >Q-sort cards</h1>
                     <h3>Available statements</h3>
                     <h2>{this.state.total}</h2>
-                </div>
-                <div>
+                
+                <div className='center'>
+                    <AddStatement 
+                        addStatement={this.addStatement}
+                    />
                     <Statements 
                         allStatements={this.state.statements}
                         editButton={this.editButton}
                         updateStatement={this.updateStatement}
                         deleteStatement={this.deleteStatement}
-                    />
-                    <AddStatement 
-                        addStatement={this.addStatement}
-                    />
+                    />               
                 </div>
+
                 <div>
-                    <button
-                    onClick={this.sendStatementsToBackend}>
+                    <Link to={'/AdminPanel'}>
+                    <button className = 'space button button3'>
                         Complete
                     </button>
+                    </Link>
                 </div>
                 
                
