@@ -21,7 +21,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import decode from 'jwt-decode';
+
 import { MyProvider } from './Context';
 import Test from './layouts/Test'
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios"
 import { Box } from 'rebass'
 import logo from './images/logo2.png'
+import logoSimple from './images/napier-simple-logo.png'
 
 import {
     BrowserRouter as Router,
@@ -45,16 +46,17 @@ export default class AdminPanel extends React.Component {
             
        
             <div>
-                <div className = 'buttonContainer'>
+                <div>
                 <Link to='/'>
                     <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
                 </Link>
+                <img className ='logoSimple' src={logoSimple}/>
                 </div>
                 
-                <div className = 'TextCenter'>
-                <img src={logo}/>
-                <h1 className = 'primary'>Admin Panel</h1>
-                    <div className = 'buttonContainer'>
+                <div>
+                
+                <h1>Admin Panel</h1>
+                    <div>
                     <Link 
                         to={{
                             pathname: '/CreateSurvey',

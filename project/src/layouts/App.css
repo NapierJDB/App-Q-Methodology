@@ -1,9 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web&display=swap");
 
+
+/*
+Home.js RegForm.js 
+*/
 
 .primary
 {
   color:#000000; font-family: 'Titillium Web';
 }
+
+h1 {font-family: 'Titillium Web'}
 
 .logo {float:left;}
 
@@ -14,7 +21,14 @@
   max-height: 100%;
   background-image: url(./images/logo2.png);
   background-repeat: no-repeat;
+
+
+   
+
+  
 }
+
+
 .container{
   width: 80%;
 }
@@ -23,6 +37,7 @@
 
 .TextCenter {
   text-align: center;
+  margin-top: 10px;
 }
 
 .space{
@@ -108,8 +123,7 @@
   border: 2px solid rgba(0, 0, 0, .14);
 }
 
-.log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
-  box-shadow: 2px 2px grey; border-radius: 10px; float:right;}
+
 
 .column {
   display: inline-block;
@@ -195,6 +209,35 @@ table.center {
   font-family: Helvetica;
 }
 
-.componentsRow {
-  align-items: ;
+/*
+AdminPanel.js
+*/
+
+.log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
+   border-radius: 10px; float:right;}
+
+.logoSimple {float:left; max-width:80px; padding:15px;}
+
+/*
+User
+*/
+
+body {
+  background: url(./images/background-desktop.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+}
+
+@media only screen and (max-width: 650px) {
+  body {
+    background: url(./images/background-mobile1.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  
+  }
 }
