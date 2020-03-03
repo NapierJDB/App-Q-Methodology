@@ -13,14 +13,14 @@ function addAnchor(Request $request, Response $response)
 
         if (!$object) {
 
-            if ($data->markerNum != 0) {
+       //     if ($data->markerNum != 0) {
 
-                $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID),(:markerNum-(:markerNum*2), :items, :researchID)';
+       //         $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID),(:markerNum-(:markerNum*2), :items, :researchID)';
 
-            } else {
+          //  } else {
 
                 $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID)';
-            }
+           // }
 
             try {
 
@@ -212,13 +212,14 @@ function checkAnchor($data)
 function checkMarkerNum($data)
 {
 
-    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum';
+    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum AND researchID = :researchID' ;
 
     try {
 
         $db = connect();
         $stmt = $db->prepare($sql);
         $stmt->bindParam('markerNum', $data->markerNum);
+        $stmt->bindParam('researchID', $data->researchID);
         $stmt->execute();
         $object = $stmt->fetchObject();
 
