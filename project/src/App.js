@@ -25,33 +25,6 @@ import {
 import { MyProvider } from './Context';
 import Test from './layouts/Test'
 
-/*const checkAuth = () => {
-  const token = localStorage.getItem('token')
-
-  if (!token) {
-    return false;
-  }
-
-  try {
-    const payload = decode(token);
-    console.log(payload)
-
-  } catch (e) {
-    return false;
-  }
-
-  return true;
-}
-
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    checkAuth() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{ pathname: '/Home'}}/>
-    )
-  )} />
-)*/
 
 export default class App extends React.Component {
   render() {

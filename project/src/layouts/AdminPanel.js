@@ -19,10 +19,7 @@ export default class AdminPanel extends React.Component {
         super(props);
 
         this.state = {
-            B_ID: '',//this.props.location.A_ID
-            //id: window.id
-            //A_token: this.props.location.token_data
-            id: this.props.A_id
+
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -40,7 +37,7 @@ export default class AdminPanel extends React.Component {
 
         
 
-        console.log('TOKEN IN ADMIN PANEL: ' + this.state.id)
+        //console.log('TOKEN IN ADMIN PANEL: ' + this.state.id)
 
         return (
             

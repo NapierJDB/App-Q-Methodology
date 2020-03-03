@@ -111,6 +111,9 @@ export default class Home extends React.Component {
         if (this.state.error == 'false') {
           //this.setState({ Redirect: true });
           //alert(this.state.id)
+         // return(
+            //updateID(this.state.id)
+          //)
         }
         else {
           alert("Wrong login details")
@@ -140,11 +143,9 @@ export default class Home extends React.Component {
         }} />)
     }
     return (
-      <MyConsumer>
-        
+      <MyConsumer>      
         {({ updateID }) => (
-
-        
+   
         <div className='TextCenter'>
             <img src={logo} />
 
@@ -183,8 +184,8 @@ export default class Home extends React.Component {
                     <label htmlFor='test'> TEST </label>
                     <input 
                         id='test'
-                        type='text'
-                        onChange={event => {
+                        type='submit'
+                        onClick={event => {
                             updateID(this.state.id);
                         }}
                         />
@@ -197,7 +198,7 @@ export default class Home extends React.Component {
                   <button
                     type="submit"
                     className='space button button3'
-                    onClick={() => updateID(this.state.id)}
+                    onClick={event => {updateID(this.state.id)}}
                     >
                     Login
                 </button>
