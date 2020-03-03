@@ -52,27 +52,21 @@ export default class Debrief extends React.Component {
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions  
-                <div className="toggle-switch">
-        <input
-          type="checkbox"
-          className="toggle-switch-checkbox"
-          name="toggleSwitch"
-          id="toggleSwitch"
-        />
-        <label className="toggle-switch-label" htmlFor="toggleSwitch">
-          <span className="toggle-switch-inner" />
-          <span className="toggle-switch-switch" />
-        </label>
-      </div>
-      </p>
-               <br></br>
+                <p>I accept the terms and conditions 
+                    <input 
+                    name ="agree"
+                    type="Checkbox"
+                    value={this.state.agreed}
+                    onChange={this.handleCheckboxChange}
+                    />
+                </p>
                 <Link to={'/Reject'}>
                     <button
                         className = 'space button button3'>Disagree
                     </button>
                 </Link>
-                <Link to={'/End'}>
+                
+                <Link to={'/InfoParticipant'}>
                   <button 
                     name=""
                     type="submit" 
