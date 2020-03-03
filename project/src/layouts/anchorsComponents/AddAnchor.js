@@ -25,6 +25,8 @@ class AddAnchor extends Component{
         
         e.target.reset();
 
+        this.send();
+
         
     }
 
@@ -38,8 +40,96 @@ class AddAnchor extends Component{
 
     }
 
+    getResearchID(event) {
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+        this.state.TOKEN = token;
+        this.state.ID = researcherID
+           
+          fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': this.state.TOKEN,
+                    'Content-Type': 'application/json'         
+                },
+                body: JSON.stringify({
+                    'researcherID': this.state.ID,
+                })
+            })
+            .then((response) => {
+              return response.json();
+      
+            })
+            .then((data) => {
+              console.log(data);
+
+              //---STORING THE RESEARCH ID---
+              this.state.researchID = data.map(({ id }) => id)
+              console.log("List of research IDs: " + this.state.researchID);
+
+              //---GET LAST ID---
+              this.state.lastID = this.state.researchID.slice(-1)[0]
+              console.log("Last ID: " + this.state.lastID)
+
+      
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    }
+
+    send(event) {
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addAnchor',  {
+        method: 'POST',
+        headers: {
+               'Authorization': token,
+               'Content-Type': 'application/json'         
+           },
+        body: JSON.stringify({
+
+            'markerNum': this.state.markerNumber,
+            'items': this.state.numberOfItems,
+            'researchID': this.state.lastID,
+          })
+          })
+          .then((response) => {
+            return response.json();
+    
+          })
+          .then((data) => {
+            console.log(data);
+    
+            this.state.error = data.error;
+            
+            if (this.state.error == true) {
+                alert("This marker already exist!") 
+            }
+    
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+
+    componentDidMount(){
+        this.getResearchID();
+    }
+
 
     render(){
+
+        localStorage.setItem('TOTAL', this.state.total);
 
         window.totalNumberOfItems = this.state.total
         return(
@@ -68,8 +158,7 @@ class AddAnchor extends Component{
 
                     <div>
                         <button className = 'space button button3' 
-                            type="submit" 
-                        >
+                            type="submit" >
                             Add +
                         </button>
                     </div>

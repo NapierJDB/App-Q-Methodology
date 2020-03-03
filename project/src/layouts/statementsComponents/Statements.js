@@ -21,7 +21,7 @@ class Statements extends Component{
                 <tr key={index}>
                     
                     <td>
-                        <input className = 'spaceTextbox'
+                        <input className = 'space Textbox'
                             type="number"
                             ref={(val) => 
                             {this.statementNumber = val}}
@@ -31,7 +31,7 @@ class Statements extends Component{
                     </td>
 
                     <td>
-                        <input className = 'spaceTextbox' 
+                        <input className = 'space Textbox' 
                             type="text"
                             ref={(val) => 
                             {this.statement = val}}
@@ -41,7 +41,7 @@ class Statements extends Component{
                     </td>
 
                     <td>
-                        <input className = 'spaceTextbox'
+                        <input className = 'space tableButton tableButton3'
                             type="button"
                             value="Update"
                             onClick={this.handleUpdate}
@@ -57,11 +57,13 @@ class Statements extends Component{
                     <td>{statement.statement}</td>
                     <td>
                         <button
-                            onClick={() => editButton(index)}>
+                            onClick={() => editButton(index)}
+                            className = 'space tableButton tableButton3'>
                             Edit                           
                         </button>
                         <button
-                            onClick={() => deleteStatement(index)}>
+                            onClick={() => deleteStatement(index)}
+                            className = 'space tableButton tableButton3'>
                             Delete
                         </button>
                     </td>
@@ -71,18 +73,20 @@ class Statements extends Component{
         });
         
         return(
-            <table>
-            <thead>
-                <tr>
-                <th>Statement number</th>
-                <th>Statement</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {statementsList}
-            </tbody>
-        </table>
+            <div className='center TextCenter'>
+                <table className="center">
+                <thead>
+                    <tr>
+                    <th>Statement number</th>
+                    <th>Statement</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {statementsList}
+                </tbody>
+                </table>
+        </div>
         );
     }
 }

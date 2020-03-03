@@ -36,33 +36,16 @@ export default class Home extends React.Component {
 
     };
 
-    
-
-
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //componentDidMount(){
-    //this.fetchData();
- // }
-
-  //fetchData(){
-    
-  //}
-
-  //componentWillUpdate(nextProps, nextState) {
-    //localStorage.setItem('item', 'SOMETHING');
-  //}
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
-
-
 
   handleSubmit(event) {
     event.preventDefault()

@@ -75,7 +75,7 @@ export default class SurveyOverview extends React.Component {
         
       }
 
-      componentDidMount(){
+    componentDidMount(){
         this.handleSubmit();
     }
 
