@@ -22,13 +22,11 @@ export default class QSort1 extends Component {
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 1</h1>
 
-                <div className='container'>
                     <Link to={'/QSort2'}>
-                        <button>
+                        <button className='space button button3'>
                             Next
                         </button>
                     </Link>
-                </div>
             </div>
         )
     }

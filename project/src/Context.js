@@ -4,7 +4,7 @@ import React, { createContext } from 'react';
 //The values here will be overwritten with by the UserProvider
 const MyContext = createContext({
     id: '',
-    updateID: () => { },
+    updateID: () => {},
 })
 
 //PROVIDER
@@ -15,7 +15,7 @@ class MyProvider extends React.Component {
     };
 
     state = {
-        id: 'TEST',
+        id: '',
         updateID: this.updateID,
     };
 
@@ -23,6 +23,7 @@ class MyProvider extends React.Component {
         return (
             <MyContext.Provider value={this.state}>
                 {this.props.children}
+                
             </MyContext.Provider>
         )
     }

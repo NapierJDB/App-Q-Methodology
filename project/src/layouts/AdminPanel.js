@@ -45,39 +45,45 @@ export default class AdminPanel extends React.Component {
         return (
             
        
-            <div>
-                <div>
-                <Link to='/'>
-                    <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
-                </Link>
-                <img className ='logoSimple' src={logoSimple}/>
-                </div>
+            <container>
+
                 
-                <div>
+                    <div class="col-md-auto">
+                         <Link to='/'>
+                         <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
+                         </Link>
+                   
+                         <img className ='logoSimple' src={logoSimple}/>
+                    </div>
+               
                 
-                <h1>Admin Panel</h1>
-                    <div>
-                    <Link 
-                        to={{
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <h1>Admin Panel</h1>
+                    </div>
+                    <div class="col-md-auto">
+                            <Link 
+                             to={{
                             pathname: '/CreateSurvey',
                             //B_user_token: this.state.A_user_token
                             }}>
-                        <button className = 'space button button3'>
-                            New Survey
-                        </button>
-                    </Link>
+                            <button className = 'space button button3'>
+                                New Survey
+                            </button>
+                            </Link>
 
-                    <Link 
-                        to={{
+                            <Link 
+                            to={{
                             pathname: '/SurveyOverview'
                             }}>
-                        <button className = 'space button button3'>
-                            View surveys
-                        </button>
-                    </Link>
+                            <button className = 'space button button3'>
+                                View surveys
+                            </button>
+                            </Link>
+                        </div>
                     </div>
-                </div>                
-            </div>
+                                
+            </container>
 
         )
     }
