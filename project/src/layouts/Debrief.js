@@ -16,7 +16,10 @@ import {
   MemoryRouter
 } from 'react-router-dom';
 
+
+
 export default class Debrief extends React.Component {
+
 
     constructor() {
         super();
@@ -39,25 +42,31 @@ export default class Debrief extends React.Component {
         return (
             <div className ='TextCenter'>
                 <h1>Debrief</h1>
-                <hr></hr>
-                <p>Thank you for taking part in survey </p>
+                <hr className= "headerline" ></hr>
+                <p class="bold">Thank you for taking part in survey!</p>
                 <p>Please read and accept the terms and conditions before continuing</p>
-                <br></br>
+                
                 <p>This is where the terms will go</p>
                 <p>-Term 1</p>
                 <p>-Term 2</p>
                 <p>-Term 3</p>
                 <p>-Term 4</p>
                 <br></br>
-                <p>I accept the terms and conditions 
-                    <input 
-                    name ="agree"
-                    type="Checkbox"
-                    value={this.state.agreed}
-                    onChange={this.handleCheckboxChange}
-                    />
-                </p>
-
+                <p>I accept the terms and conditions  
+                <div className="toggle-switch">
+        <input
+          type="checkbox"
+          className="toggle-switch-checkbox"
+          name="toggleSwitch"
+          id="toggleSwitch"
+        />
+        <label className="toggle-switch-label" htmlFor="toggleSwitch">
+          <span className="toggle-switch-inner" />
+          <span className="toggle-switch-switch" />
+        </label>
+      </div>
+      </p>
+               <br></br>
                 <Link to={'/Reject'}>
                     <button
                         className = 'space button button3'>Disagree
@@ -77,3 +86,4 @@ export default class Debrief extends React.Component {
         )
     }
 }
+

@@ -1,9 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap");
 
+
+
+
+/*
+Home.js RegForm.js 
+*/
 
 .primary
 {
   color:#000000; font-family: 'Titillium Web';
 }
+
+h1 {font-family: 'Titillium Web'}
 
 .logo {float:left;}
 
@@ -15,6 +24,8 @@
   background-image: url(./images/logo2.png);
   background-repeat: no-repeat;
 }
+
+
 .container{
   width: 80%;
 }
@@ -23,6 +34,7 @@
 
 .TextCenter {
   text-align: center;
+  margin-top: 10px;
 }
 
 .space{
@@ -71,9 +83,7 @@
   opacity: 1; /* Firefox */
 }
 
-.rowContainer {
-  align-items: center;
-}
+
 
 
 .button {
@@ -108,6 +118,9 @@
   border: 2px solid rgba(0, 0, 0, .14);
 }
 
+
+
+
 .disabled {
   background-color: white; 
   color: red; 
@@ -122,6 +135,7 @@
 
 .log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
   box-shadow: 2px 2px grey; border-radius: 10px; float:right;}
+
 
 .column {
   display: inline-block;
@@ -147,7 +161,7 @@ table {
 th {
   text-align: center;
   padding: 8px;
-  background-color: firebrick;
+  background-color: #525252;
   color: white;
 }
 
@@ -210,3 +224,149 @@ table.center {
 .componentsRow {
   align-items: ;
 }*/
+
+/*
+AdminPanel.js
+*/
+
+.log-out {font-family: 'Titillium Web'; font-size: 15px; background-color: #ffffff;
+   border-radius: 10px; float:right;}
+
+.logoSimple {float:left; max-width:80px; padding:15px;}
+
+.container{
+  max-width:80%;
+
+}
+
+
+
+/*
+User
+*/
+
+body {
+  background: url(./images/background-desktop.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+}
+
+p {font-family: 'Titillium Web';}
+
+.bold {
+  font-family: 'Titillium Web'; 
+  font-weight: 700;
+}
+
+.headerline{max-width:200px;}
+
+.toggle-switch {
+  position: relative;
+  width: 75px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-align: left;
+  padding-left: 10px;
+  
+  
+}
+.toggle-switch-checkbox {
+  display: none;
+}
+.toggle-switch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0 solid #ccc;
+  border-radius: 20px;
+  margin: 0;
+}
+.toggle-switch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.toggle-switch-inner::before, .toggle-switch-inner::after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 34px;
+  padding: 0;
+  line-height: 34px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.toggle-switch-inner:before {
+  content: "Yes";
+  text-transform: uppercase;
+  padding-left: 10px;
+  background-color:rgb(44, 185, 25);
+  color: #fff;
+}
+.toggle-switch-disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.toggle-switch-disabled::before {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.toggle-switch-inner::after {
+  content: "No";
+  text-transform: uppercase;
+  padding-right: 10px;
+  background-color: #ccc;
+  color: #fff;
+  text-align: right;
+}
+.toggle-switch-switch {
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 40px;
+  border: 0 solid #ccc;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+}
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
+  margin-left: 0;
+}
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
+  right: 0px;
+}
+
+.finishPage{
+  margin-top:200px;
+}
+
+
+@media only screen and (max-width: 650px) {
+  body {
+    background: url(./images/background-mobile1.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  
+  }
+  
+  
+}
+@media only screen and (max-width: 400px) {
+  .finishPage{
+    font-size:10px;
+  }
+}

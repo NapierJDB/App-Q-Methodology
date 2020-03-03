@@ -5,6 +5,7 @@ import React, { createContext } from 'react';
 const MyContext = createContext({
     id: '',
     updateID: () => {},
+    
 })
 
 //PROVIDER
@@ -19,7 +20,10 @@ class MyProvider extends React.Component {
         updateID: this.updateID,
     };
 
+    
+
     render() {
+        console.log("WHAT ARE YOU? " + this.state.id)
         return (
             <MyContext.Provider value={this.state}>
                 {this.props.children}
