@@ -14,7 +14,7 @@ Home.js RegForm.js
 
 h1 {font-family: 'Titillium Web'}
 
-.logo {float:left;}
+.logo {float:center;}
 
 .imgContainer{
   margin-top: 1%;

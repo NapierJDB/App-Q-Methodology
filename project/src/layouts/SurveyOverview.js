@@ -12,71 +12,89 @@ export default class SurveyOverview extends React.Component {
             sName: '',
             sDate: '',
             sCode: '',
-            //surveyList: [],
-            surveyList: [ {sName: 'name', sDate: 'date', sCode: 'code'}]
+            surveyList: [ {sName: 'name', sDate: 'date', sCode: 'code'}],
+            TOKEN: '',
+            ID: '',
+            names: [],
+            dates: [],
+            codes: [],
+
     
         };
-
-        //this.setState({
-          //  surveyList = [ {sName: 'name', sDate: 'date', sCode: 'code'}]
-        //})
     
         this.handleSubmit = this.handleSubmit.bind(this);
-        //this.handleId = this.handleId.bind(this);
 
       }
 
-      //handleId(event) {
-        //this.setState({
-          //  id: window.researcher_id.toString()
-        //})
-     // }
+     
 
       handleSubmit(event) {
-        event.preventDefault()
-    
-        
-        
+       // event.preventDefault()
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+        this.state.TOKEN = token;
+        this.state.ID = researcherID
+           
           fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
             {
                 method: 'POST',
                 headers: {
-                    'Authorization': window.token_data,
+                    'Authorization': this.state.TOKEN,
                     'Content-Type': 'application/json'         
                 },
                 body: JSON.stringify({
-                    'researcherID': 111
+                    'researcherID': this.state.ID,
                 })
-                 
-    
             })
-            .then((response) => response.json())
+            .then((response) => {
+              return response.json();
+      
+            })
             .then((data) => {
-                console.log(data)
-                //alert(this.state.id)
-            })
-           //.then((response) => {
-    
-            //console.log(response);
-    
-            //this.state.research = response.data;
-            //console.log(this.state.research);
+              console.log(data);
 
-          //}, 
-          //error) => {
-            //console.log(error);
-          //})
-          .catch(function (error) {
-            console.log(error);
-          })
+              //---STORING THE NAMES---
+              this.state.names = data.map(({ name }) => name)
+              console.log(this.state.names);
+
+              //---STORING THE DATES---
+              this.state.dates = data.map(({ created_date }) => created_date)
+              console.log(this.state.names);
+
+              //---STORING THE CODES---
+              this.state.codes = data.map(({ code }) => code)
+              console.log(this.state.codes);
+      
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         
       }
 
-    //https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch
+      componentDidMount(){
+        this.handleSubmit();
+    }
+
 
     render() {
-       //this.handleId()
-       // window.researcher_id
+
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        //const researcherID = localStorage.getItem('ID');
+        //const token = localStorage.getItem('TOKEN');
+        //this.setState({ researcherID, token });
+        //this.state.TOKEN = token;
+        //this.state.ID = researcherID
+        //this.handleSubmit();
+
+        //https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewAnchor
+        //https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/deleteAnchor
+        //https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/editAnchor
+        //Zeby usunac alebo zmienic anchor uzyj id ktore dostaniesz w view anchor
+
         return (
             <div className ='TextCenter'>
                 <img src={logo}/>
@@ -97,7 +115,16 @@ export default class SurveyOverview extends React.Component {
                                 </tr>
                             </thead> 
                             <tbody>
-                                {this.state.surveyList}                
+                                {
+                                    this.state.names.map((numList, index) => (
+                                        <tr key={index}>
+                                            {
+                                                numList.map((num,j)=>
+                                                <td key={j}>{num}</td>)
+                                            }
+                                        </tr>
+                                    ))
+                                }    
                             </tbody>        
                         </table>
                     </div>

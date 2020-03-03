@@ -75,7 +75,7 @@ class NewAnchors extends Component {
         const token = localStorage.getItem('TOKEN');
         this.setState({ researcherID, token });
 
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch',  {
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addAnchor',  {
         method: 'POST',
         headers: {
                'Authorization': token,
