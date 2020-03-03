@@ -66,7 +66,7 @@ export default class Debrief extends React.Component {
                     </button>
                 </Link>
                 
-                <Link to={'/InfoParticipant'}>
+                <Link to={'/End'}>
                   <button 
                     name=""
                     type="submit" 

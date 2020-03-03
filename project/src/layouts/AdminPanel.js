@@ -45,7 +45,11 @@ export default class AdminPanel extends React.Component {
             <div>
 
                 
+<<<<<<< HEAD
                     <div class="TextCenter">
+=======
+                    <div className="col-md-auto">
+>>>>>>> 493c116b462a9e3eae0e662e861e7978f6c98c9e
                          <Link to='/'>
                          <button className = 'space button button3 log-out' onClick={this.handleLogout}>log out</button>
                          </Link>
@@ -54,11 +58,19 @@ export default class AdminPanel extends React.Component {
                     </div>
                
                 
+<<<<<<< HEAD
                 <div class="row justify-content-md-center">
                     <div class="TextCenter">
                         <h1>Admin Panel</h1>
                     </div>
                     <div class="TextCenter">
+=======
+                <div className="row justify-content-md-center">
+                    <div className="col-md-auto">
+                        <h1>Admin Panel</h1>
+                    </div>
+                    <div className="col-md-auto">
+>>>>>>> 493c116b462a9e3eae0e662e861e7978f6c98c9e
                             <Link 
                              to={{
                             pathname: '/CreateSurvey',
