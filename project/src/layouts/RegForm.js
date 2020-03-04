@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios";
 import logo from './images/logo2.png'
-import { Link } from "rebass";
+import { Link, Redirect } from 'react-router-dom';
 /*
     TO IMPLEMENT:
         password confirmation
@@ -19,7 +18,8 @@ export default class RegForm extends React.Component {
       email: "",
       password: "",
       passwordConfirm: "",
-      passwordsCorrect: false
+      passwordsCorrect: false,
+      Merror: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -67,30 +67,51 @@ export default class RegForm extends React.Component {
 
     if (this.state.passwordsCorrect = true) {
 
-      axios
-        .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/register", {
-          forename: this.state.forename,
-          surname: this.state.surname,
-          email: this.state.email,
-          password: this.state.password
-        })
-        .then(function (response) {
-          console.log(response);
+      
+        fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/register", {
+          method: 'POST',
+            /* headers: {
+              'Content-Type': 'application/json'
+            }, */
+            body: JSON.stringify({
+              forename: this.state.forename,
+              surname: this.state.surname,
+              email: this.state.email,
+              password: this.state.password,
+            })
+            })
+          /*  .then((response) => {
+              return response.json();
+      
+            })  */
+            .then((data) => {
+              console.log(data.error);
+              
+              /* this.state.Merror = data.error;
+              
+              if (this.state.Merror == false) {
+                this.setState({ Redirect: true });
+              }
+              else {
+                alert("Upps...\nIt looks like this emial address\nis already taken!")
+              } */
 
-          
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-   /* else{
-      alert("Account Already Exists")
-    }*/
-  }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      }
+}
 
   render() {
 
-    let regNav = this.state.passwordsCorrect ? '/Home' : ''
+    if (this.state.Redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/Home',
+        }} />
+      )
+    }
 
     return (
 
@@ -161,13 +182,11 @@ export default class RegForm extends React.Component {
           </div>
           
           <div className = 'buttonContainer'>
-            <Link to={regNav}>
               <button 
                 type="submit" 
                 className = 'space button button3'>
               Register
               </button>
-            </Link>
           </div>
         
         </div>
