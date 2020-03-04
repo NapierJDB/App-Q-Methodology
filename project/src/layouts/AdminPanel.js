@@ -29,7 +29,8 @@ export default class AdminPanel extends React.Component {
 
     handleLogout = event => {
         // This method clears the token_data variable
-        //window.token_data = null
+        localStorage.removeItem('ID');
+        localStorage.removeItem('TOKEN');
     }
     
 

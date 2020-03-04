@@ -68,6 +68,10 @@ class NewStatements extends Component {
         this.state.total = parseInt(this.state.total) + 1
     }
 
+    clearLocalStorage() {
+        localStorage.removeItem('TOTAL');
+    }
+
    
 
     render(){
@@ -93,7 +97,8 @@ class NewStatements extends Component {
 
                 <div>
                     <Link to={'/AdminPanel'}>
-                    <button className = 'space button button3'>
+                    <button className = 'space button button3'
+                        onClick={this.clearLocalStorage}>
                         Complete
                     </button>
                     </Link>
