@@ -17,11 +17,20 @@ import {
 import './App.css';
 
 export default class Participant extends Component {
+
+
+
+
+
+
+
+    
     render() {
         return (
             <div className='TextCenter'>
                 <img src={logo}/>
                 <h1>Welcome to Research Login</h1>
+                <h2>Enter your code below</h2>
                 <div className = 'column'>
 
                     <input className = 'space textbox'
@@ -39,7 +48,7 @@ export default class Participant extends Component {
                     <button 
                         type="submit" 
                         className = 'space button button3'>
-                        Login
+                        Enter
                     </button>
                 </Link>
                 </div>

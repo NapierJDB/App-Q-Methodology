@@ -4,20 +4,8 @@ import axios from 'axios';
 import './App.css'; 
 import logo from './images/logo2.png'
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-  withRouter,
-  Redirect,
-  MemoryRouter
-} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './App.css';
-import { MyConsumer, MyProvider } from '../Context';
-import Test from './Test';
-import Test2 from './Test2';
 
 //import { push } from 'connected-react-router';
 
@@ -47,6 +35,11 @@ export default class Home extends React.Component {
     });
   }
 
+  /*
+  handleSubmit method is used to pull user detail from back end
+  it takes parameters email and password 
+   */
+
   handleSubmit(event) {
     event.preventDefault()
 
@@ -59,8 +52,14 @@ export default class Home extends React.Component {
         })
       .then((response) => {
 
+        /*
+        Save response from the backend to console
+        You can view this in your browes by going into 
+        inspect element -> console
+        */
         console.log(response);
 
+        // The respone is saved in the user state
         this.state.user = response.data;
 
         console.log(this.state.user);
@@ -69,6 +68,13 @@ export default class Home extends React.Component {
           userData: this.state.user
         });
 
+
+        /* 
+        This maps and stores indiviudual things needed in single valiables
+         in this case we're storing id, error, and token
+         we need to store error becuase it is used to validate 
+         if the data is successfully retrieved from the back end 
+        */
 
         // ---STORING USER ID---
         this.state.id = this.state.userData.map(
@@ -90,8 +96,41 @@ export default class Home extends React.Component {
         console.log('TOKEN: ' + this.state.token);
 
 
+        // This if statement validate the response fromt he backend by checking the error status
+
         if (this.state.error == 'false') {
           this.setState({ Redirect: true });
+
+          /* 
+          We need to store those values
+           and because due to factors like time, and our current skills
+           we faild to implement secure data storage such as 'Context' or 'Redux' for our app
+           therfore we decided to use local storage
+           which we normally woulnd't use becuase that makes the application not secure
+           You can access local storage by naviating in the 'inspect elemnt -> Storage -> Local storage
+           different browser have different set up but it should be simillar
+           now that the data is passed to local storage it should be displayed there
+           and it can be access everywhere 
+           (we need to implement functioannlity which will reset or clear the local storage
+           when user clicks log out or closes the browser)
+           You can use this page as reference to implement functionality for the Participant.js page so 
+           it should take the surveycode as an input and then
+           the response should be displayed in the console 
+           and checked if its valid by validating the error message
+           if valid it should return a bunch of things in the array
+           which should then be split into seperate variables and each variable
+           should be passed to be stored in the local storage
+           so it can be accessed accress all pages.
+           When the user is finished with the survey and it is completed the local storage should be cleared 
+
+           Also there are two different methods to retrive response this is due to the fact that
+           in the login screen we are using a library called axios and if you take a look at the
+           createSurvey.js page you will see that it is set up slightly different
+           and I believe that the way our end point (the big link) will work for the participant.js page will be set 
+           up to work without axios library so it would be best to use CreateSurvey.js as reference
+           to create the structure
+
+          */
 
           // ---PASS TO LOCAL STORAGE---
           localStorage.setItem('ID', this.state.id);

@@ -67,7 +67,6 @@ export default class RegForm extends React.Component {
 
     if (this.state.passwordsCorrect = true) {
 
-      alert("Success")
       axios
         .post("https://soc-web-liv-60.napier.ac.uk/API/public/account/register", {
           forename: this.state.forename,
@@ -77,6 +76,8 @@ export default class RegForm extends React.Component {
         })
         .then(function (response) {
           console.log(response);
+
+          
         })
         .catch(function (error) {
           console.log(error);
