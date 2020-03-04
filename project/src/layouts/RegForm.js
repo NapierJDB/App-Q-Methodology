@@ -67,41 +67,42 @@ export default class RegForm extends React.Component {
 
     if (this.state.passwordsCorrect = true) {
 
-      
-        fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/register", {
-          method: 'POST',
-            /* headers: {
-              'Content-Type': 'application/json'
-            }, */
-            body: JSON.stringify({
-              forename: this.state.forename,
-              surname: this.state.surname,
-              email: this.state.email,
-              password: this.state.password,
-            })
-            })
-          /*  .then((response) => {
-              return response.json();
-      
-            })  */
-            .then((data) => {
-              console.log(data.error);
-              
-              /* this.state.Merror = data.error;
-              
-              if (this.state.Merror == false) {
-                this.setState({ Redirect: true });
-              }
-              else {
-                alert("Upps...\nIt looks like this emial address\nis already taken!")
-              } */
 
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-      }
-}
+      fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/account/register", {
+        method: 'POST',
+
+        body: JSON.stringify({
+          forename: this.state.forename,
+          surname: this.state.surname,
+          email: this.state.email,
+          password: this.state.password,
+        })
+      })
+         .then((response) => {
+          return response.json();
+        }) 
+        .then((data) => {
+          console.log(data.error);
+
+          //this.state.Merror = data.error;
+
+          if (!data.error) {
+
+            alert(data.message)
+
+            this.setState({ Redirect: true });
+          }
+          else {
+
+            alert(data.message)
+          }
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
 
   render() {
 
@@ -115,81 +116,81 @@ export default class RegForm extends React.Component {
 
     return (
 
-      <div className = 'TextCenter'>
-        <img src={logo}/>
-        <h1 className = 'primary'>CREATE ACCOUNT</h1>
+      <div className='TextCenter'>
+        <img src={logo} />
+        <h1 className='primary'>CREATE ACCOUNT</h1>
         <form onSubmit={this.handleSubmit}>
-          
+
           <div>
-            <div className = 'column'>
-            <input className = 'space textbox'
-              type="text"
-              name="forename"
-              placeholder="Forename"
-              forename={this.state.forename}
-              //function call
-              onChange={this.handleChange}
-              required
-            />
+            <div className='column'>
+              <input className='space textbox'
+                type="text"
+                name="forename"
+                placeholder="Forename"
+                forename={this.state.forename}
+                //function call
+                onChange={this.handleChange}
+                required
+              />
             </div>
-          
-          <div>
-          <input className = 'space textbox'
-            type="text"
-            name="surname"
-            placeholder="Surname"
-            surname={this.state.surname}
-            //function call
-            onChange={this.handleChange}
-            required
-          />
-          </div>
-          
-          <div>
-          <input className = 'space textbox'
-            type="email"
-            name="email"
-            placeholder="Email"
-            email={this.state.email}
-            //function call
-            onChange={this.handleChange}
-            required
-          />
-          </div>
-          
-          <div>
-          <input className = 'space textbox'
-            type="password"
-            name="password"
-            placeholder="Password"
-            password={this.state.password}
-            //function call
-            onChange={this.handleChange}
-            required
-          />
-          </div>
-          
-          <div>
-          <input className = 'space textbox'
-            type="password"
-            name="passwordConfirm"
-            placeholder="Confirm Password"
-            password={this.state.passwordConfirm}
-            //function call
-            onChange={this.handleChange}
-            required
-          />
-          </div>
-          
-          <div className = 'buttonContainer'>
-              <button 
-                type="submit" 
-                className = 'space button button3'>
-              Register
+
+            <div>
+              <input className='space textbox'
+                type="text"
+                name="surname"
+                placeholder="Surname"
+                surname={this.state.surname}
+                //function call
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <input className='space textbox'
+                type="email"
+                name="email"
+                placeholder="Email"
+                email={this.state.email}
+                //function call
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <input className='space textbox'
+                type="password"
+                name="password"
+                placeholder="Password"
+                password={this.state.password}
+                //function call
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <input className='space textbox'
+                type="password"
+                name="passwordConfirm"
+                placeholder="Confirm Password"
+                password={this.state.passwordConfirm}
+                //function call
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className='buttonContainer'>
+              <button
+                type="submit"
+                className='space button button3'>
+                Register
               </button>
+            </div>
+
           </div>
-        
-        </div>
         </form>
       </div>
     );

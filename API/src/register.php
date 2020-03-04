@@ -6,7 +6,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 function register(Request $request, Response $response)
 {
 
-    
     $data = json_decode($request->getBody());
 
     if (isset($data->email) && isset($data->forename) && isset($data->surname) && isset($data->password)) {
@@ -21,7 +20,9 @@ function register(Request $request, Response $response)
 
                 $token = createToken($data);
 
-                return $response->withJson(sendValidMail($data, $token));
+                return $response->getBody()->write(sendValidMail($data, $token));
+
+                //return $response->withJson([sendValidMail($data, $token)]);
 
             } else {
 
@@ -53,23 +54,23 @@ function sendValidMail($data, $token)
     $mail = new PHPMailer; // create a new object
 
     try {
-        
-     /*    $mail->IsSMTP(); 
+
+        /*    $mail->IsSMTP();
         $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
         $mail->Port = 465; // or 587
         $mail->IsHTML(true);
         $mail->Host = "Localhost"; */
         //GMAIL SETTINGS
- $mail->IsSMTP(); // enable SMTP
-$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-$mail->SMTPAuth = true; // authentication enabled
-$mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
-$mail->Host = "smtp.gmail.com"; //smtp sever address
-$mail->Port = 465; // or 587
-$mail->IsHTML(true);
-$mail->Username = "qmethodologyapp@gmail.com"; //smtp user
-$mail->Password = 'Qmethodology'; //smtp password 
- 
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "smtp.gmail.com"; //smtp sever address
+        $mail->Port = 465; // or 587
+        $mail->IsHTML(true);
+        $mail->Username = "qmethodologyapp@gmail.com"; //smtp user
+        $mail->Password = 'Qmethodology'; //smtp password
+
         $mail->SetFrom("qmethodologyapp@gmail.com"); //sent from
         $mail->Subject = "Test";
         $mail->AddAddress($data->email); // sent to
@@ -93,7 +94,7 @@ $mail->Password = 'Qmethodology'; //smtp password
 
         } else {
 
-            return array(['error' => false, 'message' => 'Your account has been successfully registered, please check your email']);
+            return  json_encode (array ('error' => false, 'message' => 'Your account has been successfully registered, please check your email'));
 
         }
 
@@ -101,13 +102,13 @@ $mail->Password = 'Qmethodology'; //smtp password
 
         removeAccount($data);
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return "['error' => true, 'message' => $e->getMessage()]";
 
     } catch (Exception $e) {
 
         removeAccount($data);
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return "['error' => true, 'message' => $e->getMessage()]";
 
     }
 
