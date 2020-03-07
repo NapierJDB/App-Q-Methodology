@@ -1,4 +1,5 @@
 <?php
+
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -196,13 +197,14 @@ function editStatement(Request $request, Response $response)
 function checkNumber($data)
 {
 
-    $sql = 'SELECT * FROM q_sort_cards WHERE number = :number';
+    $sql = 'SELECT * FROM q_sort_cards WHERE number = :number AND researchID = :researchID';
 
     try {
 
         $db = connect();
         $stmt = $db->prepare($sql);
         $stmt->bindParam('number', $data->number);
+        $stmt->bindParam('researchID', $data->researchID);
         $stmt->execute();
         $object = $stmt->fetchObject();
 
@@ -210,7 +212,7 @@ function checkNumber($data)
 
     } catch (PDOException $e) {
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 }
@@ -233,7 +235,7 @@ function checkStatement($data)
 
     } catch (PDOException $e) {
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 

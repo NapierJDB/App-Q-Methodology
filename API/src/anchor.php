@@ -1,4 +1,5 @@
 <?php
+
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -203,7 +204,7 @@ function checkAnchor($data)
 
     } catch (PDOException $e) {
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 
@@ -227,7 +228,7 @@ function checkMarkerNum($data)
 
     } catch (PDOException $e) {
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 

@@ -3,7 +3,44 @@
 use \Firebase\JWT\JWT;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-// account group
+//validate token
+$validate = function ($request, $response, $next) {
+
+    $header = $request->getHeaders();
+    //return $response->withJson(['error' => true, 'message' => $header['HTTP_AUTHORIZATION']]);
+
+    if ($header) {
+
+        $token = implode($header['HTTP_AUTHORIZATION']);
+        $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
+
+        try {
+
+            $decoded = JWT::decode($token, $key, array('HS256'));
+
+            $response = $next($request, $response);
+
+            return $response;
+
+        } catch (UnexpectedValueException $e) {
+
+            return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+
+        } catch (Exception $e) {
+
+            return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+
+        }
+
+    } else {
+
+        return $response->withJson(['error' => true, 'message' => 'Empty header!']);
+
+    }
+
+};
+
+//Router
 $app->group('/api', function () use ($app) {
 
     $app->group('/account', function () use ($app) {
@@ -31,43 +68,13 @@ $app->group('/api', function () use ($app) {
         $app->post('/viewStatement', 'viewStatement');
         $app->post('/editStatement', 'editStatement');
 
+    })->add($validate);
 
+    $app->group('/user', function () use ($app) {
 
-    })->add(function ($request, $response, $next) {
-
-        $header = $request->getHeaders();
-        //return $response->withJson(['error' => true, 'message' => $header['HTTP_AUTHORIZATION']]);
-
-         if ($header) {
-            //$token = $header['HTTP_AUTHORIZATION'];
-            $token = implode($header['HTTP_AUTHORIZATION']);
-            $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
-
-            
-
-            try {
-
-                $decoded = JWT::decode($token, $key, array('HS256'));
-
-                $response = $next($request, $response);
-
-                return $response;
-
-            } catch (UnexpectedValueException $e) {
-
-                return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
-
-            } catch (Exception $e) {
-
-                return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
-
-            }
-
-        } else {
-
-            return $response->withJson(['error' => true, 'message' => 'Empty header!']);
-
-        } 
+        $app->post('/checkCode', 'checkCode');
+        $app->post('/getResearch', 'getResearch')->add($validate);
+        $app->post('/sendResults', 'sendResults')->add($validate);
 
     });
 

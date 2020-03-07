@@ -1,4 +1,5 @@
 <?php
+
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -20,7 +21,7 @@ function register(Request $request, Response $response)
 
                 $token = createToken($data);
 
-                return $response->getBody()->write(sendValidMail($data, $token));
+                return $response->withJson(sendValidMail($data, $token));
 
                 //return $response->withJson([sendValidMail($data, $token)]);
 
@@ -94,7 +95,7 @@ function sendValidMail($data, $token)
 
         } else {
 
-            return  json_encode (array ('error' => false, 'message' => 'Your account has been successfully registered, please check your email'));
+            return array('error' => false, 'message' => 'Your account has been successfully registered, please check your email');
 
         }
 
@@ -102,13 +103,13 @@ function sendValidMail($data, $token)
 
         removeAccount($data);
 
-        return "['error' => true, 'message' => $e->getMessage()]";
+        return array('error' => true, 'message' => $e->getMessage());
 
     } catch (Exception $e) {
 
         removeAccount($data);
 
-        return "['error' => true, 'message' => $e->getMessage()]";
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 

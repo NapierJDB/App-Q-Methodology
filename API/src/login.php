@@ -1,4 +1,5 @@
 <?php
+
 use \Firebase\JWT\JWT;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -43,14 +44,14 @@ function validateCredentials($object, $data)
     //verify email
     if (!$object) {
 
-        return array(['error' => true, 'message' => 'You have entered an invalid email or password']);
+        return array('error' => true, 'message' => 'You have entered an invalid email or password');
 
     }
 
     //verify password
     if (!password_verify($data->password, $object->password)) {
 
-        return array(['error' => true, 'message' => 'You have entered an invalid email or password']);
+        return array('error' => true, 'message' => 'You have entered an invalid email or password');
 
     }
 
@@ -70,26 +71,26 @@ function validateCredentials($object, $data)
 
     } catch (PDOException $e) {
 
-        return array(['error' => true, 'message' => $e->getMessage()]);
+        return array('error' => true, 'message' => $e->getMessage());
 
     }
 
     if ($isActive == 0) {
 
-        return array(['error' => true, 'message' => 'Please check your email and activate account']);
+        return array('error' => true, 'message' => 'Please check your email and activate account');
 
     }
 
     // create token
 
-    $token = generateToken($object);
+    $token = generateTokenAdmin($object);
 
-    return array(['error' => false, 'id' => $object->id, 'token' => $token]);
+    return array('error' => false, 'id' => $object->id, 'token' => $token);
 
 }
 
 //generate token
-function generateToken($object)
+function generateTokenAdmin($object)
 {
 
     $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
@@ -98,7 +99,7 @@ function generateToken($object)
         "iss" => "qmethodology", //issuer
         //"aud" => " " //audience
         "jti" => "QMET"+time(), //unique identifier
-        "exp" => time() + 3600, // expiartion
+        "exp" => time() + 7200, // expiartion
         "iat" => time(), // the time it was issued
 
         "data" => [
