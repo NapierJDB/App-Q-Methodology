@@ -54,7 +54,7 @@ export default class SurveyOverview extends React.Component {
       
             })
             .then((data) => {
-              console.log(data);
+              console.log(data.names);
 
               //---STORING THE NAMES---
               this.state.names = data.map(({ name }) => name)
