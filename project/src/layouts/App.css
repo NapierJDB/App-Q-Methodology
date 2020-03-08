@@ -129,7 +129,6 @@ h1 {font-family: 'Titillium Web'}
 .button3 {
   background-color: white; 
   color: black; 
-  
   border: 2px solid rgba(0, 0, 0, .14);
 }
 
@@ -254,8 +253,29 @@ AdminPanel.js
 
 }
 
+.boxImg{
+  background-color: #fff;
+  height: 100px;
+  width: 100px; 
+}
 
-
+.boxButton {
+  height: 120px;
+  font-family: 'Titillium Web';
+  border: 2px solid rgba(0, 0, 0, .14);
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 120px;
+  border-radius: 7px;
+  margin: 8px 0;
+  margin: 10px;
+  font-family: 'Titillium Web';
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 /*
 User
 */
@@ -385,3 +405,4 @@ p {font-family: 'Titillium Web';}
     font-size:10px;
   }
 }
+
