@@ -69,7 +69,7 @@ export default class QSort2 extends Component {
                         </div>
                     </div>
 
-                    <Link to={'/QSort2Positive'}>
+                    <Link to={'/Debrief'}>
                         <button className='space button button3'>
                             Next
                         </button>
