@@ -3,6 +3,8 @@ import './App.css';
 import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
+import leftArrow from './images/left.png'
+import rightArrow from './images/right.png'
 
 import { Link,Redirect } from 'react-router-dom';
 import './App.css';
@@ -117,7 +119,7 @@ export default class QSort2 extends Component {
 
         return (
             <div className = 'TextCenter'>
-                <h1>Q Sort Stage 2</h1>
+                <h1>Q Sort Stage 2 - Neutral</h1>
                     <div>
 
                         <div>
@@ -150,7 +152,7 @@ export default class QSort2 extends Component {
 
                     <Link to={'/Debrief'}>
                         <button className='space button button3'>
-                            Done
+                            Next
                         </button>
                     </Link>
             </div>

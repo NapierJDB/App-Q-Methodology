@@ -74,7 +74,7 @@ export default class Debrief extends React.Component {
                     onChange={this.handleCheckboxChange}
                     />
                 </p>
-                <Link to={'/Reject'}>
+                <Link to={'/End'}>
                     <button
                         className = 'space button button3'>Disagree
                     </button>
