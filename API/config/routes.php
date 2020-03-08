@@ -12,7 +12,8 @@ $validate = function ($request, $response, $next) {
     if ($header) {
 
         $token = implode($header['HTTP_AUTHORIZATION']);
-        $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
+
+        $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf"; // needs to be stored in database
 
         try {
 
@@ -41,7 +42,7 @@ $validate = function ($request, $response, $next) {
 };
 
 //Router
-$app->group('/api', function () use ($app) {
+$app->group('/api', function () use ($app, $validate) {
 
     $app->group('/account', function () use ($app) {
 
@@ -70,10 +71,10 @@ $app->group('/api', function () use ($app) {
 
     })->add($validate);
 
-    $app->group('/user', function () use ($app) {
+    $app->group('/user', function () use ($app, $validate) {
 
         $app->post('/checkCode', 'checkCode');
-        $app->post('/getResearch', 'getResearch')->add($validate);
+        $app->post('/getData', 'getData')->add($validate);
         $app->post('/sendResults', 'sendResults')->add($validate);
 
     });

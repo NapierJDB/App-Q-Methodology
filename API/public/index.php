@@ -20,7 +20,7 @@ require '../src/anchor.php';
 
 require '../src/statement.php';
 
-require '../src/checkCode.php';
+require '../src/user.php';
 
 $app->run();
 
