@@ -1,19 +1,8 @@
-import React, { Component, useState} from 'react'
-import { render } from 'react-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
 import './App.css';
 import logo from './images/logo2.png'
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-  withRouter,
-  Redirect,
-  MemoryRouter
-} from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import './App.css';
 
 export default class Participant extends Component {
@@ -22,7 +11,7 @@ export default class Participant extends Component {
 
 
 
-
+// https://soc-web-liv-60.napier.ac.uk/API/public/api/user/checkCode
 
     
     render() {
