@@ -25,6 +25,7 @@ export default class Participant extends Component {
     handleSubmit(event) {
         //event.preventDefault()
         console.log(this.state.code)
+        this.setState({ Redirect: true });
 
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/checkCode',{
             method: 'POST',
@@ -44,7 +45,7 @@ export default class Participant extends Component {
                 this.state.error = data.error;
         
                 if (this.state.error == false) {
-                    this.setState({ Redirect: true });
+                    //this.setState({ Redirect: true });
                 }
                 else {
                      alert("Opps...\nWrong code!")
