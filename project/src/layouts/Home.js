@@ -17,7 +17,7 @@ export default class Home extends React.Component {
       password: '',
 
       user: '',
-      userData: '',
+      userData: [],
       token: '',
       id: '',
       error: '',
@@ -64,9 +64,11 @@ export default class Home extends React.Component {
 
         console.log(this.state.user);
 
-        this.setState({
-          userData: this.state.user
-        });
+      //  this.setState({
+      //    userData: this.state.user
+      //  });
+
+      //  console.log(this.state.userData);
 
 
         /* 
@@ -76,29 +78,39 @@ export default class Home extends React.Component {
          if the data is successfully retrieved from the back end 
         */
 
-        // ---STORING USER ID---
-        this.state.id = this.state.userData.map(
-          mUserData => mUserData.id);
+       let {id, error, token} = this.state.user;
 
+        // ---STORING USER ID---
+        
+        this.state.id = id
         console.log('ID: ' + this.state.id);
+
+         // ---STORING USER ID---
+     /*    this.state.id = Object.values(this.state.user).map(function (id){
+           return new (id);
+         })
+
+        console.log('ID: ' + this.state.id); */
 
 
         // ---STORING USER ERROR---
-        this.state.error = this.state.userData.map(
-          mUserData => mUserData.error);
+       // this.state.error = this.state.userData.map(
+         // mUserData => mUserData.error);
 
+        this.state.error = error
         console.log('ERROR: ' + this.state.error);
 
         // ---STORING USER TOKEN
-        this.state.token = this.state.userData.map(
-          mUserData => mUserData.token);
+       // this.state.token = this.state.userData.map(
+         // mUserData => mUserData.token);
 
+        this.state.token = token
         console.log('TOKEN: ' + this.state.token);
 
 
         // This if statement validate the response fromt he backend by checking the error status
 
-        if (this.state.error == 'false') {
+        if (this.state.error == false) {
           this.setState({ Redirect: true });
 
           /* 
