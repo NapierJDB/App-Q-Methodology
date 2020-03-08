@@ -5,15 +5,15 @@ import AdminPanel from "./layouts/AdminPanel";
 import SurveyOverview from './layouts/SurveyOverview';
 import CreateSurvey from './layouts/CreateSurvey';
 import PrivacyScreen from './layouts/PrivacyScreen';
-import Reject from './layouts/Reject'
 import NewAnchors from './layouts/NewAnchors';
 import NewStatements from './layouts/NewStatements';
 import Debrief from './layouts/Debrief'
 import Splash from './layouts/Splash';
 import Participant from './layouts/Participant';
-import InfoParticipant from './layouts/InfoParticipant';
 import QSort1 from './layouts/QSort1';
-import QSort2 from './layouts/QSort2';
+import QSort2Neg from './layouts/QSort2 - Negative';
+import QSort2Neu from './layouts/QSort2 - Neutral';
+import QSort2Pos from './layouts/QSort2 - Positive';
 import End from './layouts/End';
 import {
   BrowserRouter as Router,
@@ -42,13 +42,13 @@ export default class App extends React.Component {
               <Route path='/NewAnchors' component={NewAnchors} />
               <Route path='/NewStatements' component={NewStatements} />
               <Route path='/PrivacyScreen' component={PrivacyScreen} />
-              <Route path='/Reject' component={Reject} />
               <Route path='/Debrief' component={Debrief} />
               <Route path='/Splash' component={Splash} />
               <Route path='/Participant' component={Participant} />
-              <Route path='/InfoParticipant' component={InfoParticipant} />
               <Route path='/QSort1' component={QSort1} />
-              <Route path='/QSort2' component={QSort2} />
+              <Route path='/QSort2Negative' component={QSort2Neg} />
+              <Route path='/QSort2Neutral' component={QSort2Neu} />
+              <Route path='/QSort2Positive' component={QSort2Pos} />
               <Route path='/End' component={End} />
             </Switch>
           </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import Reject from './Reject'
 import {
     BrowserRouter as Router,
     Route,
@@ -75,7 +74,7 @@ export default class PrivacyScreen extends React.Component {
                     </button>
                 </Link>
                 
-                <Link to={'/InfoParticipant'}>
+                <Link to={'/QSort1'}>
                   <button 
                     name=""
                     type="submit" 

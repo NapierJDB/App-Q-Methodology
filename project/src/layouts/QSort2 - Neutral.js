@@ -5,6 +5,8 @@ import './App.css';
 import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
+import leftArrow from './images/left.png'
+import rightArrow from './images/right.png'
 
 import {
   BrowserRouter as Router,
@@ -31,17 +33,17 @@ export default class QSort2 extends Component {
     render() {
         return (
             <div className = 'TextCenter'>
-                <h1>Q Sort Stage 2</h1>
+                <h1>Q Sort Stage 2 - Neutral</h1>
                     <div>
                         <div>
-                            <button>
-                                test
+                            <button className='space boxButton button3'>
+                                <img className = "boxImg" src = {leftArrow}/>
                             </button>
                             <textarea>
                                 hwerkwherkwenkwehr
                             </textarea>
-                            <button>
-                                test2
+                            <button className='space boxButton button3'>
+                                <img className = "boxImg" src = {rightArrow}/>
                             </button>
                         </div>
                     
@@ -67,9 +69,9 @@ export default class QSort2 extends Component {
                         </div>
                     </div>
 
-                    <Link to={'/Debrief'}>
+                    <Link to={'/QSort2Positive'}>
                         <button className='space button button3'>
-                            Done
+                            Next
                         </button>
                     </Link>
             </div>
