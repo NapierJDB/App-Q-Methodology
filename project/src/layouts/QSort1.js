@@ -114,7 +114,7 @@ export default class QSort1 extends Component {
         if (this.state.Redirect) {
             return (
               <Redirect to={{
-                pathname: '/QSort2',
+                pathname: '/QSort2Negative',
               }} />
             )
           }
