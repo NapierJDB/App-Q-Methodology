@@ -2,7 +2,9 @@ import React, { Component, useState} from 'react'
 import { render } from 'react-dom';
 import axios from 'axios';
 import './App.css';
-import logo from './images/logo2.png'
+import redBox from './images/redbox.png'
+import greenBox from './images/greenbox.png'
+import whiteBox from './images/whitebox.png'
 
 import {
   BrowserRouter as Router,
@@ -17,10 +19,53 @@ import {
 import './App.css';
 
 export default class QSort2 extends Component {
+
+    constructor (){
+        super();
+        
+        this.state = {
+        
+        }
+    }
+
     render() {
         return (
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 2</h1>
+                    <div>
+                        <div>
+                            <button>
+                                test
+                            </button>
+                            <textarea>
+                                hwerkwherkwenkwehr
+                            </textarea>
+                            <button>
+                                test2
+                            </button>
+                        </div>
+                    
+                        <button className='space boxButton button3'>
+                            <img className = "boxImg" src = {redBox}/>
+                        </button>
+                        <button className='space boxButton button3'>
+                            <img className = "boxImg" src = {whiteBox}/>
+                        </button>
+                        <button className='space boxButton button3'>
+                            <img className = "boxImg" src = {greenBox}/>
+                        </button>
+                        <div>
+                            <button className='space button button3'>
+                                Edit Negative
+                            </button>
+                            <button className='space button button3'>
+                                Edit Neutral
+                            </button>
+                            <button className='space button button3'>
+                                Edit Positive
+                            </button>
+                        </div>
+                    </div>
 
                     <Link to={'/Debrief'}>
                         <button className='space button button3'>
