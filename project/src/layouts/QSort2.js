@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './App.css';
 import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
@@ -17,23 +17,39 @@ export default class QSort2 extends Component {
             index: 0,
            // whiteBoxArray: [],
            // greenBoxArray: [],
+         //  markerNum: [-5,-4,-3,-2,-1],
+         //  items: [],
+           anchorsArray: [
+               { markerNum: -5, items: 1, statements: []  },
+               { markerNum: -4, items: 2, statements: []  },
+               { markerNum: -3, items: 3, statements: []  },
+               { markerNum: -2, items: 4, statements: []  },
+               { markerNum: -1, items: 5, statements: []  },
+           ],
+
+           
         }
 
         this.getArrays = this.getArrays.bind(this);
-
         this.nextItem = this.nextItem.bind(this);
         this.prevItem = this.prevItem.bind(this);
+        this.addToAnchor = this.addToAnchor.bind(this);
     }
 
     getArrays() {
-        this.state.redBoxArray = localStorage.getItem('RED_BOX');
+        var asString = localStorage.getItem('RED_BOX');
+        this.setState({
+            redBoxArray: JSON.parse(asString)
+        })
+        console.log('RED: ' + this.state.redBoxArray)
+       // this.state.redBoxArray = JSON.parse(asString)
       //  this.state.whiteBoxArray = localStorage.getItem('WHITE_BOX');
        // this.state.greenBoxArray = localStorage.getItem('GREEN_BOX');
     }
 
     componentDidMount(){
         this.getArrays();
-        console.log('RED: ' + this.state.redBoxArray)
+        
       //  console.log('WHITE: ' + this.state.whiteBoxArray)
       //  console.log('GREEN: ' + this.state.greenBoxArray)
     }
@@ -50,8 +66,7 @@ export default class QSort2 extends Component {
             this.setState(prevState => ({
                 index: prevState.index + 1
             }))
-        }
-        
+        }        
     }
 
     prevItem() {       
@@ -62,33 +77,75 @@ export default class QSort2 extends Component {
         }))            
     }
 
+    addToAnchor() {
+        // this.setState(prevState => ({
+        //     anchorsArray: [...prevState.anchorsArray.statements, this.state.redBoxArray[this.state.index]]
+        // }))
+
+        // this.setState({
+        //     anchorsArray: { statements: [this.state.redBoxArray[this.state.index]]}
+        // })
+
+        this.setState({
+            anchorsArray: {...this.state.anchorsArray.statements = [this.state.redBoxArray[this.state.index]]}
+        })
+    }
+
     render() {
         let {index, redBoxArray} = this.state;
+
+        const anchorsList = this.state.anchorsArray.map((anchor, index) => {
+            return (
+                <tr key={index}>
+                    <td>{anchor.markerNum}</td>
+                    <td>{anchor.items}</td>
+                    <td>
+                    <button
+                        className = 'space tableButton tableButton3'
+                        onClick={this.addToAnchor}>
+                        Add                           
+                    </button>
+                    <button
+                        className = 'space tableButton tableButton3'>
+                        Delete
+                    </button>
+                    </td>
+                    <td>{anchor.statements}</td>
+                </tr>
+            )
+        })
+
         return (
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 2</h1>
                     <div>
+
                         <div>
                             <button onClick={this.nextItem}>
                                 Next item
                             </button>
-                            <h3>{this.state.redBoxArray[1]}</h3>
+                            <h2>{redBoxArray[index]}</h2>
                             <button onClick={this.prevItem}>
                                 Previous item
                             </button>
                         </div>
                     
-                        <button className='space boxButton button3'>
-                            <img className = "boxImg" src = {redBox}/>
-                        </button>
-                        
                         <div>
-
-                            <button className='space button button3'>
-                                Edit Negative
-                            </button>
-                           
+                            <table className="center">
+                                <thead>
+                                    <tr>
+                                    <th>Marker number</th>
+                                    <th>Number of items</th>
+                                    <th>Action</th>
+                                    <th>Q-sort Cards</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {anchorsList}     
+                                </tbody>         
+                            </table>
                         </div>
+                        
                     </div>
 
                     <Link to={'/Debrief'}>
