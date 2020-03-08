@@ -68,22 +68,25 @@ export default class CreateSurvey_1 extends React.Component {
       })
       .then((response) => {
         return response.json();
+        //console.log(response);
 
-      })
-      .then((data) => {
-        console.log(data);
-
-        this.state.error = data.error;
         
-        if (this.state.error == false) {
-          this.setState({ Redirect: true });
-        }
-        else {
-          alert("Upps...\nIt looks like this survey already exist!")
-        }
-
 
       })
+       .then((data) => {
+         console.log(data);
+
+         this.state.error = data.error;
+        
+         if (this.state.error == false) {
+           this.setState({ Redirect: true });
+         }
+         else {
+           alert("Upps...\nIt looks like this survey already exist!")
+         }
+
+
+       })
       .catch(function (error) {
         console.log(error);
       });
