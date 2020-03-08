@@ -71,23 +71,12 @@ export default class QSort2 extends Component {
                 <h1>Q Sort Stage 2 - Neutral</h1>
                     <div>
                         <div>
-<<<<<<< HEAD:project/src/layouts/QSort2 - Neutral.js
-                            <button className='space boxButton button3'>
-                                <img className = "boxImg" src = {leftArrow}/>
-                            </button>
-                            <textarea>
-                                hwerkwherkwenkwehr
-                            </textarea>
-                            <button className='space boxButton button3'>
-                                <img className = "boxImg" src = {rightArrow}/>
-=======
                             <button onClick={this.nextItem}>
                                 Next item
                             </button>
                             <h3>{this.state.redBoxArray[1]}</h3>
                             <button onClick={this.prevItem}>
                                 Previous item
->>>>>>> b6021206056feed402a46bb4426a4a61515e77d3:project/src/layouts/QSort2.js
                             </button>
                         </div>
                     

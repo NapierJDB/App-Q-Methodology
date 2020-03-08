@@ -166,14 +166,9 @@ export default class QSort1 extends Component {
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <Link to={'/QSort2Negative'}>
-                        <button className='space button button3'>
-=======
                     
                         <button className='space button button3'
                             onClick={this.checkStatus}>
->>>>>>> b6021206056feed402a46bb4426a4a61515e77d3
                             Next
                         </button>
                     
