@@ -14,7 +14,7 @@ function addResearch(Request $request, Response $response)
 
     if (isset($data->researcherID) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief)) {
 
-        $object = checkName($data);
+        $object = checkResearchName($data);
 
         if (!$object) {
 
@@ -84,7 +84,7 @@ function generateCode()
 }
 
 //Check if research name already exists
-function checkName($data)
+function checkResearchName($data)
 {
 
     $sql = 'SELECT * FROM research WHERE name = :name';
@@ -108,7 +108,7 @@ function checkName($data)
 }
 
 //Check if research id exists
-function checkId($data)
+function checkResearchId($data)
 {
 
     $sql = 'SELECT * FROM research WHERE id = :id';
@@ -173,7 +173,7 @@ function deleteResearch(Request $request, Response $response)
 
     if (isset($data->id)) {
 
-        $object = checkId($data);
+        $object = checkResearchId($data);
 
         if (!$object) {
 
@@ -222,7 +222,7 @@ function editResearch(Request $request, Response $response)
 
     if (isset($data->id) && isset($data->name) && isset($data->description) && isset($data->box1) && isset($data->box2) && isset($data->box3) && isset($data->privacy_statement) && isset($data->debrief)) {
 
-        $object = checkId($data);
+        $object = checkResearchId($data);
 
         if (!$object) {
 

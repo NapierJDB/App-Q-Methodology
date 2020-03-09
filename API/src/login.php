@@ -83,9 +83,9 @@ function validateCredentials($object, $data)
 
     // create token
 
-    $token = generateTokenAdmin($object);
+    $tokenAdmin = generateTokenAdmin($object);
 
-    return array('error' => false, 'id' => $object->id, 'token' => $token);
+    return array('error' => false, 'id' => $object->id, 'token' => $tokenAdmin);
 
 }
 
@@ -93,7 +93,7 @@ function validateCredentials($object, $data)
 function generateTokenAdmin($object)
 {
 
-    $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf";
+    $key = "sdfgd&&£2Q!1asDASDFFAs&(sdfsdfg;'#;!£^&asfsadf"; //needs to be stored in database
 
     $payload = [
         "iss" => "qmethodology", //issuer

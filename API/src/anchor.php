@@ -92,7 +92,7 @@ function deleteAnchor(Request $request, Response $response)
 
     if (isset($data->id)) {
 
-        $object = checkAnchor($data);
+        $object = checkAnchorId($data);
 
         if (!$object) {
 
@@ -141,7 +141,7 @@ function editAnchor(Request $request, Response $response)
 
     if (isset($data->id) && isset($data->markerNum) && isset($data->items)) {
 
-        $object = checkAnchor($data);
+        $object = checkAnchorId($data);
 
         if (!$object) {
 
@@ -187,7 +187,7 @@ function editAnchor(Request $request, Response $response)
 
 }
 //Check if anchor id exists
-function checkAnchor($data)
+function checkAnchorId($data)
 {
 
     $sql = 'SELECT * FROM anchors WHERE id = :id';
