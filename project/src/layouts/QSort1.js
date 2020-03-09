@@ -10,6 +10,18 @@ export default class QSort1 extends Component {
     constructor(props){
         super(props);
         this.state = {
+
+            researchToken: '',
+            researchId: '',
+
+            researchName: localStorage.getItem('RE_NAME'),
+            box1: localStorage.getItem('RE_BOX1'),
+            box2: localStorage.getItem('RE_BOX2'),
+            box3: localStorage.getItem('RE_BOX3'),
+            statements: [],
+            formatedStatements: [],
+
+
             testArray: ['Anna','Joel', 'Bartek', 'Milo', 'Stench'],
             redArray: [],
             whiteArray: [],
@@ -17,8 +29,9 @@ export default class QSort1 extends Component {
             index: 0,
         }
 
+        this.getStatements = this.getStatements.bind(this);
+
         this.nextItem = this.nextItem.bind(this);
-        this.prevItem = this.prevItem.bind(this);
 
         this.addtoRed = this.addtoRed.bind(this);
         this.addtoWhite = this.addtoWhite.bind(this);
@@ -27,8 +40,56 @@ export default class QSort1 extends Component {
         this.checkStatus = this.checkStatus.bind(this);
     }
 
+    getStatements() {
+        // var asString = localStorage.getItem('RE_STATEMENTS');
+        // this.setState({
+        //     statements: JSON.parse(asString)
+        // })
+        // console.log(this.state.statements)
+
+        this.state.researchToken = localStorage.getItem('RE_TOKEN');
+        this.state.researchId = localStorage.getItem('RE_ID');
+
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/getData',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.state.researchToken,
+            },
+            body: JSON.stringify({
+                'id': this.state.researchId
+            })
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+
+                //this.state.error = data.error;
+
+                this.state.statements = data.statements
+                console.log(this.state.statements)
+
+                // Format the array appropriatelly
+                this.state.formatedStatements = this.state.statements.map(statement => 
+                    statement.number + " " + statement.description)
+                // set index to 0 so first item of formated array is displayed
+                this.setState({
+                    index: 0
+                })
+   
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+    }
+
+
+
     nextItem() {
-        if(this.state.index == this.state.testArray.length - 1){
+
+        if(this.state.index == this.state.formatedStatements.length - 1){
            
             this.setState({
                 index: 0
@@ -43,26 +104,19 @@ export default class QSort1 extends Component {
         
     }
 
-    prevItem() {       
-        if(this.state.index == 0)        
-            return;
-        this.setState(prevState => ({
-            index: prevState.index - 1
-        }))            
-    }
 
     addtoRed(e) {
 
        this.setState(prevState => ({
-           redArray: [...prevState.redArray, this.state.testArray[this.state.index]]
+           redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
        }))
 
-       let remove = this.state.testArray.indexOf(this.state.testArray[this.state.index]);
+       let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
        this.setState({
-           testArray: this.state.testArray.filter((_, i) => i !== remove)
+        formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
        },
         () => {
-            console.log('initial array: ' + this.state.testArray)
+            console.log('initial array: ' + this.state.formatedStatements)
             console.log('RED box: ' + this.state.redArray)
         })      
     }
@@ -70,15 +124,15 @@ export default class QSort1 extends Component {
     addtoWhite(e) {
 
         this.setState(prevState => ({
-            whiteArray: [...prevState.whiteArray, this.state.testArray[this.state.index]]
+            whiteArray: [...prevState.whiteArray, this.state.formatedStatements[this.state.index]]
         }))
  
-        let remove = this.state.testArray.indexOf(this.state.testArray[this.state.index]);
+        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
         this.setState({
-            testArray: this.state.testArray.filter((_, i) => i !== remove)
+            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
         },
          () => {
-             console.log('initial array: ' + this.state.testArray)
+             console.log('initial array: ' + this.state.formatedStatements)
              console.log('WHITE box: ' + this.state.whiteArray)
          })      
     }
@@ -86,21 +140,21 @@ export default class QSort1 extends Component {
     addtoGreen(e) {
 
         this.setState(prevState => ({
-            greenArray: [...prevState.greenArray, this.state.testArray[this.state.index]]
+            greenArray: [...prevState.greenArray, this.state.formatedStatements[this.state.index]]
         }))
  
-        let remove = this.state.testArray.indexOf(this.state.testArray[this.state.index]);
+        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
         this.setState({
-            testArray: this.state.testArray.filter((_, i) => i !== remove)
+            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
         },
          () => {
-             console.log('initial array: ' + this.state.testArray)
+             console.log('initial array: ' + this.state.formatedStatements)
              console.log('GREEN box: ' + this.state.greenArray)
          })      
     }
 
     checkStatus() {
-        if(this.state.testArray.length == 0)
+        if(this.state.formatedStatements.length == 0)
         {
             localStorage.setItem('RED_BOX', JSON.stringify(this.state.redArray));
             localStorage.setItem('WHITE_BOX', JSON.stringify(this.state.whiteArray));
@@ -108,6 +162,7 @@ export default class QSort1 extends Component {
             this.setState({ Redirect: true });
         }
     }
+
 
     render() {
 
@@ -118,21 +173,29 @@ export default class QSort1 extends Component {
               }} />
             )
           }
-        let {index, testArray} = this.state;
+        let {index, testArray, formatedStatements} = this.state;
         return (
             <div className = 'TextCenter'>
                 
                 <h1>Q Sort Stage 1</h1>
+                <h2>{this.state.researchName}</h2>
+
+                
+
                     <div>
                         <div>
-                            <button onClick={this.nextItem}>
+                            <button className='space button button3'
+                                    onClick={this.getStatements}>
+                                Get statements
+                            </button>                          
+                            <h2>{formatedStatements[index]}</h2>
+                            <button className='space button button3'
+                                    onClick={this.nextItem}>
                                 Next item
                             </button>
-                            <h3>{testArray[index]}</h3>
-                            <button onClick={this.prevItem}>
-                                Previous item
-                            </button>
                         </div>
+
+                        
                     
                         <button className='space boxButton button3'>
                             <img className = "boxImg" src = {redBox}/>
@@ -147,15 +210,15 @@ export default class QSort1 extends Component {
                         <div>
                             <button className='space button button3'
                                     onClick={this.addtoRed}>
-                                Edit Negative
+                                {this.state.box1}
                             </button>
                             <button className='space button button3'
                                     onClick={this.addtoWhite}>
-                                Edit Neutral
+                                {this.state.box2}
                             </button>
                             <button className='space button button3'
                                     onClick={this.addtoGreen}>
-                                Edit Positive
+                                {this.state.box3}
                             </button>
                         </div>
 
