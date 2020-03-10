@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 class AddStatement extends Component{
 
     state = {
-        statementNumber:null,
+        statementNumber: 0,
         statement:null,
-        isEditing:false
+        isEditing:false,
+
     }
 
     // call add statement (NewStatements.js)
@@ -22,6 +23,11 @@ class AddStatement extends Component{
         this.setState({
             [e.target.name]:e.target.value,
         });
+    }
+
+    updateStatementNumber(event) {
+
+        this.state.statementNumber++;
     }
 
     getResearchID(event) {
@@ -73,6 +79,8 @@ class AddStatement extends Component{
         const token = localStorage.getItem('TOKEN');
         this.setState({ researcherID, token });
 
+        this.updateStatementNumber();
+
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addStatement',  {
         method: 'POST',
         headers: {
@@ -116,13 +124,13 @@ class AddStatement extends Component{
                 <form onSubmit={this.handleSubmit}>
 
                     <div>
-                        <input className = 'space textbox'
+                        {/* <input className = 'space textbox'
                             name="statementNumber"
                             placeholder="Statement number"
                             required
                             type="number"
                             onChange={this.updateState}
-                        />
+                        /> */}
                     </div>
 
                     <div>

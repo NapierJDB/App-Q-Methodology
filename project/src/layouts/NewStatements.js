@@ -12,6 +12,7 @@ class NewStatements extends Component {
 
         statements: [],
         total: 0,
+        statementNumber: 0,
     }
 
 }
@@ -30,6 +31,7 @@ class NewStatements extends Component {
         });
 
         this.state.total = parseInt(this.state.total) - 1
+       // this.state.statementNumber++;
 
     }
 
@@ -66,6 +68,7 @@ class NewStatements extends Component {
         });
 
         this.state.total = parseInt(this.state.total) + 1
+       // this.state.statementNumber--;
     }
 
     clearLocalStorage() {

@@ -7,7 +7,14 @@ class Statements extends Component{
         this.props.updateStatement(
             this.indexNum,
             this.statementNumber.value,
-            this.statement.value,)
+            this.statement.value,
+        
+        )
+    }
+
+    updateStatementNumber(event) {
+        this.statementNumber.value = parseInt(this.statementNumber.value)-1;
+    
     }
 
     render(){
