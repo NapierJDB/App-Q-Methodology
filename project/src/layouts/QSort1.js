@@ -5,6 +5,9 @@ import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
 import {Link,Redirect} from 'react-router-dom';
 import './App.css';
+import Modal from 'react-modal';
+
+//Modal.setAppElement('App.js')
 
 export default class QSort1 extends Component {
     constructor(props){
@@ -27,6 +30,7 @@ export default class QSort1 extends Component {
             whiteArray: [],
             greenArray: [],
             index: 0,
+            visible: false
         }
 
         this.getStatements = this.getStatements.bind(this);
@@ -36,6 +40,9 @@ export default class QSort1 extends Component {
         this.addtoRed = this.addtoRed.bind(this);
         this.addtoWhite = this.addtoWhite.bind(this);
         this.addtoGreen = this.addtoGreen.bind(this);
+        
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
 
         this.checkStatus = this.checkStatus.bind(this);
     }
@@ -164,8 +171,21 @@ export default class QSort1 extends Component {
     }
 
 
-    render() {
+    openModal(){
+        this.setState({
+            visible: true
+        });
 
+    }
+
+    closeModal(){
+        this.setState({
+            visible: false
+        });
+    }
+
+
+    render() {
         if (this.state.Redirect) {
             return (
               <Redirect to={{
@@ -176,12 +196,8 @@ export default class QSort1 extends Component {
         let {index, testArray, formatedStatements} = this.state;
         return (
             <div className = 'TextCenter'>
-                
                 <h1>Q Sort Stage 1</h1>
                 <h2>{this.state.researchName}</h2>
-
-                
-
                     <div>
                         <div>
                             <button className='space button button3'
@@ -197,8 +213,18 @@ export default class QSort1 extends Component {
 
                         
                     
-                        <button className='space boxButton button3'>
+                        <button className='space boxButton button3' onClick={this.openModal}>
                             <img className = "boxImg" src = {redBox}/>
+                            
+                            <Modal isOpen={this.state.visible} >
+                                <div>
+                                    <h1> testing</h1>
+                                    
+                                    <button onClick={this.closeModal}>Close</button>
+                                </div>
+                            </Modal>
+                         
+            
                         </button>
                         <button className='space boxButton button3'>
                             <img className = "boxImg" src = {whiteBox}/>
