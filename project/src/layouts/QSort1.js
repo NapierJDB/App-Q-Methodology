@@ -215,14 +215,15 @@ export default class QSort1 extends Component {
                     
                         <button className='space boxButton button3' onClick={this.openModal}>
                             <img className = "boxImg" src = {redBox}/>
-                            
-                            <Modal isOpen={this.state.visible} >
-                                <div>
-                                    <h1> testing</h1>
+                            <div onClick={e => e.stopPropagation()}>
+                                <Modal isOpen={this.state.visible} >
+                                    <div>
+                                        <h1> testing</h1>
                                     
-                                    <button onClick={this.closeModal}>Close</button>
-                                </div>
-                            </Modal>
+                                        <button onClick={this.closeModal}>Close</button>
+                                    </div>
+                                </Modal>
+                            </div>
                          
             
                         </button>
