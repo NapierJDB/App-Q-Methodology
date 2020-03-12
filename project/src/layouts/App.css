@@ -406,3 +406,30 @@ p {font-family: 'Titillium Web';}
   }
 }
 
+
+.ModalRed{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  background-color: red;
+  color: white
+}
+
+.ModalWhite{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  background-color: white;
+  color: black
+}
+
+.ModalGreen{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  background-color: green;
+  color: white
+}

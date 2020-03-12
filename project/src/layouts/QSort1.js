@@ -269,9 +269,10 @@ export default class QSort1 extends Component {
                         <button className='space boxButton button3' onClick={this.openRedModal}>
                             <img className = "boxImg" src = {redBox}/>
                             <div onClick={e => e.stopPropagation()}>
-                                <Modal isOpen={this.state.redVisible} >
+                                <Modal className= "ModalRed" isOpen={this.state.redVisible} >
                                     <div>
                                         <h1> Red box testing</h1>
+                                        <p>Items: {this.state.redArray}</p>
                                     
                                         <button onClick={this.closeRedModal}>Close</button>
                                     </div>
@@ -288,9 +289,10 @@ export default class QSort1 extends Component {
                         <button className='space boxButton button3' onClick={this.openWhiteModal}>
                             <img className = "boxImg" src = {whiteBox}/>
                             <div onClick={e => e.stopPropagation()}>
-                                <Modal isOpen={this.state.whiteVisible} >
+                                <Modal className= "ModalWhite" isOpen={this.state.whiteVisible} >
                                     <div>
                                         <h1> White box testing</h1>
+                                        <p>Items: {this.state.whiteArray}</p>
                                     
                                         <button onClick={this.closeWhiteModal}>Close</button>
                                     </div>
@@ -306,9 +308,10 @@ export default class QSort1 extends Component {
                         <button className='space boxButton button3' onClick={this.openGreenModal}>
                             <img className = "boxImg" src = {greenBox}/>
                             <div onClick={e => e.stopPropagation()}>
-                                <Modal isOpen={this.state.greenVisible} >
+                                <Modal className= "ModalGreen" isOpen={this.state.greenVisible} >
                                     <div>
                                         <h1> Green box testing</h1>
+                                        <p>Items: {this.state.greenArray}</p>
                                     
                                         <button onClick={this.closeGreenModal}>Close</button>
                                     </div>
