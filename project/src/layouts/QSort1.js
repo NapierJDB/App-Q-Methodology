@@ -272,8 +272,8 @@ export default class QSort1 extends Component {
                                 <Modal className= "ModalRed" isOpen={this.state.redVisible} >
                                     <div>
                                     <img className = "boxImgPopUp" src = {redBox}/>
-                                        <h1> Red box testing</h1>
-                                        <p>Items: {this.state.redArray}</p>
+                                        <h1> Statements</h1>
+                                        {this.state.redArray.map(v => <p>{v}</p>)}
                                     
                                         <button onClick={this.closeRedModal}>Close</button>
                                     </div>
@@ -293,8 +293,8 @@ export default class QSort1 extends Component {
                                 <Modal className= "ModalWhite" isOpen={this.state.whiteVisible} >
                                     <div>
                                     <img className = "boxImgPopUp" src = {whiteBox}/>
-                                        <h1> White box testing</h1>
-                                        <p>Items: {this.state.whiteArray}</p>
+                                        <h1> Statements</h1>
+                                        {this.state.whiteArray.map(v => <p>{v}</p>)}
                                     
                                         <button onClick={this.closeWhiteModal}>Close</button>
                                     </div>
@@ -313,8 +313,9 @@ export default class QSort1 extends Component {
                                 <Modal className= "ModalGreen" isOpen={this.state.greenVisible} >
                                     <div>
                                     <img className = "boxImgPopUp" src = {greenBox}/>
-                                        <h1> Green box testing</h1>
-                                        <p>Items: {this.state.greenArray}</p>
+                                        <h1> Statements</h1>
+                                        {this.state.greenArray.map(v => <p>{v}</p>)}
+
                                     
                                         <button onClick={this.closeGreenModal}>Close</button>
                                     </div>
