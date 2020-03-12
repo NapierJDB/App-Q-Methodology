@@ -338,11 +338,6 @@ export default class QSort1 extends Component {
                             </button>
                         </div>
 
-                        <div>
-                            <h3>Red Box: {this.state.redArray} </h3>
-                            <h3>White Box: {this.state.whiteArray} </h3>
-                            <h3>Green Box: {this.state.greenArray} </h3>
-                        </div>
                     </div>
 
                     
