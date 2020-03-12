@@ -271,6 +271,7 @@ export default class QSort1 extends Component {
                             <div onClick={e => e.stopPropagation()}>
                                 <Modal className= "ModalRed" isOpen={this.state.redVisible} >
                                     <div>
+                                    <img className = "boxImgPopUp" src = {redBox}/>
                                         <h1> Red box testing</h1>
                                         <p>Items: {this.state.redArray}</p>
                                     
@@ -291,6 +292,7 @@ export default class QSort1 extends Component {
                             <div onClick={e => e.stopPropagation()}>
                                 <Modal className= "ModalWhite" isOpen={this.state.whiteVisible} >
                                     <div>
+                                    <img className = "boxImgPopUp" src = {whiteBox}/>
                                         <h1> White box testing</h1>
                                         <p>Items: {this.state.whiteArray}</p>
                                     
@@ -310,6 +312,7 @@ export default class QSort1 extends Component {
                             <div onClick={e => e.stopPropagation()}>
                                 <Modal className= "ModalGreen" isOpen={this.state.greenVisible} >
                                     <div>
+                                    <img className = "boxImgPopUp" src = {greenBox}/>
                                         <h1> Green box testing</h1>
                                         <p>Items: {this.state.greenArray}</p>
                                     

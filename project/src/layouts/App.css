@@ -410,26 +410,50 @@ p {font-family: 'Titillium Web';}
 .ModalRed{
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 90%;
   transform: translate(-50%, -50%) !important;
-  background-color: red;
-  color: white
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  width: 10%;
+  padding-right: 10%;
+  text-align: left;
 }
 
 .ModalWhite{
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 90%;
   transform: translate(-50%, -50%) !important;
-  background-color: white;
-  color: black
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  width: 10%;
+  padding-right: 10%;
+  text-align: left;
+  ;
 }
 
 .ModalGreen{
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 90%;
   transform: translate(-50%, -50%) !important;
-  background-color: green;
-  color: white
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  width: 10%;
+  padding-right: 10%;
+  text-align: left;
+}
+
+.boxImgPopUp{
+  background-color: #fff;
+  height: 100px;
+  width: 100px; 
+  justify-content: center;
+  align-items: center;
 }
