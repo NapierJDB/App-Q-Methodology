@@ -30,7 +30,9 @@ export default class QSort1 extends Component {
             whiteArray: [],
             greenArray: [],
             index: 0,
-            visible: false
+            redVisible: false,
+            whiteVisible: false,
+            greenVisible: false
         }
 
         this.getStatements = this.getStatements.bind(this);
@@ -41,8 +43,16 @@ export default class QSort1 extends Component {
         this.addtoWhite = this.addtoWhite.bind(this);
         this.addtoGreen = this.addtoGreen.bind(this);
         
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+
+        //CODE FOR POP UP BOX BINDS
+        this.openRedModal = this.openRedModal.bind(this);
+        this.closeRedModal = this.closeRedModal.bind(this);
+
+        this.openWhiteModal = this.openWhiteModal.bind(this);
+        this.closeWhiteModal = this.closeWhiteModal.bind(this);
+
+        this.openGreenModal = this.openGreenModal.bind(this);
+        this.closeGreenModal = this.closeGreenModal.bind(this);
 
         this.checkStatus = this.checkStatus.bind(this);
     }
@@ -170,19 +180,59 @@ export default class QSort1 extends Component {
         }
     }
 
-
-    openModal(){
+    //Open pop up for red box
+    openRedModal(){
         this.setState({
-            visible: true
+            redVisible: true
         });
 
     }
 
-    closeModal(){
+    //close pop up for red box
+    closeRedModal(){
         this.setState({
-            visible: false
+            redVisible: false
         });
     }
+
+
+
+    //open pop up for white box
+    openWhiteModal(){
+        this.setState({
+            whiteVisible: true
+        });
+
+    }
+
+    //close pop up for white box
+    closeWhiteModal(){
+        this.setState({
+            whiteVisible: false
+        });
+    }
+
+
+    
+    //open pop up for green box
+    openGreenModal(){
+        this.setState({
+            greenVisible: true
+        });
+
+    }
+
+    //close pop up for white box
+    closeGreenModal(){
+        this.setState({
+            greenVisible: false
+        });
+    }
+
+
+
+
+
 
 
     render() {
@@ -212,26 +262,58 @@ export default class QSort1 extends Component {
                         </div>
 
                         
-                    
-                        <button className='space boxButton button3' onClick={this.openModal}>
+                        
+
+
+
+                        <button className='space boxButton button3' onClick={this.openRedModal}>
                             <img className = "boxImg" src = {redBox}/>
                             <div onClick={e => e.stopPropagation()}>
-                                <Modal isOpen={this.state.visible} >
+                                <Modal isOpen={this.state.redVisible} >
                                     <div>
-                                        <h1> testing</h1>
+                                        <h1> Red box testing</h1>
                                     
-                                        <button onClick={this.closeModal}>Close</button>
+                                        <button onClick={this.closeRedModal}>Close</button>
                                     </div>
                                 </Modal>
                             </div>
-                         
-            
                         </button>
-                        <button className='space boxButton button3'>
+
+
+
+
+
+
+
+                        <button className='space boxButton button3' onClick={this.openWhiteModal}>
                             <img className = "boxImg" src = {whiteBox}/>
+                            <div onClick={e => e.stopPropagation()}>
+                                <Modal isOpen={this.state.whiteVisible} >
+                                    <div>
+                                        <h1> White box testing</h1>
+                                    
+                                        <button onClick={this.closeWhiteModal}>Close</button>
+                                    </div>
+                                </Modal>
+                            </div>
                         </button>
-                        <button className='space boxButton button3'>
+
+
+
+
+
+
+                        <button className='space boxButton button3' onClick={this.openGreenModal}>
                             <img className = "boxImg" src = {greenBox}/>
+                            <div onClick={e => e.stopPropagation()}>
+                                <Modal isOpen={this.state.greenVisible} >
+                                    <div>
+                                        <h1> Green box testing</h1>
+                                    
+                                        <button onClick={this.closeGreenModal}>Close</button>
+                                    </div>
+                                </Modal>
+                            </div>
                         </button>
 
                         <div>
