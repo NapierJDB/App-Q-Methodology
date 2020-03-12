@@ -448,6 +448,7 @@ p {font-family: 'Titillium Web';}
   width: 10%;
   padding-right: 10%;
   text-align: left;
+  border: black;
 }
 
 .boxImgPopUp{
