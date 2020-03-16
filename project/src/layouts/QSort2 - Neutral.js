@@ -21,13 +21,19 @@ export default class QSort2 extends Component {
            // greenBoxArray: [],
          //  markerNum: [-5,-4,-3,-2,-1],
          //  items: [],
+        //    anchorsArray: [
+        //        { markerNum: -5, items: 1, statements: []  },
+        //        { markerNum: -4, items: 2, statements: []  },
+        //        { markerNum: -3, items: 3, statements: []  },
+        //        { markerNum: -2, items: 4, statements: []  },
+        //        { markerNum: -1, items: 5, statements: []  },
+        //    ],
+
+           negativeAnchors: [], //localStorage.getItem('RE_NEGATIVE_ANCHORS'),
+           negativeQuantity: [], //localStorage.getItem('RE_NEGATIVE_QUANTITY'),
+
            anchorsArray: [
-               { markerNum: -5, items: 1, statements: []  },
-               { markerNum: -4, items: 2, statements: []  },
-               { markerNum: -3, items: 3, statements: []  },
-               { markerNum: -2, items: 4, statements: []  },
-               { markerNum: -1, items: 5, statements: []  },
-           ],
+            { markerNum: [], items: [], statements: [] }],
 
            
         }
@@ -36,6 +42,21 @@ export default class QSort2 extends Component {
         this.nextItem = this.nextItem.bind(this);
         this.prevItem = this.prevItem.bind(this);
         this.addToAnchor = this.addToAnchor.bind(this);
+
+        this.setTable = this.setTable.bind(this);
+    }
+
+    setTable() {
+
+        this.state.negativeAnchors = localStorage.getItem('RE_NEGATIVE_ANCHORS');
+        console.log(this.state.negativeAnchors)
+
+        this.setState({
+            anchorsArray: [this.state.anchorsArray.markerNum = this.state.negativeAnchors]
+        })
+
+        console.log(this.state.anchorsArray.markerNum)
+
     }
 
     getArrays() {
@@ -121,6 +142,9 @@ export default class QSort2 extends Component {
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 2 - Neutral</h1>
                     <div>
+                        <button onClick={this.setTable}>
+                            Set table
+                        </button>
 
                         <div>
                             <button onClick={this.nextItem}>

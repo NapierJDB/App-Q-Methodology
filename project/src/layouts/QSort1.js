@@ -232,14 +232,11 @@ export default class QSort1 extends Component {
 
 
 
-
-
-
     render() {
         if (this.state.Redirect) {
             return (
               <Redirect to={{
-                pathname: '/QSort2Negative',
+                pathname: '/QSort2Neutral',
               }} />
             )
           }
@@ -249,6 +246,7 @@ export default class QSort1 extends Component {
                 <h1>Q Sort Stage 1</h1>
                 <h2>{this.state.researchName}</h2>
                     <div>
+
                         <div>
                             <button className='space button button3'
                                     onClick={this.getStatements}>
@@ -260,11 +258,6 @@ export default class QSort1 extends Component {
                                 Next item
                             </button>
                         </div>
-
-                        
-                        
-
-
 
                         <button className='space boxButton button3' onClick={this.openRedModal}>
                             <img className = "boxImg" src = {redBox}/>
@@ -282,12 +275,6 @@ export default class QSort1 extends Component {
                             </div>
                         </button>
 
-
-
-
-
-
-
                         <button className='space boxButton button3' onClick={this.openWhiteModal}>
                             <img className = "boxImg" src = {whiteBox}/>
                             <div onClick={e => e.stopPropagation()}>
@@ -303,11 +290,6 @@ export default class QSort1 extends Component {
                                 </Modal>
                             </div>
                         </button>
-
-
-
-
-
 
                         <button className='space boxButton button3' onClick={this.openGreenModal}>
                             <img className = "boxImg" src = {greenBox}/>

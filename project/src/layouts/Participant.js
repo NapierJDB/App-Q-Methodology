@@ -4,6 +4,7 @@ import logo from './images/logo2.png'
 
 import { Link, Redirect } from 'react-router-dom';
 import './App.css';
+import { __RouterContext } from 'react-router';
 
 export default class Participant extends Component {
     constructor(props) {
@@ -16,6 +17,9 @@ export default class Participant extends Component {
             researchInfo: [],
             anchors: [],
             statements: [],
+            negativeAnchors: [],
+            neutralAnchors: [],
+            positiveAnchors: [],
 
         };
 
@@ -116,8 +120,9 @@ export default class Participant extends Component {
                 var reBox3 = this.state.researchInfo.box3;
                 var rePrivacy = this.state.researchInfo.privacy_statement;
                 var reDebrief = this.state.researchInfo.debrief;
+               // var negativeAnchors = this.state.anchors.
                 
-                
+                //      QJ5921
 
                 // ---PASS TO LOCAL STORAGE---
                 localStorage.setItem('RE_NAME', reName);
@@ -129,7 +134,94 @@ export default class Participant extends Component {
                 localStorage.setItem('RE_DEBRIEF', reDebrief);
                 localStorage.setItem('RE_STATEMENTS', JSON.stringify(this.state.statements));
 
+                var anchors = this.state.anchors;
+
+                // var iterator = anchors.values();
+                // for (var value of iterator) {
+                //     console.log(value);
+
+                // }
+
+                //console.log(anchors)
+
+                //anchors = anchors.map(Number);
+                //console.log(anchors)
+
+                //console.log(anchorsInt)
+
+                //      QJ5921
+
+                // ANCHORS
+
+                var markerNum = this.state.anchors.map((item) =>
+                     item.markerNum)
+                 markerNum = markerNum.map(Number);
+                 console.log(markerNum)               
+
+                // Find the index of 0
+                var indexOf0 = markerNum.indexOf(0)
+                console.log(indexOf0)
+
+                // Store negative values
+                var negativeAnchors = markerNum.slice(0, indexOf0)
+                console.log(negativeAnchors)
+
+                // Store neutral values
+                var neutralAnchors = markerNum[indexOf0]
+                console.log(neutralAnchors)
+
+                // Store positive values
+                var positiveAnchors = markerNum.slice(indexOf0 + 1)
+                console.log(positiveAnchors)
+
+                // QUANTITY
+                var itemQuantity = this.state.anchors.map((item) =>
+                     item.items)
+                 itemQuantity = itemQuantity.map(Number);
+                 console.log(itemQuantity)
+
+                // Store quantity for negative anchors
+                var negativeQuantity = itemQuantity.slice(0, indexOf0)
+                console.log(negativeQuantity)
+                
+                // Store quantity for neutral anchors
+                var neutralQuantity = itemQuantity[indexOf0]
+                console.log(neutralQuantity)
+
+                // Store quantity for negative anchors
+                var positiveQuantity = itemQuantity.slice(indexOf0 + 1)
+                console.log(positiveQuantity)
+
+                // PASS ANCHORS ARRAYS TO LOCAL STORAGE
+                localStorage.setItem('RE_NEGATIVE_ANCHORS', negativeAnchors);
+                localStorage.setItem('RE_NEUTRAL_ANCHORS', neutralAnchors);
+                localStorage.setItem('RE_POSITIVE_ANCHORS', positiveAnchors);
+                localStorage.setItem('RE_NEGATIVE_QUANTITY', negativeQuantity);
+                localStorage.setItem('RE_NEUTRAL_QUANTITY', neutralQuantity);
+                localStorage.setItem('RE_POSITIVE_QUANTITY', positiveQuantity);
+
                 this.setState({ Redirect: true });
+                
+                //console.log(negativeAnchors.includes("-"))
+
+                //var negativeAnchors = anchors.some(anchor => anchor.markerNum === "1")
+                //var negativeAnchors = anchors.some(1 => anchor.includes(1))
+                //console.log(negativeAnchors)
+
+              //  var negativeAnchors = anchors.includes("-")
+               //console.log(anchors)
+                // Set up an array of negative, neutral, and positive 
+                // if(negativeAnchors){
+                //     //localStorage.setItem('RE_NEGATIVE_ANCHORS', JSON.stringify(this.state.anchors));
+                //     this.state.negativeAnchors = anchors.some(anchor => anchor.markerNum === "1")
+                //     console.log(this.state.negativeAnchors)
+                // }
+                // else{
+                //     localStorage.setItem('RE_POSITIVE_ANCHORS', JSON.stringify(this.state.anchors));
+                // }
+                
+
+              //  this.setState({ Redirect: true });
 
     
               })

@@ -20,13 +20,20 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
+/**
+ * 1. Pull out red array from local storage
+ * 2. Pull out the array or negative anchors from local storage
+ * 3. Display the name of the survey on each sorting page phase
+ */
+
 export default class QSort2 extends Component {
 
     constructor (){
         super();
         
         this.state = {
-        
+            redBoxStatements: localStorage.getItem('RED_BOX'),
+            negativeAnchors: [],
         }
     }
 
@@ -39,9 +46,11 @@ export default class QSort2 extends Component {
                             <button className='space boxButton button3'>
                                 <img className = "boxImg" src = {leftArrow}/>
                             </button>
-                            <textarea>
+
+                            {/* <textarea>
                                 hwerkwherkwenkwehr
-                            </textarea>
+                            </textarea> */}
+
                             <button className='space boxButton button3'>
                                 <img className = "boxImg" src = {rightArrow}/>
                             </button>
