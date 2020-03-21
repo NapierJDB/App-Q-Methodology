@@ -26,6 +26,16 @@ export default class Participant extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getResearchData = this.getResearchData.bind(this);
+        this.clearLocalStorage = this.clearLocalStorage.bind(this);
+    }
+
+    componentDidMount(){
+        // When the component mount clear local storage
+        this.clearLocalStorage();
+    }
+
+    clearLocalStorage() {
+        localStorage.clear();       
     }
 
     handleChange = event => {

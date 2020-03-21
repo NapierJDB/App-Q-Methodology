@@ -236,7 +236,7 @@ export default class QSort1 extends Component {
         if (this.state.Redirect) {
             return (
               <Redirect to={{
-                pathname: '/QSort2Neutral',
+                pathname: '/QSort2Negative',
               }} />
             )
           }
@@ -253,10 +253,12 @@ export default class QSort1 extends Component {
                                 Get statements
                             </button>                          
                             <h2>{formatedStatements[index]}</h2>
-                            <button className='space button button3'
+
+                            {/* <button className='space button button3'
                                     onClick={this.nextItem}>
                                 Next item
-                            </button>
+                            </button> */}
+                            
                         </div>
 
                         <button className='space boxButton button3' onClick={this.openRedModal}>
