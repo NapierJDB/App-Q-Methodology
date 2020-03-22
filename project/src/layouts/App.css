@@ -255,12 +255,12 @@ AdminPanel.js
 
 .boxImg{
   background-color: #fff;
-  height: 100px;
-  width: 100px; 
+  height: 40px;
+  width: 40px; 
 }
 
 .boxButton {
-  height: 120px;
+  height: 60px;
   font-family: 'Titillium Web';
   border: 2px solid rgba(0, 0, 0, .14);
   color: white;
@@ -268,7 +268,7 @@ AdminPanel.js
   font-size: 16px;
   transition-duration: 0.4s;
   cursor: pointer;
-  width: 120px;
+  width: 60px;
   border-radius: 7px;
   margin: 8px 0;
   margin: 10px;
@@ -388,24 +388,6 @@ p {font-family: 'Titillium Web';}
 }
 
 
-@media only screen and (max-width: 650px) {
-  body {
-    background: url(./images/background-mobile1.png) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-  
-  }
-  
-  
-}
-@media only screen and (max-width: 400px) {
-  .finishPage{
-    font-size:10px;
-  }
-}
-
 
 .ModalRed{
   position: absolute;
@@ -457,4 +439,10 @@ p {font-family: 'Titillium Web';}
   width: 100px; 
   justify-content: center;
   align-items: center;
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

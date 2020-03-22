@@ -15,32 +15,20 @@ export default class QSort2 extends Component {
         super(props);
         
         this.state = {
-            redBoxArray: [],
+            redBoxStatements: [],
             index: 0,
             anchorsIndex: 0,
-           // whiteBoxArray: [],
-           // greenBoxArray: [],
-         //  markerNum: [-5,-4,-3,-2,-1],
-         //  items: [],
-        //    anchorsArray: [
-        //        { markerNum: -5, items: 1, statements: []  },
-        //        { markerNum: -4, items: 2, statements: []  },
-        //        { markerNum: -3, items: 3, statements: []  },
-        //        { markerNum: -2, items: 4, statements: []  },
-        //        { markerNum: -1, items: 5, statements: []  },
-        //    ],
-
-           negativeAnchors: '', //localStorage.getItem('RE_NEGATIVE_ANCHORS'),
            anchors: [],
-           negativeQuantity: '',
-           quantity: [], //localStorage.getItem('RE_NEGATIVE_QUANTITY'),
+           quantity: [],
+           anchorsLength: 0,
+           anchorsArray: [],
+            list: [],
+            marker: '',
+            statement: '',
+            mMarker: '',
+            mStatement: '',
+            mQuantity: 0,
 
-            anchorsArray: [
-             { markerNum: [], items: '', statements: '' }],
-
-             anchorsArray2: [
-                { markerNum: '-1', items: '2', statements: '' },
-                { markerNum: '-2', items: '2', statements: '' }],
 
            
         }
@@ -51,34 +39,14 @@ export default class QSort2 extends Component {
 
         this.nextAnchor = this.nextAnchor.bind(this);
         this.prevAnchor = this.prevAnchor.bind(this);
+        this.addStatement = this.addStatement.bind(this);
+        this.getNumberOfAnchors = this.getNumberOfAnchors.bind(this);
 
-        this.addToAnchor = this.addToAnchor.bind(this);
-
-        this.setTable = this.setTable.bind(this);
+        this.getVariable = this.getVariable.bind(this);
 
         //      QJ5921
     }
 
-    setTable() {
-
-        this.state.negativeAnchors = localStorage.getItem('RE_NEGATIVE_ANCHORS');
-        this.state.negativeQuantity = localStorage.getItem('RE_NEGATIVE_QUANTITY')
-
-        this.setState({
-             anchors: this.state.negativeAnchors.split(','),
-             quantity: this.state.negativeQuantity.split(',')             
-        })
-         console.log(this.state.anchors)
-         console.log(this.state.quantity)
-
-        this.setState({
-            anchorsArray: [{markerNum : [this.state.anchors], items : this.state.negativeQuantity}],
-            //anchorsArray: [this.state.anchorsArray.items = this.state.quantity]    
-        })
-        console.log(this.state.anchorsArray)
-        console.log(this.state.anchorsArray2)
-
-    }
 
     getArrays() {
         //Get things from local storage
@@ -88,26 +56,62 @@ export default class QSort2 extends Component {
 
         //Assign them to arrays
         this.setState({
-            redBoxArray: JSON.parse(asString),
-            anchors: this.state.negativeAnchors.split(','),
-            quantity: this.state.negativeQuantity.split(',')
+            redBoxStatements: JSON.parse(asString),
+           // anchors: this.state.negativeAnchors.split(','),
+           // quantity: this.state.negativeQuantity.split(',')
         })
-        //console.log('RED: ' + this.state.redBoxArray)
-       // this.state.redBoxArray = JSON.parse(asString)
-      //  this.state.whiteBoxArray = localStorage.getItem('WHITE_BOX');
-       // this.state.greenBoxArray = localStorage.getItem('GREEN_BOX');
+
+        this.state.anchors = this.state.negativeAnchors.split(',');
+        this.state.quantity = this.state.negativeQuantity.split(',');
+
+        this.setState({
+            anchorsArray: [{markerNum: this.state.negativeAnchors.split(','), items: this.state.negativeQuantity.split(',')}],
+            
+            
+        })
+
     }
+
+     getNumberOfAnchors() {
+         this.state.anchorsLength = this.state.anchors.length;
+         console.log(this.state.anchorsLength);
+         console.log(this.state.anchors)        
+         console.log(this.state.anchorsArray)
+    }
+
+    getVariable(){
+
+        if(this.state.anchorsIndex == 0)
+        {
+            this.state.marker = this.state.anchors[this.state.anchorsIndex];
+        }       
+        else
+        {
+            this.state.marker = this.state.anchors[this.state.anchorsIndex];
+        }
+        
+        if(this.state.index == 0){ 
+
+            this.state.statement = this.state.redBoxStatements[this.state.index];
+        }
+        else
+        {           
+            this.state.statement = this.state.redBoxStatements[this.state.index];
+        }
+
+        this.state.mMarker = this.state.marker;
+        this.state.mStatement = this.state.statement;
+        
+    }
+
 
     componentDidMount(){
         this.getArrays();
-      //  this.setTable();
-        
-      //  console.log('WHITE: ' + this.state.whiteBoxArray)
-      //  console.log('GREEN: ' + this.state.greenBoxArray)
+       
     }
-
+   
     nextItem() {
-        if(this.state.index == this.state.redBoxArray.length - 1){
+        if(this.state.index == this.state.redBoxStatements.length - 1){
            
             this.setState({
                 index: 0
@@ -152,24 +156,37 @@ export default class QSort2 extends Component {
         }))            
     }
 
-    addToAnchor() {
-        // this.setState(prevState => ({
-        //     anchorsArray: [...prevState.anchorsArray.statements, this.state.redBoxArray[this.state.index]]
-        // }))
+    addStatement() {
 
-        // this.setState({
-        //     anchorsArray: { statements: [this.state.redBoxArray[this.state.index]]}
-        // })
+        this.getVariable();
 
-        this.setState({
-            anchorsArray: {...this.state.anchorsArray.statements = [this.state.redBoxArray[this.state.index]]}
-        })
+        const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+        this.state.list = [...this.state.list, obj];
+        console.log(this.state.list);
+
+        let {anchorsIndex, quantity} = this.state;
+        this.state.quantity[anchorsIndex] = parseInt(quantity[anchorsIndex]) - 1;
+        console.log(this.state.quantity[anchorsIndex]);
+
     }
 
     render() {
-         let {index, redBoxArray} = this.state;
-         let {anchorsIndex, anchors, quantity} = this.state;
-        return (
+        const mappedList = this.state.list.map((item, index) => {
+            return(
+    
+                    <tr key={index}>
+                        <td>{item.markerNum}</td>
+                        <td>{item.statement}</td>                              
+                    </tr>
+                 )
+    
+             });
+         let {index, redBoxStatements} = this.state;
+         let {anchorsIndex, anchors, quantity, mQuantity} = this.state;
+
+         
+        
+         return (
 
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 2 - Negative</h1>
@@ -181,7 +198,7 @@ export default class QSort2 extends Component {
                                 Next item
                             </button>
 
-                            <h2>{redBoxArray[index]}</h2>
+                            <h2>{redBoxStatements[index]}</h2>
 
                             <button onClick={this.prevItem}
                                     className='space button button3'>
@@ -190,6 +207,8 @@ export default class QSort2 extends Component {
 
                             <div>
                                 <h2>Marker number</h2>
+
+                                <div className='row'>
 
                                 <button className='space boxButton button3'
                                     onClick={this.prevAnchor}>
@@ -202,16 +221,46 @@ export default class QSort2 extends Component {
                                     onClick={this.nextAnchor}>
                                     <img className = "boxImg" src = {rightArrow}/>
                                 </button>
+
+                                </div>
                             </div>
 
-                            <h2>Slots</h2>
+                            <h2>Available slots</h2>
 
                             <h2>{quantity[anchorsIndex]}</h2>
 
                             <button className='space button button3' 
-                                    onClick={this.nextItem}>
+                                    onClick={this.addStatement}>
                                 Add statement
                             </button>
+
+                            <table className="center">
+                                    <thead>
+                                        <tr>
+                                        <th>Marker number</th>
+                                        <th>Statements</th>
+                                        <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                    {mappedList}
+                                </tbody>         
+                            </table>
+
+                            {/* <div className='center TextCenter'>
+                                <table className="center">
+                                    <thead>
+                                        <tr>
+                                        <th>Marker number</th>
+                                        <th>Statements</th>
+                                        <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                    {mappedList}
+                                </tbody>         
+                                </table>
+                            </div> */}
 
                         </div>
 
