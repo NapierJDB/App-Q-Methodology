@@ -30,7 +30,7 @@ export default class App extends React.Component {
   render() {
     return (
       <MyProvider>
-        <Router >
+        <Router basename={window.location.pathname || ''}>
           <div>
             <Switch>
               <Route path='/' exact component={HomePage} />

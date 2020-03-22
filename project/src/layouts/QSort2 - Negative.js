@@ -28,6 +28,7 @@ export default class QSort2 extends Component {
             mMarker: '',
             mStatement: '',
             mQuantity: 0,
+            refresh: 0
 
 
            
@@ -46,7 +47,11 @@ export default class QSort2 extends Component {
 
         //      QJ5921
     }
-
+    refresh(){
+        this.setState({
+            refresh: 1
+        })
+    }
 
     getArrays() {
         //Get things from local storage
@@ -167,6 +172,7 @@ export default class QSort2 extends Component {
         let {anchorsIndex, quantity} = this.state;
         this.state.quantity[anchorsIndex] = parseInt(quantity[anchorsIndex]) - 1;
         console.log(this.state.quantity[anchorsIndex]);
+       this.nextItem();
 
     }
 
@@ -224,7 +230,7 @@ export default class QSort2 extends Component {
 
                                 </div>
                             </div>
-
+                            <div>
                             <h2>Available slots</h2>
 
                             <h2>{quantity[anchorsIndex]}</h2>
@@ -246,7 +252,7 @@ export default class QSort2 extends Component {
                                     {mappedList}
                                 </tbody>         
                             </table>
-
+                            </div>
                             {/* <div className='center TextCenter'>
                                 <table className="center">
                                     <thead>
