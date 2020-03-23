@@ -398,9 +398,10 @@ p {font-family: 'Titillium Web';}
   display: flex;
   justify-content: flex-end;
   height: 100%;
-  width: 10%;
+  width: 20%;
   padding-right: 10%;
   text-align: left;
+  overflow-y: auto;
 }
 
 .ModalWhite{
@@ -412,10 +413,10 @@ p {font-family: 'Titillium Web';}
   display: flex;
   justify-content: flex-end;
   height: 100%;
-  width: 10%;
+  width: 20%;
   padding-right: 10%;
   text-align: left;
-  ;
+  overflow-y: auto;
 }
 
 .ModalGreen{
@@ -427,10 +428,11 @@ p {font-family: 'Titillium Web';}
   display: flex;
   justify-content: flex-end;
   height: 100%;
-  width: 10%;
+  width: 20%;
   padding-right: 10%;
   text-align: left;
   border: black;
+  overflow-y: auto;
 }
 
 .boxImgPopUp{
