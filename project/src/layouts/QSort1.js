@@ -3,14 +3,14 @@ import './App.css';
 import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
-import {Link,Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './App.css';
 import Modal from 'react-modal';
 
 //Modal.setAppElement('App.js')
 
 export default class QSort1 extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
 
@@ -25,14 +25,15 @@ export default class QSort1 extends Component {
             formatedStatements: [],
 
 
-            testArray: ['Anna','Joel', 'Bartek', 'Milo', 'Stench'],
+            testArray: ['Anna', 'Joel', 'Bartek', 'Milo', 'Stench'],
             redArray: [],
             whiteArray: [],
             greenArray: [],
             index: 0,
             redVisible: false,
             whiteVisible: false,
-            greenVisible: false
+            greenVisible: false,
+            deletionNumber: 0,
         }
 
         this.getStatements = this.getStatements.bind(this);
@@ -42,7 +43,7 @@ export default class QSort1 extends Component {
         this.addtoRed = this.addtoRed.bind(this);
         this.addtoWhite = this.addtoWhite.bind(this);
         this.addtoGreen = this.addtoGreen.bind(this);
-        
+
 
         //CODE FOR POP UP BOX BINDS
         this.openRedModal = this.openRedModal.bind(this);
@@ -55,6 +56,10 @@ export default class QSort1 extends Component {
         this.closeGreenModal = this.closeGreenModal.bind(this);
 
         this.checkStatus = this.checkStatus.bind(this);
+
+        this.removeRedStatement = this.removeRedStatement.bind(this);
+        this.removeWhiteStatement = this.removeWhiteStatement.bind(this);
+        this.removeGreenStatement = this.removeGreenStatement.bind(this);
     }
 
     getStatements() {
@@ -67,7 +72,7 @@ export default class QSort1 extends Component {
         this.state.researchToken = localStorage.getItem('RE_TOKEN');
         this.state.researchId = localStorage.getItem('RE_ID');
 
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/getData',{
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/getData', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +81,7 @@ export default class QSort1 extends Component {
             body: JSON.stringify({
                 'id': this.state.researchId
             })
-            })
+        })
             .then((response) => {
                 return response.json();
             })
@@ -89,53 +94,53 @@ export default class QSort1 extends Component {
                 console.log(this.state.statements)
 
                 // Format the array appropriatelly
-                this.state.formatedStatements = this.state.statements.map(statement => 
+                this.state.formatedStatements = this.state.statements.map(statement =>
                     statement.number + " " + statement.description)
                 // set index to 0 so first item of formated array is displayed
                 this.setState({
                     index: 0
                 })
-   
-              })
-              .catch(function (error) {
+
+            })
+            .catch(function (error) {
                 console.log(error);
-              });
+            });
     }
 
 
 
     nextItem() {
 
-        if(this.state.index == this.state.formatedStatements.length - 1){
-           
+        if (this.state.index == this.state.formatedStatements.length - 1) {
+
             this.setState({
                 index: 0
             })
         }
-        else{
-           
+        else {
+
             this.setState(prevState => ({
                 index: prevState.index + 1
             }))
         }
-        
+
     }
 
 
     addtoRed(e) {
 
-       this.setState(prevState => ({
-           redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
-       }))
+        this.setState(prevState => ({
+            redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
+        }))
 
-       let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
-       this.setState({
-        formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
-       },
-        () => {
-            console.log('initial array: ' + this.state.formatedStatements)
-            console.log('RED box: ' + this.state.redArray)
-        })      
+        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
+        this.setState({
+            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
+        },
+            () => {
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('RED box: ' + this.state.redArray)
+            })
     }
 
     addtoWhite(e) {
@@ -143,15 +148,15 @@ export default class QSort1 extends Component {
         this.setState(prevState => ({
             whiteArray: [...prevState.whiteArray, this.state.formatedStatements[this.state.index]]
         }))
- 
+
         let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
         this.setState({
             formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
         },
-         () => {
-             console.log('initial array: ' + this.state.formatedStatements)
-             console.log('WHITE box: ' + this.state.whiteArray)
-         })      
+            () => {
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('WHITE box: ' + this.state.whiteArray)
+            })
     }
 
     addtoGreen(e) {
@@ -159,20 +164,19 @@ export default class QSort1 extends Component {
         this.setState(prevState => ({
             greenArray: [...prevState.greenArray, this.state.formatedStatements[this.state.index]]
         }))
- 
+
         let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
         this.setState({
             formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
         },
-         () => {
-             console.log('initial array: ' + this.state.formatedStatements)
-             console.log('GREEN box: ' + this.state.greenArray)
-         })      
+            () => {
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('GREEN box: ' + this.state.greenArray)
+            })
     }
 
     checkStatus() {
-        if(this.state.formatedStatements.length == 0)
-        {
+        if (this.state.formatedStatements.length == 0) {
             localStorage.setItem('RED_BOX', JSON.stringify(this.state.redArray));
             localStorage.setItem('WHITE_BOX', JSON.stringify(this.state.whiteArray));
             localStorage.setItem('GREEN_BOX', JSON.stringify(this.state.greenArray));
@@ -181,7 +185,7 @@ export default class QSort1 extends Component {
     }
 
     //Open pop up for red box
-    openRedModal(){
+    openRedModal() {
         this.setState({
             redVisible: true
         });
@@ -189,7 +193,7 @@ export default class QSort1 extends Component {
     }
 
     //close pop up for red box
-    closeRedModal(){
+    closeRedModal() {
         this.setState({
             redVisible: false
         });
@@ -198,7 +202,7 @@ export default class QSort1 extends Component {
 
 
     //open pop up for white box
-    openWhiteModal(){
+    openWhiteModal() {
         this.setState({
             whiteVisible: true
         });
@@ -206,16 +210,16 @@ export default class QSort1 extends Component {
     }
 
     //close pop up for white box
-    closeWhiteModal(){
+    closeWhiteModal() {
         this.setState({
             whiteVisible: false
         });
     }
 
 
-    
+
     //open pop up for green box
-    openGreenModal(){
+    openGreenModal() {
         this.setState({
             greenVisible: true
         });
@@ -223,10 +227,66 @@ export default class QSort1 extends Component {
     }
 
     //close pop up for white box
-    closeGreenModal(){
+    closeGreenModal() {
         this.setState({
             greenVisible: false
         });
+    }
+
+
+
+    //Move item from Red array to starting array
+    removeRedStatement() {
+
+        this.setState(prevState => ({
+            formatedStatements: [...prevState.formatedStatements, this.state.redArray[this.state.index]]
+        }))
+
+        let remove = this.state.redArray.indexOf(this.state.redArray[this.state.index]);
+        this.setState({
+            redArray: this.state.redArray.filter((_, i) => i !== remove)
+        },
+            () => {
+                console.log('initial array: ' + this.state.redArray)
+                console.log('RED box: ' + this.state.formatedStatements)
+            }
+        )
+
+
+    }
+
+    //Move item from White array to starting array
+    removeWhiteStatement() {
+        this.setState(prevState => ({
+            formatedStatements: [...prevState.formatedStatements, this.state.whiteArray[this.state.index]]
+        }))
+
+        let remove = this.state.whiteArray.indexOf(this.state.whiteArray[this.state.index]);
+        this.setState({
+            whiteArray: this.state.whiteArray.filter((_, i) => i !== remove)
+        },
+            () => {
+                console.log('initial array: ' + this.state.whiteArray)
+                console.log('white box: ' + this.state.formatedStatements)
+            }
+        )
+    }
+
+    //Move item from Green array to starting array
+    removeGreenStatement() {
+        this.setState(prevState => ({
+            formatedStatements: [...prevState.formatedStatements, this.state.greenArray[this.state.index]]
+        }))
+
+        let remove = this.state.greenArray.indexOf(this.state.greenArray[this.state.index]);
+        this.setState({
+            greenArray: this.state.greenArray.filter((_, i) => i !== remove)
+        },
+            () => {
+                console.log('initial array: ' + this.state.greenArray)
+                console.log('white box: ' + this.state.formatedStatements)
+            }
+        )
     }
 
 
@@ -235,104 +295,100 @@ export default class QSort1 extends Component {
     render() {
         if (this.state.Redirect) {
             return (
-              <Redirect to={{
-                pathname: '/QSort2Negative',
-              }} />
+                <Redirect to={{
+                    pathname: '/QSort2Negative',
+                }} />
             )
-          }
-        let {index, testArray, formatedStatements} = this.state;
+        }
+        let { index, testArray, formatedStatements } = this.state;
         return (
-            <div className = 'TextCenter'>
+            <div className='TextCenter'>
                 <h1>Q Sort Stage 1</h1>
                 <h2>{this.state.researchName}</h2>
+                <div>
+
                     <div>
+                        <button className='space button button3'
+                            onClick={this.getStatements}>
+                            Get statements
+                            </button>
+                        <h2>{formatedStatements[index]}</h2>
 
-                        <div>
-                            <button className='space button button3'
-                                    onClick={this.getStatements}>
-                                Get statements
-                            </button>                          
-                            <h2>{formatedStatements[index]}</h2>
-
-                            {/* <button className='space button button3'
+                        {/* <button className='space button button3'
                                     onClick={this.nextItem}>
                                 Next item
                             </button> */}
-                            
-                        </div>
-
-                        <button className='space boxButton button3' onClick={this.openRedModal}>
-                            <img className = "boxImg" src = {redBox}/>
-                            <div onClick={e => e.stopPropagation()}>
-                                <Modal className= "ModalRed" isOpen={this.state.redVisible} >
-                                    <div>
-                                        <br></br>
-                                    <img className = "boxImgPopUp" src = {redBox}/>
-                                        <h1> Statements</h1>
-                                        {this.state.redArray.map(v => <p>{v}</p>)}
-                                    
-                                        <button onClick={this.closeRedModal}>Close</button>
-                                    </div>
-                                </Modal>
-                            </div>
-                        </button>
-
-                        <button className='space boxButton button3' onClick={this.openWhiteModal}>
-                            <img className = "boxImg" src = {whiteBox}/>
-                            <div onClick={e => e.stopPropagation()}>
-                                <Modal className= "ModalWhite" isOpen={this.state.whiteVisible} >
-                                    <div>
-                                    <br></br>
-                                    <img className = "boxImgPopUp" src = {whiteBox}/>
-                                        <h1> Statements</h1>
-                                        {this.state.whiteArray.map(v => <p>{v}</p>)}
-                                    
-                                        <button onClick={this.closeWhiteModal}>Close</button>
-                                    </div>
-                                </Modal>
-                            </div>
-                        </button>
-
-                        <button className='space boxButton button3' onClick={this.openGreenModal}>
-                            <img className = "boxImg" src = {greenBox}/>
-                            <div onClick={e => e.stopPropagation()}>
-                                <Modal className= "ModalGreen" isOpen={this.state.greenVisible} >
-                                    <div>
-                                    <br></br>
-                                    <img className = "boxImgPopUp" src = {greenBox}/>
-                                        <h1> Statements</h1>
-                                        {this.state.greenArray.map(v => <p>{v}</p>)}
-
-                                    
-                                        <button onClick={this.closeGreenModal}>Close</button>
-                                    </div>
-                                </Modal>
-                            </div>
-                        </button>
-
-                        <div>
-                            <button className='space button button3'
-                                    onClick={this.addtoRed}>
-                                {this.state.box1}
-                            </button>
-                            <button className='space button button3'
-                                    onClick={this.addtoWhite}>
-                                {this.state.box2}
-                            </button>
-                            <button className='space button button3'
-                                    onClick={this.addtoGreen}>
-                                {this.state.box3}
-                            </button>
-                        </div>
 
                     </div>
 
-                    
+                    <button className='space boxButton button3' onClick={this.openRedModal}>
+                        <img className="boxImg" src={redBox} />
+                        <div onClick={e => e.stopPropagation()}>
+                            <Modal className="ModalRed" isOpen={this.state.redVisible} >
+                                <div>
+                                    <br></br>
+                                    <img className="boxImgPopUp" src={redBox} />
+                                    <h1> Statements</h1>
+                                    {this.state.redArray.map(v => <div><p>{v}</p> <button onClick={this.removeRedStatement}>X</button></div>)}
+                                    <button onClick={this.closeRedModal}>Close</button>
+                                </div>
+                            </Modal>
+                        </div>
+                    </button>
+
+                    <button className='space boxButton button3' onClick={this.openWhiteModal}>
+                        <img className="boxImg" src={whiteBox} />
+                        <div onClick={e => e.stopPropagation()}>
+                            <Modal className="ModalWhite" isOpen={this.state.whiteVisible} >
+                                <div>
+                                    <br></br>
+                                    <img className="boxImgPopUp" src={whiteBox} />
+                                    <h1> Statements</h1>
+                                    {this.state.whiteArray.map(v => <div><p>{v}</p> <button onClick={this.removeWhiteStatement}>X</button></div>)}
+                                    <button onClick={this.closeWhiteModal}>Close</button>
+                                </div>
+                            </Modal>
+                        </div>
+                    </button>
+
+                    <button className='space boxButton button3' onClick={this.openGreenModal}>
+                        <img className="boxImg" src={greenBox} />
+                        <div onClick={e => e.stopPropagation()}>
+                            <Modal className="ModalGreen" isOpen={this.state.greenVisible} >
+                                <div>
+                                    <br></br>
+                                    <img className="boxImgPopUp" src={greenBox} />
+                                    <h1> Statements</h1>
+                                    {this.state.greenArray.map(v => <div><p>{v}</p> <button onClick={this.removeGreenStatement}>X</button></div>)}
+                                    <button onClick={this.closeGreenModal}>Close</button>
+                                </div>
+                            </Modal>
+                        </div>
+                    </button>
+
+                    <div>
                         <button className='space button button3'
-                            onClick={this.checkStatus}>
-                            Next
+                            onClick={this.addtoRed}>
+                            {this.state.box1}
                         </button>
-                    
+                        <button className='space button button3'
+                            onClick={this.addtoWhite}>
+                            {this.state.box2}
+                        </button>
+                        <button className='space button button3'
+                            onClick={this.addtoGreen}>
+                            {this.state.box3}
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <button className='space button button3'
+                    onClick={this.checkStatus}>
+                    Next
+                        </button>
+
             </div>
         )
     }
