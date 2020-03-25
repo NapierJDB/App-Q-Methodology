@@ -6,6 +6,7 @@ import whiteBox from './images/whitebox.png'
 import { Link, Redirect } from 'react-router-dom';
 import './App.css';
 import Modal from 'react-modal';
+import { Button } from 'rebass';
 
 //Modal.setAppElement('App.js')
 
@@ -33,7 +34,7 @@ export default class QSort1 extends Component {
             redVisible: false,
             whiteVisible: false,
             greenVisible: false,
-            deletionNumber: 0,
+            buttonID: undefined
         }
 
         this.getStatements = this.getStatements.bind(this);
@@ -60,6 +61,7 @@ export default class QSort1 extends Component {
         this.removeRedStatement = this.removeRedStatement.bind(this);
         this.removeWhiteStatement = this.removeWhiteStatement.bind(this);
         this.removeGreenStatement = this.removeGreenStatement.bind(this);
+
     }
 
     getStatements() {
@@ -189,7 +191,6 @@ export default class QSort1 extends Component {
         this.setState({
             redVisible: true
         });
-
     }
 
     //close pop up for red box
@@ -236,19 +237,22 @@ export default class QSort1 extends Component {
 
 
     //Move item from Red array to starting array
-    removeRedStatement() {
+    removeRedStatement(e) {
 
+        this.state.buttonID = e.target.id
+
+        //alert(buttonID)
         this.setState(prevState => ({
-            formatedStatements: [...prevState.formatedStatements, this.state.redArray[this.state.index]]
+            formatedStatements: [...prevState.formatedStatements, this.state.redArray[this.state.buttonID]]
         }))
 
-        let remove = this.state.redArray.indexOf(this.state.redArray[this.state.index]);
+        let remove = this.state.redArray.indexOf(this.state.redArray[this.state.buttonID]);
         this.setState({
             redArray: this.state.redArray.filter((_, i) => i !== remove)
         },
             () => {
-                console.log('initial array: ' + this.state.redArray)
-                console.log('RED box: ' + this.state.formatedStatements)
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('RED box: ' + this.state.redArray)
             }
         )
 
@@ -256,35 +260,41 @@ export default class QSort1 extends Component {
     }
 
     //Move item from White array to starting array
-    removeWhiteStatement() {
+    removeWhiteStatement(e) {
+
+        this.state.buttonID = e.target.id
+
         this.setState(prevState => ({
-            formatedStatements: [...prevState.formatedStatements, this.state.whiteArray[this.state.index]]
+            formatedStatements: [...prevState.formatedStatements, this.state.whiteArray[this.state.buttonID]]
         }))
 
-        let remove = this.state.whiteArray.indexOf(this.state.whiteArray[this.state.index]);
+        let remove = this.state.whiteArray.indexOf(this.state.whiteArray[this.state.buttonID]);
         this.setState({
             whiteArray: this.state.whiteArray.filter((_, i) => i !== remove)
         },
             () => {
-                console.log('initial array: ' + this.state.whiteArray)
-                console.log('white box: ' + this.state.formatedStatements)
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('white box: ' + this.state.whiteArray)
             }
         )
     }
 
     //Move item from Green array to starting array
-    removeGreenStatement() {
+    removeGreenStatement(e) {
+
+        this.state.buttonID = e.target.id
+
         this.setState(prevState => ({
-            formatedStatements: [...prevState.formatedStatements, this.state.greenArray[this.state.index]]
+            formatedStatements: [...prevState.formatedStatements, this.state.greenArray[this.state.buttonID]]
         }))
 
-        let remove = this.state.greenArray.indexOf(this.state.greenArray[this.state.index]);
+        let remove = this.state.greenArray.indexOf(this.state.greenArray[this.state.buttonID]);
         this.setState({
             greenArray: this.state.greenArray.filter((_, i) => i !== remove)
         },
             () => {
-                console.log('initial array: ' + this.state.greenArray)
-                console.log('white box: ' + this.state.formatedStatements)
+                console.log('initial array: ' + this.state.formatedStatements)
+                console.log('green box: ' + this.state.greenArray)
             }
         )
     }
@@ -329,7 +339,7 @@ export default class QSort1 extends Component {
                                     <br></br>
                                     <img className="boxImgPopUp" src={redBox} />
                                     <h1> Statements</h1>
-                                    {this.state.redArray.map(v => <div><p>{v}</p> <button onClick={this.removeRedStatement}>X</button></div>)}
+                                    {this.state.redArray.map(v => <div><p>{v}</p> <button id={this.state.redArray.indexOf(v)} onClick={this.removeRedStatement}>X</button></div>)}
                                     <button onClick={this.closeRedModal}>Close</button>
                                 </div>
                             </Modal>
@@ -344,7 +354,7 @@ export default class QSort1 extends Component {
                                     <br></br>
                                     <img className="boxImgPopUp" src={whiteBox} />
                                     <h1> Statements</h1>
-                                    {this.state.whiteArray.map(v => <div><p>{v}</p> <button onClick={this.removeWhiteStatement}>X</button></div>)}
+                                    {this.state.whiteArray.map(w => <div><p>{w}</p> <button id={this.state.whiteArray.indexOf(w)} onClick={this.removeWhiteStatement}>X</button></div>)}
                                     <button onClick={this.closeWhiteModal}>Close</button>
                                 </div>
                             </Modal>
@@ -359,7 +369,7 @@ export default class QSort1 extends Component {
                                     <br></br>
                                     <img className="boxImgPopUp" src={greenBox} />
                                     <h1> Statements</h1>
-                                    {this.state.greenArray.map(v => <div><p>{v}</p> <button onClick={this.removeGreenStatement}>X</button></div>)}
+                                    {this.state.greenArray.map(x => <div><p>{x}</p> <button id={this.state.greenArray.indexOf(x)} onClick={this.removeGreenStatement}>X</button></div>)}
                                     <button onClick={this.closeGreenModal}>Close</button>
                                 </div>
                             </Modal>
