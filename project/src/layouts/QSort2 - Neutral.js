@@ -15,70 +15,107 @@ export default class QSort2 extends Component {
         super(props);
         
         this.state = {
-            redBoxArray: [],
+            whiteBoxStatements: [],
             index: 0,
-           // whiteBoxArray: [],
-           // greenBoxArray: [],
-         //  markerNum: [-5,-4,-3,-2,-1],
-         //  items: [],
-        //    anchorsArray: [
-        //        { markerNum: -5, items: 1, statements: []  },
-        //        { markerNum: -4, items: 2, statements: []  },
-        //        { markerNum: -3, items: 3, statements: []  },
-        //        { markerNum: -2, items: 4, statements: []  },
-        //        { markerNum: -1, items: 5, statements: []  },
-        //    ],
-
-           negativeAnchors: [], //localStorage.getItem('RE_NEGATIVE_ANCHORS'),
-           negativeQuantity: [], //localStorage.getItem('RE_NEGATIVE_QUANTITY'),
-
-           anchorsArray: [
-            { markerNum: [], items: [], statements: [] }],
-
-           
+            anchorsIndex: 0,
+            anchors: [],
+            quantity: [],
+            anchorsLength: 0,
+            anchorsArray: [],
+            list: [],
+            marker: '',
+            statement: '',
+            mMarker: '',
+            mStatement: '',
+            mQuantity: 0,
+            refresh: 0,
         }
 
         this.getArrays = this.getArrays.bind(this);
         this.nextItem = this.nextItem.bind(this);
         this.prevItem = this.prevItem.bind(this);
-        this.addToAnchor = this.addToAnchor.bind(this);
 
-        this.setTable = this.setTable.bind(this);
+        this.nextAnchor = this.nextAnchor.bind(this);
+        this.prevAnchor = this.prevAnchor.bind(this);
+        this.addStatement = this.addStatement.bind(this);
+        this.getNumberOfAnchors = this.getNumberOfAnchors.bind(this);
+
+        this.getVariable = this.getVariable.bind(this);
+
+        this.manageNavigation = this.manageNavigation.bind(this);
+
+        //      QJ5921
     }
-
-    setTable() {
-
-        this.state.negativeAnchors = localStorage.getItem('RE_NEGATIVE_ANCHORS');
-        console.log(this.state.negativeAnchors)
-
+    refresh(){
         this.setState({
-            anchorsArray: [this.state.anchorsArray.markerNum = this.state.negativeAnchors]
+            refresh: 1
         })
-
-        console.log(this.state.anchorsArray.markerNum)
-
     }
 
     getArrays() {
-        var asString = localStorage.getItem('RED_BOX');
+        //Get things from local storage
+        var asString = localStorage.getItem('WHITE_BOX');
+        this.state.neutralAnchors = localStorage.getItem('RE_NEUTRAL_ANCHORS');
+        this.state.neutralQuantity = localStorage.getItem('RE_NEUTRAL_QUANTITY');
+
+        //Assign them to arrays
         this.setState({
-            redBoxArray: JSON.parse(asString)
+            whiteBoxStatements: JSON.parse(asString),
+           // anchors: this.state.negativeAnchors.split(','),
+           // quantity: this.state.negativeQuantity.split(',')
         })
-        console.log('RED: ' + this.state.redBoxArray)
-       // this.state.redBoxArray = JSON.parse(asString)
-      //  this.state.whiteBoxArray = localStorage.getItem('WHITE_BOX');
-       // this.state.greenBoxArray = localStorage.getItem('GREEN_BOX');
+
+        this.state.anchors = this.state.neutralAnchors.split(',');
+        this.state.quantity = this.state.neutralQuantity.split(',');
+
+        this.setState({
+            anchorsArray: [{markerNum: this.state.neutralAnchors.split(','), items: this.state.neutralQuantity.split(',')}],
+            
+            
+        })
+
     }
+
+     getNumberOfAnchors() {
+         this.state.anchorsLength = this.state.anchors.length;
+         console.log(this.state.anchorsLength);
+         console.log(this.state.anchors)        
+         console.log(this.state.anchorsArray)
+    }
+
+    getVariable(){
+
+        if(this.state.anchorsIndex == 0)
+        {
+            this.state.marker = this.state.anchors[this.state.anchorsIndex];
+        }       
+        else
+        {
+            this.state.marker = this.state.anchors[this.state.anchorsIndex];
+        }
+        
+        if(this.state.index == 0){ 
+
+            this.state.statement = this.state.whiteBoxStatements[this.state.index];
+        }
+        else
+        {           
+            this.state.statement = this.state.whiteBoxStatements[this.state.index];
+        }
+
+        this.state.mMarker = this.state.marker;
+        this.state.mStatement = this.state.statement;
+        
+    }
+
 
     componentDidMount(){
         this.getArrays();
-        
-      //  console.log('WHITE: ' + this.state.whiteBoxArray)
-      //  console.log('GREEN: ' + this.state.greenBoxArray)
+       
     }
-
+   
     nextItem() {
-        if(this.state.index == this.state.redBoxArray.length - 1){
+        if(this.state.index == this.state.whiteBoxStatements.length - 1){
            
             this.setState({
                 index: 0
@@ -100,86 +137,180 @@ export default class QSort2 extends Component {
         }))            
     }
 
-    addToAnchor() {
-        // this.setState(prevState => ({
-        //     anchorsArray: [...prevState.anchorsArray.statements, this.state.redBoxArray[this.state.index]]
-        // }))
-
-        // this.setState({
-        //     anchorsArray: { statements: [this.state.redBoxArray[this.state.index]]}
-        // })
-
-        this.setState({
-            anchorsArray: {...this.state.anchorsArray.statements = [this.state.redBoxArray[this.state.index]]}
-        })
+    nextAnchor() {
+        if(this.state.anchorsIndex == this.state.anchors.length - 1){
+           
+            this.setState({
+                anchorsIndex: 0
+            })
+        }
+        else{
+           
+            this.setState(prevState => ({
+                anchorsIndex: prevState.anchorsIndex + 1
+            }))
+        }      
     }
 
+    prevAnchor() {       
+        if(this.state.anchorsIndex == 0)        
+            return;
+        this.setState(prevState => ({
+            anchorsIndex: prevState.anchorsIndex - 1
+        }))            
+    }
+
+    addStatement() {
+
+        //      QJ5921
+        this.getVariable();
+        let {anchorsIndex, quantity} = this.state;
+
+        if(this.state.quantity[anchorsIndex] > 0){
+            
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            this.state.list = [...this.state.list, obj];
+            console.log(this.state.list);
+
+            //Calculate new quantity of available slots
+            this.state.quantity[anchorsIndex] = parseInt(quantity[anchorsIndex]) - 1;
+            console.log(this.state.quantity[anchorsIndex]);
+            this.nextItem();
+
+            //remove statement if it's been added
+            let remove = this.state.whiteBoxStatements.indexOf(this.state.whiteBoxStatements[this.state.index]);
+            this.setState({
+                whiteBoxStatements: this.state.whiteBoxStatements.filter((_, i) => i !== remove)
+            })
+        }
+        else{
+            alert("There are no more slots available for this marker");
+        }
+
+    }
+
+    manageNavigation(){
+
+        if(this.state.whiteBoxStatements.length == 0){
+            this.setState({ Redirect: true });
+        }
+        else{
+            this.setState({ Redirect: false });
+            alert("Please distribute all statements")
+        }
+
+    }
+   
+
     render() {
-        let {index, redBoxArray} = this.state;
-
-        const anchorsList = this.state.anchorsArray.map((anchor, index) => {
+        if (this.state.Redirect) {
             return (
-                <tr key={index}>
-                    <td>{anchor.markerNum}</td>
-                    <td>{anchor.items}</td>
-                    <td>
-                    <button
-                        className = 'space tableButton tableButton3'
-                        onClick={this.addToAnchor}>
-                        Add                           
-                    </button>
-                    <button
-                        className = 'space tableButton tableButton3'>
-                        Delete
-                    </button>
-                    </td>
-                    <td>{anchor.statements}</td>
-                </tr>
+                <Redirect to={{
+                    pathname: '/QSort2Positive',
+                }} />
             )
-        })
+        }
+        const mappedList = this.state.list.map((item, index) => {
+            return(
+    
+                    <tr key={index}>
+                        <td>{item.markerNum}</td>
+                        <td>{item.statement}</td>                              
+                    </tr>
+                 )
+    
+             });
 
-        return (
+         let {index, whiteBoxStatements} = this.state;
+         let {anchorsIndex, anchors, quantity, mQuantity} = this.state;
+     
+         return (
+
             <div className = 'TextCenter'>
                 <h1>Q Sort Stage 2 - Neutral</h1>
                     <div>
-                        <button onClick={this.setTable}>
-                            Set table
-                        </button>
 
                         <div>
-                            <button onClick={this.nextItem}>
+                            <button onClick={this.nextItem}
+                                    className='space button button3'>
                                 Next item
                             </button>
-                            <h2>{redBoxArray[index]}</h2>
-                            <button onClick={this.prevItem}>
+
+                            <h2>{whiteBoxStatements[index]}</h2>
+
+                            <button onClick={this.prevItem}
+                                    className='space button button3'>
                                 Previous item
                             </button>
-                        </div>
-                    
-                        <div>
+
+                            <div>
+                                <h2>Marker number</h2>
+
+                                <div className='row'>
+
+                                <button className='space boxButton button3'
+                                    onClick={this.prevAnchor}>
+                                    <img className = "boxImg" src = {leftArrow}/>
+                                </button>
+
+                                    <h2>{anchors[anchorsIndex]}</h2>
+                                
+                                <button className='space boxButton button3'
+                                    onClick={this.nextAnchor}>
+                                    <img className = "boxImg" src = {rightArrow}/>
+                                </button>
+
+                                </div>
+                            </div>
+                            <div>
+                            <h2>Available slots</h2>
+
+                            <h2>{quantity[anchorsIndex]}</h2>
+
+                            <button className='space button button3' 
+                                    onClick={this.addStatement}>
+                                Add statement
+                            </button>
+
                             <table className="center">
-                                <thead>
-                                    <tr>
-                                    <th>Marker number</th>
-                                    <th>Number of items</th>
-                                    <th>Action</th>
-                                    <th>Q-sort Cards</th>
-                                    </tr>
-                                </thead>
+                                    <thead>
+                                        <tr>
+                                        <th>Marker number</th>
+                                        <th>Statements</th>
+                                        <th>Action</th>
+                                        </tr>
+                                    </thead>
                                 <tbody>
-                                    {anchorsList}     
+                                    {mappedList}
                                 </tbody>         
                             </table>
+                            </div>
+                            {/* <div className='center TextCenter'>
+                                <table className="center">
+                                    <thead>
+                                        <tr>
+                                        <th>Marker number</th>
+                                        <th>Statements</th>
+                                        <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                    {mappedList}
+                                </tbody>         
+                                </table>
+                            </div> */}
+
                         </div>
-                        
+
                     </div>
 
-                    <Link to={'/Debrief'}>
-                        <button className='space button button3'>
+                        <button className='space button button3'
+                        onClick={this.manageNavigation}>
                             Next
                         </button>
-                    </Link>
+                    
             </div>
         )
+                
     }
 }

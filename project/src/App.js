@@ -60,7 +60,7 @@ export default class App extends React.Component {
 
 const HomePage = () => (
   <div>
-    <QSort1 />
+    <Splash />
   </div>
 );
 

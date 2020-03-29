@@ -135,6 +135,8 @@ export default class QSort1 extends Component {
             redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
         }))
 
+        //This part takes care of removing added statement from the array that holds 
+        //every item
         let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
         this.setState({
             formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)

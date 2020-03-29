@@ -18,20 +18,17 @@ export default class QSort2 extends Component {
             redBoxStatements: [],
             index: 0,
             anchorsIndex: 0,
-           anchors: [],
-           quantity: [],
-           anchorsLength: 0,
-           anchorsArray: [],
+            anchors: [],
+            quantity: [],
+            anchorsLength: 0,
+            anchorsArray: [],
             list: [],
             marker: '',
             statement: '',
             mMarker: '',
             mStatement: '',
             mQuantity: 0,
-            refresh: 0
-
-
-           
+            refresh: 0,      
         }
 
         this.getArrays = this.getArrays.bind(this);
@@ -44,6 +41,8 @@ export default class QSort2 extends Component {
         this.getNumberOfAnchors = this.getNumberOfAnchors.bind(this);
 
         this.getVariable = this.getVariable.bind(this);
+
+        this.manageNavigation = this.manageNavigation.bind(this);
 
         //      QJ5921
     }
@@ -163,20 +162,54 @@ export default class QSort2 extends Component {
 
     addStatement() {
 
+        //      QJ5921
         this.getVariable();
-
-        const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
-        this.state.list = [...this.state.list, obj];
-        console.log(this.state.list);
-
         let {anchorsIndex, quantity} = this.state;
-        this.state.quantity[anchorsIndex] = parseInt(quantity[anchorsIndex]) - 1;
-        console.log(this.state.quantity[anchorsIndex]);
-       this.nextItem();
+
+        if(this.state.quantity[anchorsIndex] > 0){
+            
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            this.state.list = [...this.state.list, obj];
+            console.log(this.state.list);
+
+            //Calculate new quantity of available slots
+            this.state.quantity[anchorsIndex] = parseInt(quantity[anchorsIndex]) - 1;
+            console.log(this.state.quantity[anchorsIndex]);
+            this.nextItem();
+
+            //remove statement if it's been added
+            let remove = this.state.redBoxStatements.indexOf(this.state.redBoxStatements[this.state.index]);
+            this.setState({
+                redBoxStatements: this.state.redBoxStatements.filter((_, i) => i !== remove)
+            })
+        }
+        else{
+            alert("There are no more slots available for this marker");
+        }
 
     }
 
+    manageNavigation(){
+
+        if(this.state.redBoxStatements.length == 0){
+            this.setState({ Redirect: true });
+        }
+        else{
+            this.setState({ Redirect: false });
+            alert("Please distribute all statements")
+        }
+
+    }
+   
+
     render() {
+        if (this.state.Redirect) {
+            return (
+                <Redirect to={{
+                    pathname: '/QSort2Neutral',
+                }} />
+            )
+        }
         const mappedList = this.state.list.map((item, index) => {
             return(
     
@@ -187,11 +220,10 @@ export default class QSort2 extends Component {
                  )
     
              });
+
          let {index, redBoxStatements} = this.state;
          let {anchorsIndex, anchors, quantity, mQuantity} = this.state;
-
-         
-        
+     
          return (
 
             <div className = 'TextCenter'>
@@ -272,11 +304,11 @@ export default class QSort2 extends Component {
 
                     </div>
 
-                    <Link to={'/Debrief'}>
-                        <button className='space button button3'>
+                        <button className='space button button3'
+                        onClick={this.manageNavigation}>
                             Next
                         </button>
-                    </Link>
+                    
             </div>
         )
     }
