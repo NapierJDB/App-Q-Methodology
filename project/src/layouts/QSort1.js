@@ -22,11 +22,14 @@ export default class QSort1 extends Component {
             box1: localStorage.getItem('RE_BOX1'),
             box2: localStorage.getItem('RE_BOX2'),
             box3: localStorage.getItem('RE_BOX3'),
+            redQuantity: [],
+            whiteQuantity: [],
+            greenQuantity: [],
+            redQuantityTotal: 0,
+            whiteQuantityTotal: 0,
+            greenQuantityTotal: 0,
             statements: [],
             formatedStatements: [],
-
-
-            testArray: ['Anna', 'Joel', 'Bartek', 'Milo', 'Stench'],
             redArray: [],
             whiteArray: [],
             greenArray: [],
@@ -61,7 +64,38 @@ export default class QSort1 extends Component {
         this.removeRedStatement = this.removeRedStatement.bind(this);
         this.removeWhiteStatement = this.removeWhiteStatement.bind(this);
         this.removeGreenStatement = this.removeGreenStatement.bind(this);
+        this.getQuantity = this.getQuantity.bind(this);
 
+    }
+
+    getQuantity(){
+
+        //Get the total of slots available fro RED box
+        this.state.negativeQuantity = localStorage.getItem('RE_NEGATIVE_QUANTITY');
+        this.state.redQuantity = this.state.negativeQuantity.split(',');
+        console.log(this.state.redQuantity);
+        this.state.redQuantityTotal = this.state.redQuantity.reduce(
+            (redQuantityTotal, redQuantityItem) => 
+            redQuantityTotal + parseInt(redQuantityItem, 10), 0);
+        console.log(this.state.redQuantityTotal);
+
+        //Get the total of slots available fro WHITE box
+        this.state.neutralQuantity = localStorage.getItem('RE_NEUTRAL_QUANTITY');
+        this.state.whiteQuantity = this.state.neutralQuantity.split(',');
+        console.log(this.state.whiteQuantity);
+        this.state.whiteQuantityTotal = this.state.whiteQuantity.reduce(
+            (whiteQuantityTotal, whiteQuantityItem) => 
+            whiteQuantityTotal + parseInt(whiteQuantityItem, 10), 0);
+        console.log(this.state.whiteQuantityTotal);
+
+        //Get the total of slots available fro GREEN box
+        this.state.positiveQuantity = localStorage.getItem('RE_POSITIVE_QUANTITY');
+        this.state.greenQuantity = this.state.positiveQuantity.split(',');
+        console.log(this.state.greenQuantity);
+        this.state.greenQuantityTotal = this.state.greenQuantity.reduce(
+            (greenQuantityTotal, greenQuantityItem) => 
+            greenQuantityTotal + parseInt(greenQuantityItem, 10), 0);
+        console.log(this.state.greenQuantityTotal);
     }
 
     getStatements() {
@@ -107,9 +141,9 @@ export default class QSort1 extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+
+            this.getQuantity();
     }
-
-
 
     nextItem() {
 
@@ -128,55 +162,75 @@ export default class QSort1 extends Component {
 
     }
 
-
     addtoRed(e) {
 
-        this.setState(prevState => ({
-            redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
-        }))
+        if(this.state.redQuantityTotal > 0){
 
-        //This part takes care of removing added statement from the array that holds 
-        //every item
-        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
-        this.setState({
-            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
-        },
-            () => {
-                console.log('initial array: ' + this.state.formatedStatements)
-                console.log('RED box: ' + this.state.redArray)
-            })
+            this.state.redQuantityTotal = this.state.redQuantityTotal - 1;
+            this.setState(prevState => ({
+                redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
+            }))
+
+            //This part takes care of removing added statement from the array that holds 
+            //every item
+            let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
+            this.setState({
+                formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
+            },
+                () => {
+                    console.log('initial array: ' + this.state.formatedStatements)
+                    console.log('RED box: ' + this.state.redArray)
+                })
+        }
+        else{
+            alert("Red box is full");
+        }
     }
 
     addtoWhite(e) {
 
-        this.setState(prevState => ({
-            whiteArray: [...prevState.whiteArray, this.state.formatedStatements[this.state.index]]
-        }))
+        if(this.state.whiteQuantityTotal > 0){
 
-        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
-        this.setState({
-            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
-        },
-            () => {
-                console.log('initial array: ' + this.state.formatedStatements)
-                console.log('WHITE box: ' + this.state.whiteArray)
-            })
+            this.state.whiteQuantityTotal = this.state.whiteQuantityTotal - 1;
+            this.setState(prevState => ({
+                whiteArray: [...prevState.whiteArray, this.state.formatedStatements[this.state.index]]
+            }))
+
+            let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
+            this.setState({
+                formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
+            },
+                () => {
+                    console.log('initial array: ' + this.state.formatedStatements)
+                    console.log('WHITE box: ' + this.state.whiteArray)
+                })
+        }
+        else{
+            alert("White box is full");
+        }
     }
 
     addtoGreen(e) {
 
-        this.setState(prevState => ({
-            greenArray: [...prevState.greenArray, this.state.formatedStatements[this.state.index]]
-        }))
+        if(this.state.greenQuantityTotal > 0){
 
-        let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
-        this.setState({
-            formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
-        },
-            () => {
-                console.log('initial array: ' + this.state.formatedStatements)
-                console.log('GREEN box: ' + this.state.greenArray)
-            })
+            this.state.greenQuantityTotal = this.state.greenQuantityTotal - 1;
+            this.setState(prevState => ({
+                greenArray: [...prevState.greenArray, this.state.formatedStatements[this.state.index]]
+            }))
+
+            let remove = this.state.formatedStatements.indexOf(this.state.formatedStatements[this.state.index]);
+            this.setState({
+                formatedStatements: this.state.formatedStatements.filter((_, i) => i !== remove)
+            },
+                () => {
+                    console.log('initial array: ' + this.state.formatedStatements)
+                    console.log('GREEN box: ' + this.state.greenArray)
+                })
+        }
+        else{
+            alert("Green box is full");
+        }
     }
 
     checkStatus() {
@@ -258,7 +312,8 @@ export default class QSort1 extends Component {
             }
         )
 
-
+        //Add 1 to the total of slots available
+        this.state.redQuantityTotal = this.state.redQuantityTotal + 1;
     }
 
     //Move item from White array to starting array
@@ -279,6 +334,8 @@ export default class QSort1 extends Component {
                 console.log('white box: ' + this.state.whiteArray)
             }
         )
+         //Add 1 to the total of slots available
+         this.state.whiteQuantityTotal = this.state.whiteQuantityTotal + 1;
     }
 
     //Move item from Green array to starting array
@@ -299,6 +356,9 @@ export default class QSort1 extends Component {
                 console.log('green box: ' + this.state.greenArray)
             }
         )
+
+         //Add 1 to the total of slots available
+         this.state.greenQuantityTotal = this.state.greenQuantityTotal + 1;
     }
 
 
@@ -333,6 +393,13 @@ export default class QSort1 extends Component {
 
                     </div>
 
+                    {/* <div className='row'>
+                    <h3>{this.state.redQuantityTotal}</h3>
+                    <h3>{this.state.whiteQuantityTotal}</h3>
+                    <h3>{this.state.greenQuantityTotal}</h3>
+                    </div> */}
+
+                    
                     <button className='space boxButton button3' onClick={this.openRedModal}>
                         <img className="boxImg" src={redBox} />
                         <div onClick={e => e.stopPropagation()}>
@@ -348,6 +415,7 @@ export default class QSort1 extends Component {
                         </div>
                     </button>
 
+                    
                     <button className='space boxButton button3' onClick={this.openWhiteModal}>
                         <img className="boxImg" src={whiteBox} />
                         <div onClick={e => e.stopPropagation()}>
@@ -363,6 +431,7 @@ export default class QSort1 extends Component {
                         </div>
                     </button>
 
+                    
                     <button className='space boxButton button3' onClick={this.openGreenModal}>
                         <img className="boxImg" src={greenBox} />
                         <div onClick={e => e.stopPropagation()}>
