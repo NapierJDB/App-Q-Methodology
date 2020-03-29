@@ -15,6 +15,7 @@ import QSort2Neg from './layouts/QSort2 - Negative';
 import QSort2Neu from './layouts/QSort2 - Neutral';
 import QSort2Pos from './layouts/QSort2 - Positive';
 import End from './layouts/End';
+import Complete from './layouts/Complete';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,7 +24,6 @@ import {
 } from 'react-router-dom';
 
 import { MyProvider } from './Context';
-import Test from './layouts/Test'
 
 
 export default class App extends React.Component {
@@ -50,6 +50,7 @@ export default class App extends React.Component {
               <Route path='/QSort2Neutral' component={QSort2Neu} />
               <Route path='/QSort2Positive' component={QSort2Pos} />
               <Route path='/End' component={End} />
+              <Route path='/Complete' component={Complete} />
             </Switch>
           </div>
         </Router>

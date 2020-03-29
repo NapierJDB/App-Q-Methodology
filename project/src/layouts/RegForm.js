@@ -1,10 +1,6 @@
 import React from "react";
 import logo from './images/logo2.png'
 import { Link, Redirect } from 'react-router-dom';
-/*
-    TO IMPLEMENT:
-        password confirmation
-*/
 
 export default class RegForm extends React.Component {
   constructor(props) {

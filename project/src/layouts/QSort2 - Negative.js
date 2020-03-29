@@ -43,6 +43,7 @@ export default class QSort2 extends Component {
         this.getVariable = this.getVariable.bind(this);
 
         this.manageNavigation = this.manageNavigation.bind(this);
+        this.sendResultsToLocalStorage = this.sendResultsToLocalStorage.bind(this);
 
         //      QJ5921
     }
@@ -193,12 +194,17 @@ export default class QSort2 extends Component {
 
         if(this.state.redBoxStatements.length == 0){
             this.setState({ Redirect: true });
+            this.sendResultsToLocalStorage();
         }
         else{
             this.setState({ Redirect: false });
             alert("Please distribute all statements")
         }
 
+    }
+
+    sendResultsToLocalStorage(){
+        localStorage.setItem('NEGATIVE_RESULTS', JSON.stringify(this.state.list));
     }
    
 
