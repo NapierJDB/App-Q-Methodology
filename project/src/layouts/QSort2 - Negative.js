@@ -172,7 +172,7 @@ export default class QSort2 extends Component {
         if(this.state.quantity[anchorsIndex] > 0){
             
             //Create new list
-            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement.substring(0,2)};
             this.state.list = [...this.state.list, obj];
             console.log(this.state.list);
 
@@ -208,6 +208,7 @@ export default class QSort2 extends Component {
 
     sendResultsToLocalStorage(){
         localStorage.setItem('NEGATIVE_RESULTS', JSON.stringify(this.state.list));
+        // localStorage.setItem('RESULTS', JSON.stringify(this.state.list));
     }
    
 

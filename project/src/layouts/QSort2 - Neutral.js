@@ -29,6 +29,7 @@ export default class QSort2 extends Component {
             mStatement: '',
             mQuantity: 0,
             refresh: 0,
+            results: [],
         }
 
         this.getArrays = this.getArrays.bind(this);
@@ -169,7 +170,7 @@ export default class QSort2 extends Component {
 
         if(this.state.quantity[anchorsIndex] > 0){
             
-            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement.substring(0,2)};
             this.state.list = [...this.state.list, obj];
             console.log(this.state.list);
 
@@ -205,6 +206,10 @@ export default class QSort2 extends Component {
 
     sendResultsToLocalStorage(){
         localStorage.setItem('NEUTRAL_RESULTS', JSON.stringify(this.state.list));
+        // let results = localStorage.getItem('RESULTS');
+        // this.state.results = JSON.parse(results);
+        // this.state.list = [...this.state.list, this.state.results];
+        // console.log(this.state.list);
     }
    
 

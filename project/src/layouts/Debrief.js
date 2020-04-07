@@ -20,7 +20,24 @@ export default class Debrief extends React.Component {
             agreed: false,
             privacyStatement: localStorage.getItem('RE_PRIVACY'),
             results: [],
+            researchID: localStorage.getItem('RE_ID'),
             email: "",
+            negative: [],
+            neutral: [],
+            positive: [],
+            statements: [],
+            testArray: {
+
+                researchID: 123, 
+                statements:[
+
+                    {markerNum:1, statement:1},
+                    {markerNum:2, statement:2}
+                ], 
+                email:"test@email.com"
+            },
+
+            array: [],
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -46,17 +63,37 @@ export default class Debrief extends React.Component {
         let negative = localStorage.getItem('NEGATIVE_RESULTS');
         let neutral = localStorage.getItem('NEUTRAL_RESULTS');
         let positive = localStorage.getItem('POSITIVE_RESULTS');
+        this.state.negative = JSON.parse(negative);
+        this.state.neutral = JSON.parse(neutral);
+        this.state.positive = JSON.parse(positive);
+        //console.log(this.state.negative);
 
         this.setState({
-            results: [negative + neutral + positive]
+            results: [this.state.negative + this.state.neutral + this.state.positive]
         }, 
             () => {
                 console.log(this.state.results)
             })
 
-        const obj = {'email':this.state.email};
-        this.state.results = [...this.state.results, obj]
-        console.log(this.state.results)
+        console.log(this.state.negative);
+        console.log(this.state.neutral);
+        console.log(this.state.positive);
+
+        //const statementObj2 = Object.assign(this.state.negative, this.state.neutral, this.state.positive);
+        //console.log(statementObj2);
+
+        //const statementObj = this.state.negative;
+        
+        this.state.statements = this.state.negative.concat(this.state.neutral, this.state.positive);
+        console.log(this.state.statements);
+        
+        
+        const obj = {researchID: this.state.researchID,
+                     email:this.state.email,
+                     statements: this.state.statements};
+
+         this.state.array = [...this.state.array, obj]
+         console.log(this.state.array)
         
     }
 

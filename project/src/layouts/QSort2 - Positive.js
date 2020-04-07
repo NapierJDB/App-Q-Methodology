@@ -179,7 +179,7 @@ export default class QSort2 extends Component {
 
         if(this.state.quantity[anchorsIndex] > 0){
             
-            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement.substring(0,2)};
             this.state.list = [...this.state.list, obj];
             console.log(this.state.list);
 
