@@ -173,7 +173,7 @@ export default class CreateSurvey_1 extends React.Component {
                           <textarea className = 'space descriptionTextbox'
                           type="text"
                           name="privacy"
-                          placeholder="Privacy statement"
+                          placeholder="Privacy notice"
                           privacy={this.state.privacy}
                           onChange={this.handleChange}
                           required

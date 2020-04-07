@@ -19,17 +19,21 @@ export default class Debrief extends React.Component {
         this.state = {
             agreed: false,
             privacyStatement: localStorage.getItem('RE_PRIVACY'),
+            results: [],
             email: "",
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.results = this.results.bind(this);
 
     }
 
     handleCheckboxChange = (e) => {
         this.setState(previousState => { 
             return {agreed: !previousState.agreed}
-            })  
+            })
+            
+        localStorage.setItem('PARTICIPANT_EMAIL', this.state.email);
     }
 
     handleChange = event => {
@@ -37,6 +41,26 @@ export default class Debrief extends React.Component {
           [event.target.name]: event.target.value
         })
       }
+
+    results(){
+        let negative = localStorage.getItem('NEGATIVE_RESULTS');
+        let neutral = localStorage.getItem('NEUTRAL_RESULTS');
+        let positive = localStorage.getItem('POSITIVE_RESULTS');
+
+        this.setState({
+            results: [negative + neutral + positive]
+        }, 
+            () => {
+                console.log(this.state.results)
+            })
+
+        const obj = {'email':this.state.email};
+        this.state.results = [...this.state.results, obj]
+        console.log(this.state.results)
+        
+    }
+
+    //      QJ5921
 
     render() {
 
@@ -77,8 +101,9 @@ export default class Debrief extends React.Component {
                     </button>
                 </Link>
                 
-                <Link to={'/Complete'}>
+                {/* <Link to={'/Complete'}> */}
                   <button 
+                    onClick={this.results}
                     name=""
                     type="submit" 
                     className = {btn_style}
@@ -86,7 +111,7 @@ export default class Debrief extends React.Component {
                     >
                       Agree
                   </button>
-                </Link>
+                {/* </Link> */}
             </div>
         )
 

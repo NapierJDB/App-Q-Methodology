@@ -131,7 +131,7 @@ class Anchors extends Component{
                 <table className="center">
                     <thead>
                         <tr>
-                        <th>Marker number</th>
+                        <th>Anchor number</th>
                         <th>Number of items</th>
                         <th>Action</th>
                         </tr>

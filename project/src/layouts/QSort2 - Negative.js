@@ -28,7 +28,8 @@ export default class QSort2 extends Component {
             mMarker: '',
             mStatement: '',
             mQuantity: 0,
-            refresh: 0,      
+            refresh: 0, 
+            list2: []     
         }
 
         this.getArrays = this.getArrays.bind(this);
@@ -47,11 +48,11 @@ export default class QSort2 extends Component {
 
         //      QJ5921
     }
-    refresh(){
-        this.setState({
-            refresh: 1
-        })
-    }
+    // refresh(){
+    //     this.setState({
+    //         refresh: 1
+    //     })
+    // }
 
     getArrays() {
         //Get things from local storage
@@ -71,8 +72,7 @@ export default class QSort2 extends Component {
 
         this.setState({
             anchorsArray: [{markerNum: this.state.negativeAnchors.split(','), items: this.state.negativeQuantity.split(',')}],
-            
-            
+                       
         })
 
     }
@@ -106,6 +106,8 @@ export default class QSort2 extends Component {
 
         this.state.mMarker = this.state.marker;
         this.state.mStatement = this.state.statement;
+
+        console.log("This " + this.state.mMarker)
         
     }
 
@@ -169,6 +171,7 @@ export default class QSort2 extends Component {
 
         if(this.state.quantity[anchorsIndex] > 0){
             
+            //Create new list
             const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
             this.state.list = [...this.state.list, obj];
             console.log(this.state.list);

@@ -47,11 +47,11 @@ export default class QSort2 extends Component {
 
         //      QJ5921
     }
-    refresh(){
-        this.setState({
-            refresh: 1
-        })
-    }
+    // refresh(){
+    //     this.setState({
+    //         refresh: 1
+    //     })
+    // }
 
     getArrays() {
         //Get things from local storage

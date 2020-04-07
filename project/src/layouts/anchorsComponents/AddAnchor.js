@@ -139,7 +139,7 @@ class AddAnchor extends Component{
                     <div>
                         <input className = 'space textbox'
                             name="markerNumber"
-                            placeholder="Marker number"
+                            placeholder="Anchor number"
                             required
                             type="number"
                             onChange={this.updateState}
