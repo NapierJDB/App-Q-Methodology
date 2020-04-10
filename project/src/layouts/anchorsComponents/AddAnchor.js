@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tooltip from "react-simple-tooltip";
 
 class AddAnchor extends Component{
 
@@ -147,6 +148,14 @@ class AddAnchor extends Component{
                     </div>
 
                     <div>
+                        <Tooltip 
+                            content="Enter the quantity of items to fit in this anchor">
+                        <button 
+                          disabled 
+                          className = 'popupBtn'>
+                          ?
+                        </button>
+                        </Tooltip>  
                         <input className = 'space textbox'
                             name="numberOfItems"
                             placeholder="Number of items"

@@ -18,6 +18,7 @@ export default class Debrief extends React.Component {
 
         this.state = {
             agreed: false,
+            researchToken: localStorage.getItem('RE_TOKEN'),
             privacyStatement: localStorage.getItem('RE_PRIVACY'),
             results: [],
             researchID: localStorage.getItem('RE_ID'),
@@ -38,6 +39,7 @@ export default class Debrief extends React.Component {
             },
 
             array: [],
+            array2: [],
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -72,7 +74,7 @@ export default class Debrief extends React.Component {
             results: [this.state.negative + this.state.neutral + this.state.positive]
         }, 
             () => {
-                console.log(this.state.results)
+                //console.log(this.state.results)
             })
 
         console.log(this.state.negative);
@@ -88,13 +90,105 @@ export default class Debrief extends React.Component {
         console.log(this.state.statements);
         
         
-        const obj = {researchID: this.state.researchID,
-                     email:this.state.email,
-                     statements: this.state.statements};
+        const obj = {researchID: this.state.researchID,                   
+                     statements: this.state.statements,
+                     email:this.state.email};
 
-         this.state.array = [...this.state.array, obj]
-         console.log(this.state.array)
+         this.state.array = [...this.state.array, obj];
+         console.log(this.state.array);
+
+         const obj2 = {array: this.state.array}
+         this.state.array2 = [...this.state.array2, obj2];
+         console.log(this.state.array2);
+
+         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
+
+      method: 'POST',
+      headers: {
+        'Authorization': this.state.researchToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'researchID': this.state.researchID,
+        'array': obj
+      })
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+          console.log(data.message);
+      })
+
+
         
+
+    
+    //    .then((data) => {
+    //      console.log(data);
+
+    //      this.state.error = data.error;
+        
+    //      if (this.state.error == false) {
+    //        this.setState({ Redirect: true });
+    //      }
+    //      else {
+    //        alert("Upps...\nIt looks like this survey already exist!")
+    //      }
+
+
+    //    })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+         //this.sendResults();
+        
+    }
+
+    sendResults(){
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
+
+      method: 'POST',
+      headers: {
+        'Authorization': this.state.researchToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'researchID': this.state.researchID,
+        'array': this.state.array2 
+      })
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+          console.log(data.message);
+      })
+
+
+        
+
+    
+    //    .then((data) => {
+    //      console.log(data);
+
+    //      this.state.error = data.error;
+        
+    //      if (this.state.error == false) {
+    //        this.setState({ Redirect: true });
+    //      }
+    //      else {
+    //        alert("Upps...\nIt looks like this survey already exist!")
+    //      }
+
+
+    //    })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     }
 
     //      QJ5921

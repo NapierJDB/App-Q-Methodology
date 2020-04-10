@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Anchors from './anchorsComponents/Anchors';
 import AddAnchor from './anchorsComponents/AddAnchor';
-import { Redirect } from 'react-router-dom';
 import logo from './images/logo2.png';
 import {Link} from 'react-router-dom';
+
 
 class NewAnchors extends Component {
     constructor(props) {
