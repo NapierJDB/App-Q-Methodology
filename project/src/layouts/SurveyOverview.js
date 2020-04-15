@@ -3,6 +3,10 @@ import axios from 'axios';
 import logo from './images/logo2.png';
 import Modal from 'react-modal';
 
+//https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/createFile
+//Musisz dodac researchID w body i ten pierwszy token w headers
+//https://soc-web-liv-60.napier.ac.uk/API/public/download.php
+
 export default class SurveyOverview extends React.Component {
     constructor(props) {
         super(props);
@@ -26,6 +30,8 @@ export default class SurveyOverview extends React.Component {
             researchPopup: false,
             selectedResearchIndex: 0,
             selectedResearch: [],
+            researchID: '',
+            idToExport: '',
 
     
         };
@@ -33,10 +39,15 @@ export default class SurveyOverview extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getSelectedResearchIndex = this.getSelectedResearchIndex.bind(this);
         this.viewResearch = this.viewResearch.bind(this);
+        this.exportResults = this.exportResults.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.download = this.download.bind(this);
 
       }
 
-     
+      componentDidMount(){
+        this.handleSubmit();
+    }
 
       handleSubmit(event) {
        // event.preventDefault()
@@ -83,8 +94,12 @@ export default class SurveyOverview extends React.Component {
               this.state.codes = data.map(({ code }) => code)
               console.log(this.state.codes);
 
+              //---STORING RESEARCH ID---
+              this.state.researchID = data.map(({ id }) => id)
+              console.log(this.state.researchID)
+
               this.state.researchArray = data.map(item => 
-                item.name + " " + item.created_date + " " + item.code)
+                item.name + " " + item.created_date + " " + item.code +  " " + item.id)
 
                 console.log(this.state.researchArray);
       
@@ -95,9 +110,7 @@ export default class SurveyOverview extends React.Component {
         
       }
 
-    componentDidMount(){
-        this.handleSubmit();
-    }
+    
 
     getSelectedResearchIndex(){
         this.state.selectedResearch = this.state.list[this.state.selectedResearchIndex];
@@ -113,6 +126,60 @@ export default class SurveyOverview extends React.Component {
         
     }
 
+    handleChange = event =>{
+        this.setState({
+            [event.target.name]: event.target.value
+          })
+    }
+
+    exportResults(){
+
+        //console.log(this.state.idToExport);
+        // if(this.state.researchArray.indexOf(this.state.idToExport)){
+        //    console.log("contains")
+        //    //var index = this.state.researchArray.indexOf(this.state.idToExport)
+        //    // console.log(index);
+
+        // }
+
+        if(this.state.researchArray.indexOf(this.state.idToExport)){
+
+        
+            fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/createFile",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': this.state.TOKEN,
+                        'Content-Type': 'application/json'         
+                    },
+                    body: JSON.stringify({
+                        'researchID': this.state.idToExport,
+                    })
+                })
+                .then((response) => {
+                    //return response.json();
+                    console.log(response);
+                // console.log(this.state.researchID);
+        
+                })
+                // .then((data) => {
+                //   console.log(data);
+
+        
+                // })
+                .catch(function (error) {
+                console.log(error);
+                });
+        }
+        else{
+            alert("This id doesn't exist");
+        }
+    }
+
+    download(){
+        window.location.href = "https://soc-web-liv-60.napier.ac.uk/API/public/download.php";
+    }
+
 
     render() {
         const mappedList = this.state.list.map((item, index) => {
@@ -122,8 +189,14 @@ export default class SurveyOverview extends React.Component {
                         <td>{item.name}</td>
                         <td>{item.created_date}</td>
                         <td>{item.code}</td>
-                        <td>
-                            <button                                
+                        <td>{item.id}</td>
+                        {/* <td> */}
+                            {/* <button
+                                className='space button button3'
+                                onClick={this.exportResults}>
+                                Export results{item.id}
+                            </button> */}
+                            {/* <button                                
                                 className = 'space tableButton tableButton3'
                                 onClick={this.viewResearch}
                             >
@@ -165,11 +238,11 @@ export default class SurveyOverview extends React.Component {
                                                 </div>
                                             )} */}
                                             {/* <button onClick={this.closeRedModal}>Close</button> */}
-                                    </Modal>
+                                    {/* </Modal>
                                 </div>
                                 View
-                            </button>
-                        </td>                            
+                            </button> */} 
+                        {/* </td>                             */}
                     </tr>
                  )
     
@@ -195,7 +268,7 @@ export default class SurveyOverview extends React.Component {
                                 <th>Name</th>
                                 <th>Date</th>
                                 <th>Code</th>
-                                <th>View</th>
+                                <th>ID</th>
                                 </tr>
                             </thead> 
                             <tbody>
@@ -204,6 +277,28 @@ export default class SurveyOverview extends React.Component {
                         </table>
                     </div>
 
+                <div>
+                    <input 
+                        className='space textbox'
+                        type="text"
+                        name="idToExport"
+                        placeholder="Research ID"
+                        idToExport={this.state.idToExport}
+                        //function call
+                        onChange={this.handleChange}
+                    />
+                    <button
+                        className='space button button3'
+                        onClick={this.exportResults}>
+                        Export results
+                    </button>
+                    <button
+                        className='space button button3'
+                        // href="https://soc-web-liv-60.napier.ac.uk/API/public/download.php"
+                        onClick={this.download}>
+                        Download results
+                    </button>
+                </div>
                 <button className = 'space button button3'>
                     Admin panel
                 </button>
