@@ -66,6 +66,16 @@ export default class QSort1 extends Component {
         this.removeGreenStatement = this.removeGreenStatement.bind(this);
         this.getQuantity = this.getQuantity.bind(this);
 
+        this.tip = this.tip.bind(this);
+
+    }
+
+    tip() {
+        alert("Click on Get statements to get started.\n"+ 
+        "Add statement by clicking on the button\n" + 
+        "for example: Strongly disagree will add the statement\n" +
+        "to the red box. By clicking on the box image you will be able\n" +
+        "to see the statements that are already in this box")
     }
 
     getQuantity(){
@@ -470,19 +480,11 @@ export default class QSort1 extends Component {
                     Next
                 </button>
 
-                <Tooltip 
-                        content="Click on Get statements to get started. 
-                        Add statement by clicking on the button 
-                        for example: Strongly disagree will add the statement
-                        to the red box.
-                        By clicking on the box image you will be able
-                        to see the statements that are already in this box">
-                        <button 
-                          disabled 
-                          className = 'popupBtn'>
-                          Help
-                        </button>
-                      </Tooltip> 
+                <button 
+                    className='space button button3'
+                    onClick={this.tip}>
+                    Help
+                </button>
 
             </div>
         )

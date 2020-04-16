@@ -1,14 +1,5 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    useHistory,
-    withRouter,
-    Redirect,
-    MemoryRouter
-} from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 
 export default class Debrief extends React.Component {
@@ -19,7 +10,7 @@ export default class Debrief extends React.Component {
         this.state = {
             agreed: false,
             researchToken: localStorage.getItem('RE_TOKEN'),
-            privacyStatement: localStorage.getItem('RE_PRIVACY'),
+            privacyStatement: localStorage.getItem('RE_DEBRIEF'),
             results: [],
             researchID: localStorage.getItem('RE_ID'),
             email: "",
@@ -118,82 +109,28 @@ export default class Debrief extends React.Component {
       })
       .then((data) => {
           console.log(data.message);
+          console.log(data.error);
+          if(!data.error){
+            this.setState({ Redirect: true });
+          }
+          else
+          {
+            alert(data.message);
+          }
       })
 
-
-        
-
-    
-    //    .then((data) => {
-    //      console.log(data);
-
-    //      this.state.error = data.error;
-        
-    //      if (this.state.error == false) {
-    //        this.setState({ Redirect: true });
-    //      }
-    //      else {
-    //        alert("Upps...\nIt looks like this survey already exist!")
-    //      }
-
-
-    //    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-         //this.sendResults();
-        
-    }
-
-    sendResults(){
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
-
-      method: 'POST',
-      headers: {
-        'Authorization': this.state.researchToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'researchID': this.state.researchID,
-        'array': this.state.array2 
-      })
-      })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-          console.log(data.message);
-      })
-
-
-        
-
-    
-    //    .then((data) => {
-    //      console.log(data);
-
-    //      this.state.error = data.error;
-        
-    //      if (this.state.error == false) {
-    //        this.setState({ Redirect: true });
-    //      }
-    //      else {
-    //        alert("Upps...\nIt looks like this survey already exist!")
-    //      }
-
-
-    //    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    }
-
+  }
     //      QJ5921
 
     render() {
+
+      if (this.state.Redirect) {
+        return (
+          <Redirect to={{
+            pathname: '/Complete',
+          }} />
+        )
+      }
 
         let btn_style = this.state.agreed ? 'space button enabled' : 'space button disabled';
 

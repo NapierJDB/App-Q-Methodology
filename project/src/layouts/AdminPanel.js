@@ -78,6 +78,15 @@ export default class AdminPanel extends React.Component {
                                 View surveys
                             </button>
                             </Link>
+
+                            <Link 
+                            to={{
+                            pathname: '/DeleteParticipant'
+                            }}>
+                            <button className = 'space button button3'>
+                                Manage participants
+                            </button>
+                            </Link>
                         </div>
                     </div>
                                 

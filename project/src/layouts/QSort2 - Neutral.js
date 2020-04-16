@@ -46,6 +46,8 @@ export default class QSort2 extends Component {
         this.manageNavigation = this.manageNavigation.bind(this);
         this.sendResultsToLocalStorage = this.sendResultsToLocalStorage.bind(this);
 
+        this.tip = this.tip.bind(this);
+
         //      QJ5921
     }
     // refresh(){
@@ -53,6 +55,14 @@ export default class QSort2 extends Component {
     //         refresh: 1
     //     })
     // }
+
+    tip() {
+        alert("Use the arrow buttons to navigate through anchors.\n"+ 
+        "Available slots tells you how many statements you can fit in this particular anchor\n" + 
+        "Press Add statement button to add currently displayed statement\n" +
+        "in to the anchor\n" +
+        "Click Next to go to the next step")
+    }
 
     getArrays() {
         //Get things from local storage
@@ -117,7 +127,7 @@ export default class QSort2 extends Component {
     }
    
     nextItem() {
-        if(this.state.index == this.state.whiteBoxStatements.length - 1){
+        if(this.state.index == this.state.whiteBoxStatements.length){
            
             this.setState({
                 index: 0
@@ -126,7 +136,7 @@ export default class QSort2 extends Component {
         else{
            
             this.setState(prevState => ({
-                index: prevState.index + 1
+                index: prevState.index
             }))
         }        
     }
@@ -315,10 +325,17 @@ export default class QSort2 extends Component {
 
                     </div>
 
-                        <button className='space button button3'
+                    <button 
+                        className='space button button3'
                         onClick={this.manageNavigation}>
-                            Next
-                        </button>
+                        Next
+                    </button>
+
+                    <button 
+                        className='space button button3'
+                        onClick={this.tip}>
+                        Help
+                    </button>
                     
             </div>
         )

@@ -59,7 +59,7 @@ export default class PrivacyScreen extends React.Component {
                     </button>
                 </Link>
                 
-                <Link to={'/QSort1'}>
+                <Link to={'/AnswerQuestions'}>
                   <button 
                     name=""
                     type="submit" 

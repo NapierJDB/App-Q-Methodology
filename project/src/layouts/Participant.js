@@ -275,8 +275,20 @@ export default class Participant extends Component {
                         onClick={this.handleSubmit}>
                         Enter
                     </button>
-               
+
+                    
+              
                 </div>
+
+                <Link
+                        to={{
+                            pathname: '/RequestDelition'
+                        }}>
+                        <button  
+                            className = 'space button button3'>
+                            Request Delition
+                        </button>
+                    </Link>
                 </div>
             </div>
         )
