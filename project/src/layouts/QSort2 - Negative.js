@@ -28,7 +28,8 @@ export default class QSort2 extends Component {
             mMarker: '',
             mStatement: '',
             mQuantity: 0,
-            refresh: 0,      
+            refresh: 0, 
+            list2: []     
         }
 
         this.getArrays = this.getArrays.bind(this);
@@ -45,12 +46,22 @@ export default class QSort2 extends Component {
         this.manageNavigation = this.manageNavigation.bind(this);
         this.sendResultsToLocalStorage = this.sendResultsToLocalStorage.bind(this);
 
+        this.tip = this.tip.bind(this);
+
         //      QJ5921
     }
-    refresh(){
-        this.setState({
-            refresh: 1
-        })
+    // refresh(){
+    //     this.setState({
+    //         refresh: 1
+    //     })
+    // }
+
+    tip() {
+        alert("Use the arrow buttons to navigate through anchors.\n"+ 
+        "Available slots tells you how many statements you can fit in this particular anchor\n" + 
+        "Press Add statement button to add currently displayed statement\n" +
+        "in to the anchor\n" +
+        "Click Next to go to the next step")
     }
 
     getArrays() {
@@ -71,8 +82,7 @@ export default class QSort2 extends Component {
 
         this.setState({
             anchorsArray: [{markerNum: this.state.negativeAnchors.split(','), items: this.state.negativeQuantity.split(',')}],
-            
-            
+                       
         })
 
     }
@@ -106,6 +116,8 @@ export default class QSort2 extends Component {
 
         this.state.mMarker = this.state.marker;
         this.state.mStatement = this.state.statement;
+
+        console.log("This " + this.state.mMarker)
         
     }
 
@@ -116,7 +128,7 @@ export default class QSort2 extends Component {
     }
    
     nextItem() {
-        if(this.state.index == this.state.redBoxStatements.length - 1){
+        if(this.state.index == this.state.redBoxStatements.length){
            
             this.setState({
                 index: 0
@@ -125,7 +137,7 @@ export default class QSort2 extends Component {
         else{
            
             this.setState(prevState => ({
-                index: prevState.index + 1
+                index: prevState.index
             }))
         }        
     }
@@ -169,7 +181,8 @@ export default class QSort2 extends Component {
 
         if(this.state.quantity[anchorsIndex] > 0){
             
-            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement};
+            //Create new list
+            const obj = {'markerNum':this.state.mMarker, 'statement':this.state.mStatement.substring(0,2)};
             this.state.list = [...this.state.list, obj];
             console.log(this.state.list);
 
@@ -205,6 +218,7 @@ export default class QSort2 extends Component {
 
     sendResultsToLocalStorage(){
         localStorage.setItem('NEGATIVE_RESULTS', JSON.stringify(this.state.list));
+        // localStorage.setItem('RESULTS', JSON.stringify(this.state.list));
     }
    
 
@@ -310,10 +324,17 @@ export default class QSort2 extends Component {
 
                     </div>
 
-                        <button className='space button button3'
+                    <button 
+                        className='space button button3'
                         onClick={this.manageNavigation}>
-                            Next
-                        </button>
+                        Next
+                    </button>
+
+                    <button 
+                        className='space button button3'
+                        onClick={this.tip}>
+                        Help
+                    </button>
                     
             </div>
         )

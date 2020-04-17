@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
-import logo from './images/logo2.png'
+import React from "react";
+import { Redirect } from 'react-router-dom';
+import logo from './images/logo2.png';
+import Tooltip from "react-simple-tooltip";
 
 
 
@@ -108,9 +101,7 @@ export default class CreateSurvey_1 extends React.Component {
       <div className = 'TextCenter'>
             <img src={logo}/>
             <h1 className = 'primary'>Create new research</h1>
-
             <div>
-
                 <h2 className = 'primary'>Research information</h2>
                 <form>
                   <div>
@@ -137,6 +128,14 @@ export default class CreateSurvey_1 extends React.Component {
                       </div>
 
                       <div>
+                      <Tooltip 
+                        content="Add the name of the boxes. Example: Negative, Neutral, Positive">
+                        <button 
+                          disabled 
+                          className = 'popupBtn'>
+                          ?
+                        </button>
+                      </Tooltip>    
                           <input className = 'space textbox'
                           type="text"
                           name="box1"
@@ -173,7 +172,7 @@ export default class CreateSurvey_1 extends React.Component {
                           <textarea className = 'space descriptionTextbox'
                           type="text"
                           name="privacy"
-                          placeholder="Privacy statement"
+                          placeholder="Privacy notice"
                           privacy={this.state.privacy}
                           onChange={this.handleChange}
                           required
@@ -200,9 +199,6 @@ export default class CreateSurvey_1 extends React.Component {
                   </div>                   
              </form>
             </div>
-
-           
-
           </div>
     );
   }

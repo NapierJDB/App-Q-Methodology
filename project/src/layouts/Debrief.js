@@ -1,14 +1,5 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    useHistory,
-    withRouter,
-    Redirect,
-    MemoryRouter
-} from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 
 export default class Debrief extends React.Component {
@@ -18,18 +9,41 @@ export default class Debrief extends React.Component {
 
         this.state = {
             agreed: false,
-            privacyStatement: localStorage.getItem('RE_PRIVACY'),
+            researchToken: localStorage.getItem('RE_TOKEN'),
+            privacyStatement: localStorage.getItem('RE_DEBRIEF'),
+            results: [],
+            researchID: localStorage.getItem('RE_ID'),
             email: "",
+            negative: [],
+            neutral: [],
+            positive: [],
+            statements: [],
+            testArray: {
+
+                researchID: 123, 
+                statements:[
+
+                    {markerNum:1, statement:1},
+                    {markerNum:2, statement:2}
+                ], 
+                email:"test@email.com"
+            },
+
+            array: [],
+            array2: [],
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.results = this.results.bind(this);
 
     }
 
     handleCheckboxChange = (e) => {
         this.setState(previousState => { 
             return {agreed: !previousState.agreed}
-            })  
+            })
+            
+        localStorage.setItem('PARTICIPANT_EMAIL', this.state.email);
     }
 
     handleChange = event => {
@@ -38,7 +52,85 @@ export default class Debrief extends React.Component {
         })
       }
 
+    results(){
+        let negative = localStorage.getItem('NEGATIVE_RESULTS');
+        let neutral = localStorage.getItem('NEUTRAL_RESULTS');
+        let positive = localStorage.getItem('POSITIVE_RESULTS');
+        this.state.negative = JSON.parse(negative);
+        this.state.neutral = JSON.parse(neutral);
+        this.state.positive = JSON.parse(positive);
+        //console.log(this.state.negative);
+
+        this.setState({
+            results: [this.state.negative + this.state.neutral + this.state.positive]
+        }, 
+            () => {
+                //console.log(this.state.results)
+            })
+
+        console.log(this.state.negative);
+        console.log(this.state.neutral);
+        console.log(this.state.positive);
+
+        //const statementObj2 = Object.assign(this.state.negative, this.state.neutral, this.state.positive);
+        //console.log(statementObj2);
+
+        //const statementObj = this.state.negative;
+        
+        this.state.statements = this.state.negative.concat(this.state.neutral, this.state.positive);
+        console.log(this.state.statements);
+        
+        
+        const obj = {researchID: this.state.researchID,                   
+                     statements: this.state.statements,
+                     email:this.state.email};
+
+         this.state.array = [...this.state.array, obj];
+         console.log(this.state.array);
+
+         const obj2 = {array: this.state.array}
+         this.state.array2 = [...this.state.array2, obj2];
+         console.log(this.state.array2);
+
+         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
+
+      method: 'POST',
+      headers: {
+        'Authorization': this.state.researchToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'researchID': this.state.researchID,
+        'array': obj
+      })
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+          console.log(data.message);
+          console.log(data.error);
+          if(!data.error){
+            this.setState({ Redirect: true });
+          }
+          else
+          {
+            alert(data.message);
+          }
+      })
+
+  }
+    //      QJ5921
+
     render() {
+
+      if (this.state.Redirect) {
+        return (
+          <Redirect to={{
+            pathname: '/Complete',
+          }} />
+        )
+      }
 
         let btn_style = this.state.agreed ? 'space button enabled' : 'space button disabled';
 
@@ -77,8 +169,9 @@ export default class Debrief extends React.Component {
                     </button>
                 </Link>
                 
-                <Link to={'/Complete'}>
+                {/* <Link to={'/Complete'}> */}
                   <button 
+                    onClick={this.results}
                     name=""
                     type="submit" 
                     className = {btn_style}
@@ -86,7 +179,7 @@ export default class Debrief extends React.Component {
                     >
                       Agree
                   </button>
-                </Link>
+                {/* </Link> */}
             </div>
         )
 

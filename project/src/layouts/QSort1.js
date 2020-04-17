@@ -3,10 +3,10 @@ import './App.css';
 import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './App.css';
 import Modal from 'react-modal';
-import { Button } from 'rebass';
+import Tooltip from "react-simple-tooltip";
 
 //Modal.setAppElement('App.js')
 
@@ -66,6 +66,16 @@ export default class QSort1 extends Component {
         this.removeGreenStatement = this.removeGreenStatement.bind(this);
         this.getQuantity = this.getQuantity.bind(this);
 
+        this.tip = this.tip.bind(this);
+
+    }
+
+    tip() {
+        alert("Click on Get statements to get started.\n"+ 
+        "Add statement by clicking on the button\n" + 
+        "for example: Strongly disagree will add the statement\n" +
+        "to the red box. By clicking on the box image you will be able\n" +
+        "to see the statements that are already in this box")
     }
 
     getQuantity(){
@@ -468,7 +478,13 @@ export default class QSort1 extends Component {
                 <button className='space button button3'
                     onClick={this.checkStatus}>
                     Next
-                        </button>
+                </button>
+
+                <button 
+                    className='space button button3'
+                    onClick={this.tip}>
+                    Help
+                </button>
 
             </div>
         )

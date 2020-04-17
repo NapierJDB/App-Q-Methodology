@@ -55,7 +55,7 @@ export default class AdminPanel extends React.Component {
                     </div>
                
                 
-                <div className="row justify-content-md-center">
+                <div className="justify-content-md-center">
                     <div className='TextCenter'>
                         <h1>Admin Panel</h1>
                     </div>
@@ -76,6 +76,15 @@ export default class AdminPanel extends React.Component {
                             }}>
                             <button className = 'space button button3'>
                                 View surveys
+                            </button>
+                            </Link>
+
+                            <Link 
+                            to={{
+                            pathname: '/DeleteParticipant'
+                            }}>
+                            <button className = 'space button button3'>
+                                Manage participants
                             </button>
                             </Link>
                         </div>

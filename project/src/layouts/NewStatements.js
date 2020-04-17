@@ -99,10 +99,10 @@ class NewStatements extends Component {
                 </div>
 
                 <div>
-                    <Link to={'/AdminPanel'}>
+                    <Link to={'/NewQuestions'}>
                     <button className = 'space button button3'
                         onClick={this.clearLocalStorage}>
-                        Complete
+                        Next
                     </button>
                     </Link>
                 </div>
