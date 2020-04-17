@@ -34,6 +34,7 @@ function register(Request $request, Response $response)
         } catch (PDOException $e) {
 
             removeAccount($data);
+            
             return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
 
         }

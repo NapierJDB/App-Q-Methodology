@@ -22,6 +22,10 @@ require '../src/statement.php';
 
 require '../src/user.php';
 
+require '../src/saveFile.php';
+
+require '../src/deleteUser.php';
+
 $app->run();
 
 ?>

@@ -190,19 +190,19 @@ function sendResults(Request $request, Response $response)
 
                     } else {
 
-                        $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID, isSecondResult) VALUES (:statementNum, :markerNum, :userID, :researchID, :isSecondResult)";
+                        //$sql = "INSERT INTO results (statementNum, markerNum, userID, researchID, isSecondResult) VALUES (:statementNum, :markerNum, :userID, :researchID, :isSecondResult)";
 
                         $isSecondResult = 1;
 
                         $db = connect();
-                        $stmt = $db->prepare($sql);
-                        $stmt->bindParam("userID", $userID);
-                        $stmt->bindParam("researchID", $data->array->researchID);
 
                         foreach ($data->array->statements as $result) {
+                            $sql = "INSERT INTO markers (`$result->markerNum`, userID, researchID, isSecondResult) VALUES (:statementNum, :userID, :researchID, :isSecondResult)";
+                            $stmt = $db->prepare($sql);
+                            $stmt->bindParam("userID", $userID);
+                            $stmt->bindParam("researchID", $data->array->researchID);
                             $stmt->bindParam("isSecondResult", $isSecondResult);
                             $stmt->bindParam("statementNum", $result->statement);
-                            $stmt->bindParam("markerNum", $result->markerNum);
                             $stmt->execute();
                         }
 
@@ -218,17 +218,18 @@ function sendResults(Request $request, Response $response)
 
                 }
             } else {
-                $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID) VALUES (:statementNum, :markerNum, :userID, :researchID)";
 
                 $db = connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("userID", $userID);
-                $stmt->bindParam("researchID", $data->array->researchID);
 
                 foreach ($data->array->statements as $result) {
 
+                    $sql = "INSERT INTO markers ( `$result->markerNum` , userID, researchID) VALUES (:statementNum, :userID, :researchID)";
+                    $stmt = $db->prepare($sql);
+                    $stmt->bindParam("userID", $userID);
+                    $stmt->bindParam("researchID", $data->array->researchID);
+
                     $stmt->bindParam("statementNum", $result->statement);
-                    $stmt->bindParam("markerNum", $result->markerNum);
+                    
                     $stmt->execute();
 
                 }
@@ -294,7 +295,7 @@ function addUser($data)
 function checkResults($userID, $researchID)
 {
 
-    $sql = "SELECT * FROM results WHERE userID = :userID AND researchID = :researchID";
+    $sql = "SELECT * FROM markers WHERE userID = :userID AND researchID = :researchID";
 
     $db = connect();
     $stmt = $db->prepare($sql);
