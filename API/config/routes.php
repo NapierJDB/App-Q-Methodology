@@ -69,8 +69,15 @@ $app->group('/api', function () use ($app, $validate) {
         $app->post('/viewStatement', 'viewStatement');
         $app->post('/editStatement', 'editStatement');
 
+        $app->post('/addQuestion', 'addQuestion');
+        $app->post('/viewQuestion', 'viewQuestion');
+        $app->post('/editQuestion', 'editQuestion');
+        $app->post('/deleteQuestion', 'deleteQuestion');
+
         $app->post('/createFile', 'createFile');
         $app->post('/deleteUser', 'deleteUser');
+
+
 
     })->add($validate);
 

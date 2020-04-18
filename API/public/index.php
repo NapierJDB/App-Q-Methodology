@@ -20,11 +20,15 @@ require '../src/anchor.php';
 
 require '../src/statement.php';
 
+require '../src/question.php';
+
 require '../src/user.php';
 
 require '../src/saveFile.php';
 
 require '../src/deleteUser.php';
+
+
 
 $app->run();
 

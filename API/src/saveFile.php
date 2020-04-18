@@ -13,7 +13,9 @@ function createFile(Request $request, Response $response)
 
             $users = getUsers($data);
 
-            $results = getAllData($data);
+            $results = getResults($data);
+
+            $answers = getAnswers($data);
 
             $sortedResults = array();
 
@@ -29,8 +31,8 @@ function createFile(Request $request, Response $response)
 
                 $user = $temp['userID'];
 
-                $string = "userID " . strval($user) . ": ";
-                
+                $string = "userID " . strval($user) . PHP_EOL . "Sort: " . PHP_EOL;
+
                 foreach ($sortedResults as $key => $value) {
 
                     // echo "key: " . $key . ": ";
@@ -53,12 +55,28 @@ function createFile(Request $request, Response $response)
                     }
 
                 }
+
+                $string .= PHP_EOL . "Answers: " . PHP_EOL;
+
+                foreach ($answers as $temp) {
+
+                    if ($user == $temp['userID']) {
+
+                        $number = $temp['q_number'];
+                        $answer = $temp['answer'];
+
+                        $string .= "Number: " . $number . " Answer: " . $answer . PHP_EOL;
+                    }
+                }
+
                 $string .= PHP_EOL;
+
                 fwrite($fp, $string);
 
             }
             fclose($fp);
-            //return $response->withJson($users);
+
+            return $response->withJson(['error' => false, 'message' => 'The file has been successfully created']);
 
         } catch (PDOException $e) {
 
@@ -73,7 +91,7 @@ function createFile(Request $request, Response $response)
     }
 
 }
-function getAllData($data)
+function getResults($data)
 {
 
     $sql = "SELECT userID, markerNum, statementNum FROM results WHERE researchID = :researchID  ORDER BY userID";
@@ -96,4 +114,17 @@ function getUsers($data)
     $stmt->execute();
 
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+
+function getAnswers($data)
+{
+
+    $sql = "SELECT userID, q_number, answer FROM q_answers WHERE researchID = :researchID ORDER BY q_number, userID ASC";
+    $db = connect();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam('researchID', $data->researchID);
+    $stmt->execute();
+
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
 }

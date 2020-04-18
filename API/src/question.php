@@ -3,30 +3,30 @@
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-//add statement
-function addStatement(Request $request, Response $response)
+//add question
+function addQuestion(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
 
-    if (isset($data->number) && isset($data->description) && isset($data->researchID)) {
+    if (isset($data->number) && isset($data->question) && isset($data->researchID)) {
 
-        $object = checkNumber($data);
+        $object = checkNumberQuest($data);
 
         if (!$object) {
 
-            $sql = 'INSERT INTO q_sort_cards (number, description, researchID) VALUES (:number, :description, :researchID)';
+            $sql = 'INSERT INTO questions (number, question, researchID) VALUES (:number, :question, :researchID)';
 
             try {
 
                 $db = connect();
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam('number', $data->number);
-                $stmt->bindParam('description', $data->description);
+                $stmt->bindParam('question', $data->question);
                 $stmt->bindParam('researchID', $data->researchID);
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The statement has been succesfully added']);
+                return $response->withJson(['error' => false, 'message' => 'The question has been succesfully added']);
 
             } catch (PDOException $e) {
 
@@ -36,35 +36,26 @@ function addStatement(Request $request, Response $response)
 
         } else {
 
-            if (is_array($object)) {
-
-                return $response->withJson($object);
-
-            } else {
-
-                return $response->withJson(['error' => true, 'message' => 'The statement already exists']);
-
-            }
+            return $response->withJson(['error' => true, 'message' => 'The number already exists']);
 
         }
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (number, description, researchID required)']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (number, question, researchID required)']);
 
     }
 
 }
 
-//view statement
-function viewStatement(Request $request, Response $response)
+function viewQuestion(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
 
     if (isset($data->researchID)) {
 
-        $sql = 'SELECT * FROM q_sort_cards WHERE researchID = :researchID';
+        $sql = 'SELECT * FROM questions WHERE researchID = :researchID';
 
         try {
 
@@ -87,34 +78,71 @@ function viewStatement(Request $request, Response $response)
         return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (researchID)']);
 
     }
-
 }
 
-//delete statement
-function deleteStatement(Request $request, Response $response)
+function editQuestion(Request $request, Response $response)
 {
 
     $data = json_decode($request->getBody());
 
-    if (isset($data->id)) {
+    if (isset($data->id) && isset($data->number) && isset($data->question)) {
 
-        $object = checkStatement($data);
+        $object = checkQuestion($data);
 
         if (!$object) {
 
-            if (is_array($object)) {
+           return $response->withJson(['error' => true, 'message' => 'The question does not exists']);
+        
+        } else {
 
-                return $response->withJson($object);
+            $sql = 'UPDATE questions SET number = :number, question = :question
+            WHERE id = :id';
 
-            } else {
+            try {
 
-                return $response->withJson(['error' => true, 'message' => 'The statement does not exists']);
+                $db = connect();
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam('id', $data->id);
+                $stmt->bindParam('number', $data->number);
+                $stmt->bindParam('question', $data->question);
+                $stmt->execute();
+
+                return $response->withJson(['error' => false, 'message' => 'The question has been successfully modified']);
+
+            } catch (PDOException $e) {
+
+                return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
 
             }
 
+        }
+
+    } else {
+
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (id, number, question required)']);
+
+    }
+
+}
+
+function deleteQuestion(Request $request, Response $response)
+{
+    $data = json_decode($request->getBody());
+
+    if (isset($data->id)) {
+
+        $object = checkQuestion($data);
+
+        if (!$object) {
+
+
+                return $response->withJson(['error' => true, 'message' => 'The question does not exists']);
+
+            
+
         } else {
 
-            $sql = 'DELETE FROM q_sort_cards WHERE id = :id';
+            $sql = 'DELETE FROM questions WHERE id = :id';
 
             try {
 
@@ -123,7 +151,7 @@ function deleteStatement(Request $request, Response $response)
                 $stmt->bindParam('id', $data->id);
                 $stmt->execute();
 
-                return $response->withJson(['error' => false, 'message' => 'The statement has been successfully deleted']);
+                return $response->withJson(['error' => false, 'message' => 'The question has been successfully deleted']);
 
             } catch (PDOException $e) {
 
@@ -138,66 +166,13 @@ function deleteStatement(Request $request, Response $response)
         return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (id)']);
 
     }
-}
-
-function editStatement(Request $request, Response $response)
-{
-
-    $data = json_decode($request->getBody());
-
-    if (isset($data->id) && isset($data->number) && isset($data->description)) {
-
-        $object = checkStatement($data);
-
-        if (!$object) {
-
-            if (is_array($object)) {
-
-                return $response->withJson($object);
-
-            } else {
-
-                return $response->withJson(['error' => true, 'message' => 'The statement does not exists']);
-
-            }
-
-        } else {
-
-            $sql = 'UPDATE q_sort_cards SET number = :number, description = :description
-            WHERE id = :id';
-
-            try {
-
-                $db = connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam('id', $data->id);
-                $stmt->bindParam('number', $data->number);
-                $stmt->bindParam('description', $data->description);
-                $stmt->execute();
-
-                return $response->withJson(['error' => false, 'message' => 'The statement has been successfully modified']);
-
-            } catch (PDOException $e) {
-
-                return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
-
-            }
-
-        }
-
-    } else {
-
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (id, number, description required)']);
-
-    }
 
 }
 
-//check if statement already exists
-function checkNumber($data)
+function checkNumberQuest($data)
 {
 
-    $sql = 'SELECT * FROM q_sort_cards WHERE number = :number AND researchID = :researchID';
+    $sql = 'SELECT * FROM questions WHERE number = :number AND researchID = :researchID';
 
     try {
 
@@ -217,11 +192,10 @@ function checkNumber($data)
     }
 }
 
-//check if statements id exists
-function checkStatement($data)
+function checkQuestion($data)
 {
 
-    $sql = 'SELECT * FROM q_sort_cards WHERE id = :id';
+    $sql = 'SELECT * FROM questions WHERE id = :id';
 
     try {
 

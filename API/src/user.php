@@ -170,7 +170,7 @@ function sendResults(Request $request, Response $response)
 {
     $data = json_decode($request->getBody());
 
-    if (isset($data->array) && isset($data->array->researchID) && isset($data->array->statements) && isset($data->array->email)) {
+    if (isset($data->array) && isset($data->array->researchID) && isset($data->array->statements) && isset($data->array->email) && isset($data->array->answers)) {
 
         try {
 
@@ -182,60 +182,18 @@ function sendResults(Request $request, Response $response)
 
             if (checkResults($userID, $researchID)) {
 
-                if (checkIsMulti($userID)) {
+                return $response->withJson(['error' => true, 'message' => 'Your results have already been submitted!']);
 
-                    if (isSecondResult($userID, $researchID)) {
-
-                        return $response->withJson(['error' => true, 'message' => 'Your second results have already been submitted!']);
-
-                    } else {
-
-                        $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID, isSecondResult) VALUES (:statementNum, :markerNum, :userID, :researchID, :isSecondResult)";
-
-                        $isSecondResult = 1;
-
-                        $db = connect();
-                        $stmt = $db->prepare($sql);
-                        $stmt->bindParam("userID", $userID);
-                        $stmt->bindParam("researchID", $data->array->researchID);
-
-                        foreach ($data->array->statements as $result) {
-                            $stmt->bindParam("isSecondResult", $isSecondResult);
-                            $stmt->bindParam("statementNum", $result->statement);
-                            $stmt->bindParam("markerNum", $result->markerNum);
-                            $stmt->execute();
-                        }
-
-                        updateSecondresult($userID);
-
-                        return $response->withJson(['error' => false, 'message' => 'Second results have been added successfully!']);
-
-                    }
-
-                } else {
-
-                    return $response->withJson(['error' => true, 'message' => 'Your results have already been submitted!']);
-
-                }
             } else {
-                $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID) VALUES (:statementNum, :markerNum, :userID, :researchID)";
 
-                $db = connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("userID", $userID);
-                $stmt->bindParam("researchID", $data->array->researchID);
+                addResults($data, $userID);
 
-                foreach ($data->array->statements as $result) {
+                addQanswers($data, $userID);
 
-                    $stmt->bindParam("statementNum", $result->statement);
-                    $stmt->bindParam("markerNum", $result->markerNum);
-                    $stmt->execute();
-
-                }
-
-                return $response->withJson(['error' => false, 'message' => 'Results have been added successfully!']);
+                return $response->withJson(['error' => false, 'message' => 'Results have been successfully added!']);
 
             }
+
         } catch (PODException $e) {
 
             return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
@@ -246,7 +204,7 @@ function sendResults(Request $request, Response $response)
 
     } else {
 
-        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (array: {researchID: {}, statements: [{},{},{}], email: {}})']);
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. (array: {researchID: {}, statements: [{},{},{}], answers: [{},{},{}], email: {}})']);
 
     }
 }
@@ -306,53 +264,41 @@ function checkResults($userID, $researchID)
     return $object;
 }
 
-function checkIsMulti($userID)
-{
+function addResults($data, $userID){
 
-    $sql = "SELECT isMulti FROM users WHERE id = :userID";
+    $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID) VALUES (:statementNum, :markerNum, :userID, :researchID)";
 
-    $db = connect();
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam("userID", $userID);
-    $stmt->execute();
-    $object = $stmt->fetchObject();
+                $db = connect();
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam("userID", $userID);
+                $stmt->bindParam("researchID", $data->array->researchID);
 
-    if ($object->isMulti != 0) {
+                foreach ($data->array->statements as $result) {
 
-        return true;
+                    $stmt->bindParam("statementNum", $result->statement);
+                    $stmt->bindParam("markerNum", $result->markerNum);
+                    $stmt->execute();
 
-    }
-
-    return false;
+                }
 
 }
 
-function isSecondResult($userID, $researchID)
-{
+function addQanswers($data, $userID) {
 
-    $sql = "SELECT isSecondResult FROM users WHERE id = :userID";
-    $db = connect();
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam("userID", $userID);
-    $stmt->execute();
-    $object = $stmt->fetchObject();
+    $sql = "INSERT INTO q_answers (q_number, answer, userID, researchID) VALUES (:q_number, :answer, :userID, :researchID)";
 
-    if ($object->isSecondResult != 0) {
+                $db = connect();
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam("userID", $userID);
+                $stmt->bindParam("researchID", $data->array->researchID);
 
-        return true;
+                foreach ($data->array->answers as $result) {
 
-    }
+                    $stmt->bindParam("q_number", $result->number);
+                    $stmt->bindParam("answer", $result->answer);
+                    $stmt->execute();
 
-    return false;
-}
-function updateSecondResult($userID)
-{
+                }
 
-    $isSecondResult = 1;
-    $sql = "UPDATE users SET isSecondResult = :isSecondResult WHERE id = :userID";
-    $db = connect();
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam("userID", $userID);
-    $stmt->bindParam("isSecondResult", $isSecondResult);
-    $stmt->execute();
+
 }
