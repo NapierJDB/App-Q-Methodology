@@ -11,10 +11,11 @@ export default class CreateSurvey_1 extends React.Component {
 
     this.state = {
       participantEmail: "",
+      token: localStorage.getItem('TOKEN'),
     };
 
     this.handleChange = this.handleChange.bind(this);
-    //this.delete = this.send.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   handleChange = event => {
@@ -24,47 +25,49 @@ export default class CreateSurvey_1 extends React.Component {
   }
 
 
-//   delete(event) {
+  delete(event) {
+
+    event.preventDefault()
+    var email = this.state.participantEmail;
+    console.log(email);
 
 
-//     fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addResearch ', {
-//       method: 'POST',
-//       headers: {
-//         'Authorization': token,
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         'participantEmail': this.state.participantEmail,
+    fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/deleteUser', {
+      method: 'POST',
+      headers: {
+        'Authorization': this.state.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': email,
 
-//       })
-//       })
-//       .then((response) => {
-//         return response.json();
-//         //console.log(response);
+      })
+      })
+      .then((response) => {
+        return response.json();
+        //console.log(response);
 
+      })
+       .then((data) => {
+        console.log(data.message);
+
+        //  this.state.error = data.error;
         
-
-//       })
-//        .then((data) => {
-//          console.log(data);
-
-//          this.state.error = data.error;
-        
-//          if (this.state.error == false) {
-//            this.setState({ Redirect: true });
-//          }
-//          else {
-//            alert("Upps...\nIt looks like this survey already exist!")
-//          }
+        //  if (this.state.error == false) {
+        //    this.setState({ Redirect: true });
+        //  }
+        //  else {
+        //    alert("Upps...\nIt looks like this survey already exist!")
+        //  }
 
 
-//        })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
+       })
+      .catch(function (error) {
+        console.log(error);
+      });
 
 
-//   }
+  }
 
   render() {
 
@@ -98,7 +101,7 @@ export default class CreateSurvey_1 extends React.Component {
 
                     <div>
                         <button 
-                        // onClick={this.delete}
+                        onClick={this.delete}
                         className = 'space button button3'>
                             Delete
                         </button>            
