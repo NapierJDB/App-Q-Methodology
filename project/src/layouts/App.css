@@ -110,13 +110,14 @@ h1 {font-family: 'Titillium Web'}
   font-size: 16px;
   transition-duration: 0.4s;
   cursor: pointer;
-  width: 110px;
+  /* width: 110px; */
   border-radius: 7px;
   margin: 8px 0;
   margin: 10px;
   font-family: 'Titillium Web';
   text-overflow: ellipsis;
   white-space: nowrap;
+  word-wrap:break-word;
 }
 
 .button3:hover {
@@ -130,6 +131,7 @@ h1 {font-family: 'Titillium Web'}
   background-color: white; 
   color: black; 
   border: 2px solid rgba(0, 0, 0, .14);
+  
 }
 
 .popupBtn {
