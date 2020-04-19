@@ -287,7 +287,7 @@ export default class Participant extends Component {
                         }}>
                         <button  
                             className = 'space button button3'>
-                            Request Delition
+                            Request Deletion
                         </button>
                     </Link>
                 </div>
