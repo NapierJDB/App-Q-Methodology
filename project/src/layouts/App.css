@@ -516,6 +516,14 @@ p {font-family: 'Titillium Web';}
   justify-content: center;
 }
 
+.bottom{
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+
 /* .popup {  
   position: fixed;  
   width: 100%;  

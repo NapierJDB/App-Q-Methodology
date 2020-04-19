@@ -291,6 +291,16 @@ export default class Participant extends Component {
                         </button>
                     </Link>
                 </div>
+
+                <div
+                    className= 'bottom'>
+                    <p>
+                        https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/default.aspx
+                    </p>
+                    <p>
+                        https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/ProcessingDataforResearch.aspx
+                    </p>
+                </div>
             </div>
         )
     }
