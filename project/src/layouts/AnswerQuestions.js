@@ -15,17 +15,7 @@ export default class AnswerQuestions extends Component {
         super(props);
         
         this.state = {
-
-            
-
-            
-
-            redQuantity: [],
-            whiteQuantity: [],
-            greenQuantity: [],
-            redQuantityTotal: 0,
-            whiteQuantityTotal: 0,
-            greenQuantityTotal: 0,
+           
             statements: [],
             formatedStatements: [],
             redArray: [],
@@ -42,9 +32,12 @@ export default class AnswerQuestions extends Component {
             researchId: '',
             researchName: localStorage.getItem('RE_NAME'),
             answer: '',
-            qa: '',
+            qa: [],
             currentQuestion: '',
-            statement: '',
+            question: '',
+            questions: [],
+            formatedQuestions: [],
+            available: false,
         }
 
         // this.getStatements = this.getStatements.bind(this);
@@ -75,7 +68,7 @@ export default class AnswerQuestions extends Component {
 
         //---QUESTION COMPOPNENTS
         
-        this.getStatements = this.getStatements.bind(this);
+        this.getQuestions = this.getQuestions.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
        // this.handleSubmit = this.handleSubmit.bind(this);
@@ -101,19 +94,21 @@ export default class AnswerQuestions extends Component {
         
       }
 
-    getStatements() {
+    //      QF2007
+
+    getQuestions() {
 
         this.state.researchToken = localStorage.getItem('RE_TOKEN');
         this.state.researchId = localStorage.getItem('RE_ID');
 
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/getData', {
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewQuestion', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': this.state.researchToken,
             },
             body: JSON.stringify({
-                'id': this.state.researchId
+                'researchID': this.state.researchId
             })
         })
             .then((response) => {
@@ -122,21 +117,30 @@ export default class AnswerQuestions extends Component {
             .then((data) => {
                 console.log(data);
 
-                //this.state.error = data.error;
+               // this.state.error = data.error;
+               // console.log(this.state.error);
 
-                this.state.statements = data.statements
-                console.log(this.state.statements)
+            //    this.state.questions = data.question
+            //    console.log(this.state.questions)
 
                 // Format the array appropriatelly
-                this.state.formatedStatements = this.state.statements.map(statement =>
-                    statement.number + " " + statement.description)
+                this.state.formatedQuestions = data.map(q =>
+                     q.number + " " + q.question)
+              console.log(this.state.formatedQuestions)
                 
-                this.state.statement = this.state.statements.map(statement =>
-                    statement.description)
+                // this.state.statement = this.state.statements.map(statement =>
+                //     statement.description)
                 // set index to 0 so first item of formated array is displayed
                 this.setState({
-                    index: 0
-                })
+                     index: 0
+                 })
+
+                if(this.state.formatedQuestions.length > 0){
+                    //Make the button disabled
+                    this.setState(previousState => { 
+                        return {available: !previousState.available}
+                    })
+                }
 
             })
             .catch(function (error) {
@@ -151,39 +155,33 @@ export default class AnswerQuestions extends Component {
 
        // console.log(this.state.index);
 
-        this.state.currentQuestion = this.state.statement[this.state.index];
+        this.state.currentQuestion = this.state.formatedQuestions[this.state.index];
 
-        const obj = {question: this.state.currentQuestion,
+        const obj = {number: this.state.currentQuestion.substring(0,2),
                     answer: this.state.answer };
         
         console.log(obj);
+
+        this.state.qa = [...this.state.qa, obj];
 
        this.nextQuestion();
     }
 
     nextQuestion() {
 
-        if (this.state.index == this.state.formatedStatements.length - 1) {
-
+        let remove = this.state.formatedQuestions.indexOf(this.state.formatedQuestions[this.state.index]);
             this.setState({
-                index: 0
-            })
-        }
-        else {
-
-            this.setState(prevState => ({
-                index: prevState.index + 1
-            }))
-        }
-
+                formatedQuestions: this.state.formatedQuestions.filter((_, i) => i !== remove)
+            });
         
-
+        
+        
     }
 
     checkStatus() {
-        if (this.state.formatedStatements.length != 0) {
-        //     //PASS THE ANSWERS TO LOCAL STORAGE
-        //     // localStorage.setItem('RED_BOX', JSON.stringify(this.state.redArray));
+        if (this.state.formatedQuestions.length == 0) {
+        //PASS THE ANSWERS TO LOCAL STORAGE
+        localStorage.setItem('ANSWERS', JSON.stringify(this.state.qa));
         //     // localStorage.setItem('WHITE_BOX', JSON.stringify(this.state.whiteArray));
         //     // localStorage.setItem('GREEN_BOX', JSON.stringify(this.state.greenArray));
             this.setState({ Redirect: true });
@@ -229,7 +227,8 @@ export default class AnswerQuestions extends Component {
         //          )
     
         //      });
-        let { index, testArray, formatedStatements } = this.state;
+
+        let { index, testArray, formatedQuestions } = this.state;
         return (
             <div className='TextCenter'>
                 <h1>Questions</h1>
@@ -238,8 +237,10 @@ export default class AnswerQuestions extends Component {
                 <div>
 
                     <div>
-                        <button className='space button button3'
-                            onClick={this.getStatements}>
+                        <button 
+                            className='space button button3'
+                            onClick={this.getQuestions}
+                            disabled={this.state.available}>
                             Get questions
                         </button>
 
@@ -258,7 +259,11 @@ export default class AnswerQuestions extends Component {
                         </table>
                     </div> */}
 
-                        <h2>{formatedStatements[index]}</h2>
+                        <h2>{formatedQuestions[index]}</h2>
+
+                    
+
+                        
 
                         <input
                             className='space textbox'
@@ -275,6 +280,8 @@ export default class AnswerQuestions extends Component {
                             onClick={this.formQA}>
                             Next Question
                         </button>
+
+                        
 
                         <button 
                             className='space button button3'

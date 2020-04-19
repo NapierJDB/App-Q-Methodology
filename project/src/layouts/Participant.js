@@ -133,6 +133,7 @@ export default class Participant extends Component {
                // var negativeAnchors = this.state.anchors.
                 
                 //      QJ5921
+                //      QF2007
 
                 // ---PASS TO LOCAL STORAGE---
                 localStorage.setItem('RE_NAME', reName);
@@ -286,9 +287,19 @@ export default class Participant extends Component {
                         }}>
                         <button  
                             className = 'space button button3'>
-                            Request Delition
+                            Request Deletion
                         </button>
                     </Link>
+                </div>
+
+                <div
+                    className= 'bottom'>
+                    <p>
+                        https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/default.aspx
+                    </p>
+                    <p>
+                        https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/ProcessingDataforResearch.aspx
+                    </p>
                 </div>
             </div>
         )

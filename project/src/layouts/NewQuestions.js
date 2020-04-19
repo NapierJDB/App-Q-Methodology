@@ -12,7 +12,7 @@ class NewQuestions extends Component {
 
         questions: [],
         total: 0,
-        //statementNumber: 0,
+        questionNumber: 0,
     }
 
 }
@@ -31,7 +31,7 @@ class NewQuestions extends Component {
         });
 
         //this.state.total = parseInt(this.state.total) - 1
-       // this.state.statementNumber++;
+        this.state.statementNumber++;
 
     }
 
@@ -68,7 +68,7 @@ class NewQuestions extends Component {
         });
 
         //this.state.total = parseInt(this.state.total) + 1
-       // this.state.statementNumber--;
+        this.state.statementNumber--;
     }
 
     // clearLocalStorage() {
