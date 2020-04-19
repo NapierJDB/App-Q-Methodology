@@ -3,19 +3,17 @@ import React, { Component } from 'react';
 class AddQuestion extends Component{
 
     state = {
-        //statementNumber: 0,
+        questionNumber: 0,
         question:null,
         isEditing:false,
 
     }
 
-    // call add statement (NewStatements.js)
-
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.addQuestion(this.state);
         e.target.reset();
-       // this.send();
+        this.send();
     }
 
     //update state
@@ -25,98 +23,98 @@ class AddQuestion extends Component{
         });
     }
 
-    // updateStatementNumber(event) {
+    updateQuestionNumber(event) {
 
-    //     this.state.statementNumber++;
-    // }
+         this.state.questionNumber++;
+     }
 
-    // getResearchID(event) {
+    getResearchID(event) {
 
-    //     // ---GET ITEMS FROM LOCAL STORAGE---
-    //     const researcherID = localStorage.getItem('ID');
-    //     const token = localStorage.getItem('TOKEN');
-    //     this.setState({ researcherID, token });
-    //     this.state.TOKEN = token;
-    //     this.state.ID = researcherID
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
+        this.state.TOKEN = token;
+        this.state.ID = researcherID
            
-    //       fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
-    //         {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Authorization': this.state.TOKEN,
-    //                 'Content-Type': 'application/json'         
-    //             },
-    //             body: JSON.stringify({
-    //                 'researcherID': this.state.ID,
-    //             })
-    //         })
-    //         .then((response) => {
-    //           return response.json();
+          fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': this.state.TOKEN,
+                    'Content-Type': 'application/json'         
+                },
+                body: JSON.stringify({
+                    'researcherID': this.state.ID,
+                })
+            })
+            .then((response) => {
+              return response.json();
       
-    //         })
-    //         .then((data) => {
-    //           console.log(data);
+            })
+            .then((data) => {
+              console.log(data);
 
-    //           //---STORING THE RESEARCH ID---
-    //           this.state.researchID = data.map(({ id }) => id)
-    //           console.log("List of research IDs: " + this.state.researchID);
+              //---STORING THE RESEARCH ID---
+              this.state.researchID = data.map(({ id }) => id)
+              console.log("List of research IDs: " + this.state.researchID);
 
-    //           //---GET LAST ID---
-    //           this.state.lastID = this.state.researchID.slice(-1)[0]
-    //           console.log("Last ID: " + this.state.lastID)
+              //---GET LAST ID---
+              this.state.lastID = this.state.researchID.slice(-1)[0]
+              console.log("Last ID: " + this.state.lastID)
 
       
-    //         })
-    //         .catch(function (error) {
-    //           console.log(error);
-    //         });
-    // }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    }
 
-    // send(event) {
+    send(event) {
 
-    //     // ---GET ITEMS FROM LOCAL STORAGE---
-    //     const researcherID = localStorage.getItem('ID');
-    //     const token = localStorage.getItem('TOKEN');
-    //     this.setState({ researcherID, token });
+        // ---GET ITEMS FROM LOCAL STORAGE---
+        const researcherID = localStorage.getItem('ID');
+        const token = localStorage.getItem('TOKEN');
+        this.setState({ researcherID, token });
 
-    //     this.updateStatementNumber();
+        this.updateQuestionNumber();
 
-    //     fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addStatement',  {
-    //     method: 'POST',
-    //     headers: {
-    //            'Authorization': token,
-    //            'Content-Type': 'application/json'         
-    //        },
-    //     body: JSON.stringify({
+        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addQuestion',  {
+        method: 'POST',
+        headers: {
+               'Authorization': token,
+               'Content-Type': 'application/json'         
+           },
+        body: JSON.stringify({
 
-    //        // 'number': this.state.statementNumber,
-    //         'question': this.state.question,
-    //         'researchID': this.state.lastID,
-    //       })
-    //       })
-    //       .then((response) => {
-    //         return response.json();
+            'number': this.state.questionNumber,
+            'question': this.state.question,
+            'researchID': this.state.lastID,
+          })
+          })
+          .then((response) => {
+            return response.json();
     
-    //       })
-    //       .then((data) => {
-    //         console.log(data);
+          })
+          .then((data) => {
+            console.log(data);
     
-    //         this.state.error = data.error;
+            this.state.error = data.error;
             
-    //         if (this.state.error == true) {
-    //             alert("This question already exist!") 
-    //         }  
+            if (this.state.error == true) {
+                alert("This question already exist!") 
+            }  
     
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    // }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
 
 
-    // componentDidMount(){
-    //     this.getResearchID();
-    // }
+    componentDidMount(){
+        this.getResearchID();
+    }
 
     render(){
         return(
@@ -125,8 +123,8 @@ class AddQuestion extends Component{
 
                     <div>
                         {/* <input className = 'space textbox'
-                            name="statementNumber"
-                            placeholder="Statement number"
+                            name="questionNumber"
+                            placeholder="Question number"
                             required
                             type="number"
                             onChange={this.updateState}
@@ -146,7 +144,7 @@ class AddQuestion extends Component{
                     <div>
                         <button 
                             className = 'space button button3' 
-                            // type="submit" 
+                            type="submit" 
                         >
                             Add +
                         </button>

@@ -6,16 +6,16 @@ class Questions extends Component{
     handleUpdate = () => {
         this.props.updateQuestion(
             this.indexNum,
-            //this.statementNumber.value,
+            this.questionNumber.value,
             this.question.value,
         
         )
     }
 
-    // updateStatementNumber(event) {
-    //     this.statementNumber.value = parseInt(this.statementNumber.value)-1;
+     updateQuestionNumber(event) {
+         this.questionNumber.value = parseInt(this.questionNumber.value)-1;
     
-    // }
+    }
 
     render(){
 
@@ -27,15 +27,15 @@ class Questions extends Component{
 
                 <tr key={index}>
                     
-                    {/* <td>
+                    <td>
                         <input className = 'space Textbox'
                             type="number"
                             ref={(val) => 
-                            {this.statementNumber = val}}
+                            {this.questionNumber = val}}
                             required
-                            defaultValue={statement.statementNumber}
+                            defaultValue={question.questionNumber}
                         />
-                    </td> */}
+                    </td>
 
                     <td>
                         <input className = 'space Textbox' 
@@ -60,7 +60,7 @@ class Questions extends Component{
             ) : (
 
                 <tr key={index}>
-                    {/* <td>{statement.statementNumber}</td> */}
+                    <td>{question.questionNumber}</td>
                     <td>{question.question}</td>
                     <td>
                         <button
@@ -84,7 +84,7 @@ class Questions extends Component{
                 <table className="center">
                 <thead>
                     <tr>
-                    {/* <th>Statement number</th> */}
+                    <th>Question number</th>
                     <th>Question</th>
                     <th>Action</th>
                     </tr>

@@ -18,6 +18,8 @@ export default class Debrief extends React.Component {
             neutral: [],
             positive: [],
             statements: [],
+            answers: [],
+
             testArray: {
 
                 researchID: 123, 
@@ -60,6 +62,9 @@ export default class Debrief extends React.Component {
         this.state.neutral = JSON.parse(neutral);
         this.state.positive = JSON.parse(positive);
         //console.log(this.state.negative);
+        let answersString = localStorage.getItem('ANSWERS');
+        this.state.answers = JSON.parse(answersString);
+        console.log(this.state.answers)
 
         this.setState({
             results: [this.state.negative + this.state.neutral + this.state.positive]
@@ -78,21 +83,27 @@ export default class Debrief extends React.Component {
         //const statementObj = this.state.negative;
         
         this.state.statements = this.state.negative.concat(this.state.neutral, this.state.positive);
+        
         console.log(this.state.statements);
+
         
-        
+
         const obj = {researchID: this.state.researchID,                   
                      statements: this.state.statements,
+                     answers: this.state.answers,
                      email:this.state.email};
 
-         this.state.array = [...this.state.array, obj];
-         console.log(this.state.array);
+        //  this.state.array = [...this.state.array, obj];
+        console.log(obj);
 
-         const obj2 = {array: this.state.array}
-         this.state.array2 = [...this.state.array2, obj2];
-         console.log(this.state.array2);
+        //  const obj2 = {array: this.state.array}
+        //  this.state.array2 = [...this.state.array2, obj2];
+        //  console.log(this.state.array2);
 
-         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
+      
+      // ---SEND RESULTS TO BACK END---
+
+      fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
 
       method: 'POST',
       headers: {
