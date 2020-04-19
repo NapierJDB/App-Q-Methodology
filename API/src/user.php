@@ -264,41 +264,43 @@ function checkResults($userID, $researchID)
     return $object;
 }
 
-function addResults($data, $userID){
+function addResults($data, $userID)
+{
 
     $sql = "INSERT INTO results (statementNum, markerNum, userID, researchID) VALUES (:statementNum, :markerNum, :userID, :researchID)";
 
-                $db = connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("userID", $userID);
-                $stmt->bindParam("researchID", $data->array->researchID);
+    $db = connect();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("userID", $userID);
+    $stmt->bindParam("researchID", $data->array->researchID);
 
-                foreach ($data->array->statements as $result) {
+    foreach ($data->array->statements as $result) {
 
-                    $stmt->bindParam("statementNum", $result->statement);
-                    $stmt->bindParam("markerNum", $result->markerNum);
-                    $stmt->execute();
+        $stmt->bindParam("statementNum", $result->statement);
+        $stmt->bindParam("markerNum", $result->markerNum);
+        $stmt->execute();
 
-                }
+    }
 
 }
 
-function addQanswers($data, $userID) {
+function addQanswers($data, $userID)
+{
 
     $sql = "INSERT INTO q_answers (q_number, answer, userID, researchID) VALUES (:q_number, :answer, :userID, :researchID)";
 
-                $db = connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("userID", $userID);
-                $stmt->bindParam("researchID", $data->array->researchID);
+    $db = connect();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("userID", $userID);
+    $stmt->bindParam("researchID", $data->array->researchID);
 
-                foreach ($data->array->answers as $result) {
+    foreach ($data->array->answers as $result) {
 
-                    $stmt->bindParam("q_number", $result->number);
-                    $stmt->bindParam("answer", $result->answer);
-                    $stmt->execute();
-
-                }
-
+        if (isset($result->q_number) && isset($result->answer)) {
+            $stmt->bindParam("q_number", $result->q_number);
+            $stmt->bindParam("answer", $result->answer);
+            $stmt->execute();
+        }
+    }
 
 }
