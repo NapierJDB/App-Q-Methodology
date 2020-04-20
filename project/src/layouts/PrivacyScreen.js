@@ -79,6 +79,23 @@ export default class PrivacyScreen extends React.Component {
                         Request Deletion
                     </button>
                     </Link>
+
+            
+                <div className='TextCenter'>
+                    <br></br>
+                <p>
+                    Edinburgh Napier University Data Protection Stateemnt 
+                </p>
+                <p>
+                    https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/default.aspx
+                </p>
+                <p>
+                    Edinburgh Napier University Data Processing for research guide
+                </p>
+                <p>
+                    https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/ProcessingDataforResearch.aspx
+                </p>
+                </div>
             </div>
         )
 

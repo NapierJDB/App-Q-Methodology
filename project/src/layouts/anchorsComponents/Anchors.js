@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Anchors extends Component{
     constructor(props) {
@@ -138,6 +139,13 @@ class Anchors extends Component{
     }
 
     render(){
+        if (this.state.Redirect) {
+            return (
+              <Redirect to={{
+                pathname: '/NewStatements',
+              }} />
+            )
+          }
       
         const { allAnchors, editButton, deleteAnchor } = this.props;
 
@@ -222,8 +230,8 @@ class Anchors extends Component{
                     'Content-Type': 'application/json'         
                 },
                 body: JSON.stringify({
-                    //'researchID': this.state.lastID,
-                    'answers': obj,
+                    'researchID': this.state.lastID,
+                    'anchors': this.state.anchorsList,
                 })
                 })
                 .then((response) => {
@@ -233,11 +241,14 @@ class Anchors extends Component{
                 .then((data) => {
                     console.log(data);
             
-                    // this.state.error = data.error;
+                    this.state.error = data.error;
                     
-                    // if (this.state.error == true) {
-                    //     alert("This marker already exist!") 
-                    // }
+                    if (this.state.error == true) {
+                         alert("Error") 
+                     }
+                     else{
+                        this.setState({ Redirect: true });
+                     }
             
                 })
                 .catch(function (error) {
