@@ -14,16 +14,17 @@ function addAnchor(Request $request, Response $response)
 
         if (!$object) {
 
-       //     if ($data->markerNum != 0) {
+            //     if ($data->markerNum != 0) {
 
-       //         $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID),(:markerNum-(:markerNum*2), :items, :researchID)';
+            //         $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID),(:markerNum-(:markerNum*2), :items, :researchID)';
 
-          //  } else {
+            //  } else {
 
-                $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID)';
-           // }
+            // }
 
             try {
+
+                $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID)';
 
                 $db = connect();
                 $stmt = $db->prepare($sql);
@@ -52,6 +53,54 @@ function addAnchor(Request $request, Response $response)
     }
 
 }
+
+function addAllAnchors(Request $request, Response $response)
+{
+
+    $data = json_decode($request->getBody());
+
+    if (isset($data->researchID) && isset($data->anchors)) {
+
+        try {
+
+            $sql = 'INSERT INTO anchors (markerNum, items, researchID) VALUES (:markerNum, :items, :researchID)';
+            $db = connect();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam('researchID', $data->researchID);
+
+            foreach ($data->anchors as $result) {
+
+                $object = checkMarker($result->markerNum, $data->researchID);
+
+                if (!$object) {
+
+                    $stmt->bindParam('markerNum', $result->markerNum);
+                    $stmt->bindParam('items', $result->numberOfItems);
+                    $stmt->execute();
+
+                } else {
+
+                    return $response->withJson(['error' => true, 'message' => 'One of the anchors already exists']);
+
+                }
+
+            }
+            return $response->withJson(['error' => false, 'message' => 'The anchors has been succesfully added']);
+
+        } catch (PDOException $e) {
+
+            return $response->withJson(['error' => true, 'message' => $e->getMessage()]);
+
+        }
+
+    } else {
+
+        return $response->withJson(['error' => true, 'message' => 'Missing attributes in JSON string. anchors, researchID required)']);
+
+    }
+
+}
+
 //view anchor
 function viewAnchor(Request $request, Response $response)
 {
@@ -213,7 +262,7 @@ function checkAnchorId($data)
 function checkMarkerNum($data)
 {
 
-    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum AND researchID = :researchID' ;
+    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum AND researchID = :researchID';
 
     try {
 
@@ -221,6 +270,29 @@ function checkMarkerNum($data)
         $stmt = $db->prepare($sql);
         $stmt->bindParam('markerNum', $data->markerNum);
         $stmt->bindParam('researchID', $data->researchID);
+        $stmt->execute();
+        $object = $stmt->fetchObject();
+
+        return $object;
+
+    } catch (PDOException $e) {
+
+        return array('error' => true, 'message' => $e->getMessage());
+
+    }
+
+}
+function checkMarker($markerNum, $researchID)
+{
+
+    $sql = 'SELECT * FROM anchors WHERE markerNum = :markerNum AND researchID = :researchID';
+
+    try {
+
+        $db = connect();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam('markerNum', $markerNum);
+        $stmt->bindParam('researchID', $researchID);
         $stmt->execute();
         $object = $stmt->fetchObject();
 

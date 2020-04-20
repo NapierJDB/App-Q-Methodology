@@ -60,6 +60,8 @@ $app->group('/api', function () use ($app, $validate) {
         $app->post('/editResearch', 'editResearch');
 
         $app->post('/addAnchor', 'addAnchor');
+        $app->post('/addAllAnchors', 'addAllAnchors');
+    
         $app->post('/deleteAnchor', 'deleteAnchor');
         $app->post('/viewAnchor', 'viewAnchor');
         $app->post('/editAnchor', 'editAnchor');

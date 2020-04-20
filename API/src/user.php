@@ -20,15 +20,19 @@ function checkCode(Request $request, Response $response)
 
             $object = $stmt->fetchObject();
 
+
+
             if (!$object) {
 
                 return $response->withJson(['error' => true, 'message' => 'Please enter valid code']);
 
             } else {
 
+                $email = getResearcherEmail($object->researcherID);
+
                 $tokenUser = generateTokenAdmin($object);
 
-                return $response->withJson(['error' => false, 'id' => $object->id, 'token' => $tokenUser]);
+                return $response->withJson(['error' => false, 'id' => $object->id, 'researcherEmail' => $email->email , 'token' => $tokenUser]);
 
             }
 
@@ -164,6 +168,31 @@ function getStatements($data)
         return array('error' => true, 'message' => $e->getMessage());
 
     }
+
+}
+function getResearcherEmail($researcherID){
+
+    $sql = "SELECT email FROM researcher WHERE id = :id";
+
+    try {
+
+        $db = connect();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam('id', $researcherID);
+        $stmt->execute();
+
+        $object = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $object;
+
+
+    }  catch (PODException $e) {
+
+        return array('error' => true, 'message' => $e->getMessage());
+
+    }
+
+
 
 }
 function sendResults(Request $request, Response $response)
