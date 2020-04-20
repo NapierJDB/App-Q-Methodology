@@ -157,7 +157,7 @@ export default class AnswerQuestions extends Component {
 
         this.state.currentQuestion = this.state.formatedQuestions[this.state.index];
 
-        const obj = {number: this.state.currentQuestion.substring(0,2),
+        const obj = {q_number: this.state.currentQuestion.substring(0,2),
                     answer: this.state.answer };
         
         console.log(obj);

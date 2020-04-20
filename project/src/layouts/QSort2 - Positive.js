@@ -256,17 +256,17 @@ export default class QSort2 extends Component {
                     <div>
 
                         <div>
-                            <button onClick={this.nextItem}
+                            {/* <button onClick={this.nextItem}
                                     className='space button button3'>
                                 Next item
-                            </button>
+                            </button> */}
 
                             <h2>{greenBoxStatements[index]}</h2>
 
-                            <button onClick={this.prevItem}
+                            {/* <button onClick={this.prevItem}
                                     className='space button button3'>
                                 Previous item
-                            </button>
+                            </button> */}
 
                             <div>
                                 <h2>Marker number</h2>

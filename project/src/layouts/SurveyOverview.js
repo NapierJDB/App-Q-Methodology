@@ -43,7 +43,18 @@ export default class SurveyOverview extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.download = this.download.bind(this);
 
+        this.tip = this.tip.bind(this);
+
       }
+
+      tip() {
+        alert("To view surveys click the display button.\n"+ 
+        "To retrieve results type in the id of the research\n" + 
+        "you wish to see the results from,\n" +
+        "then click on Export button and then Download button\n" +
+        "that should open up a text file with all the results from" +
+        "this particular research")
+    }
 
       componentDidMount(){
         this.handleSubmit();
@@ -177,6 +188,7 @@ export default class SurveyOverview extends React.Component {
     }
 
     download(){
+        //this.exportResults();
         window.location.href = "https://soc-web-liv-60.napier.ac.uk/API/public/download.php";
     }
 
@@ -301,6 +313,11 @@ export default class SurveyOverview extends React.Component {
                 </div>
                 <button className = 'space button button3'>
                     Admin panel
+                </button>
+                <button 
+                    className='space button button3'
+                    onClick={this.tip}>
+                    Help
                 </button>
             </div>
         )
