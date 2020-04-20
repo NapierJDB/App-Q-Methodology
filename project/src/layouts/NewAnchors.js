@@ -25,6 +25,8 @@ class NewAnchors extends Component {
         this.setState({
             anchors
         });
+
+        console.log(this.state.anchors)
     }
 
     // When press edit button 
@@ -88,13 +90,14 @@ class NewAnchors extends Component {
                          </div>
                     </div> 
 
-                    <div>
+                    {/* <div>
                         <Link to={'/NewStatements'}>
-                        <button className = 'space button button3'>
+                        <button 
+                            className = 'space button button3'>
                             Next
                         </button>
                         </Link>
-                    </div>             
+                    </div>              */}
             </div>
 
         );

@@ -59,7 +59,7 @@ class NewQuestions extends Component {
       }
 
     // (i) is received from Statements.js
-    deleteQuestions = (i) => {
+    deleteQuestion = (i) => {
         let questions = this.state.questions.filter((u,index) =>{ 
             return index !== i;
         });
@@ -68,7 +68,7 @@ class NewQuestions extends Component {
         });
 
         //this.state.total = parseInt(this.state.total) + 1
-        this.state.statementNumber--;
+        this.state.questionNumber--;
     }
 
     // clearLocalStorage() {

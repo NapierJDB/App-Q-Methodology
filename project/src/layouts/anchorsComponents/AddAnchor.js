@@ -26,7 +26,9 @@ class AddAnchor extends Component{
         
         e.target.reset();
 
-        this.send();
+       // this.send();
+       console.log(this.state.numberOfItems)
+       console.log(this.state.total)
 
         
     }
@@ -41,98 +43,100 @@ class AddAnchor extends Component{
 
     }
 
-    getResearchID(event) {
+    // getResearchID(event) {
 
-        // ---GET ITEMS FROM LOCAL STORAGE---
-        const researcherID = localStorage.getItem('ID');
-        const token = localStorage.getItem('TOKEN');
-        this.setState({ researcherID, token });
-        this.state.TOKEN = token;
-        this.state.ID = researcherID
+    //     // ---GET ITEMS FROM LOCAL STORAGE---
+    //     const researcherID = localStorage.getItem('ID');
+    //     const token = localStorage.getItem('TOKEN');
+    //     this.setState({ researcherID, token });
+    //     this.state.TOKEN = token;
+    //     this.state.ID = researcherID
            
-          fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
-            {
-                method: 'POST',
-                headers: {
-                    'Authorization': this.state.TOKEN,
-                    'Content-Type': 'application/json'         
-                },
-                body: JSON.stringify({
-                    'researcherID': this.state.ID,
-                })
-            })
-            .then((response) => {
-              return response.json();
+    //       fetch("https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/viewResearch ",
+    //         {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Authorization': this.state.TOKEN,
+    //                 'Content-Type': 'application/json'         
+    //             },
+    //             body: JSON.stringify({
+    //                 'researcherID': this.state.ID,
+    //             })
+    //         })
+    //         .then((response) => {
+    //           return response.json();
       
-            })
-            .then((data) => {
-              console.log(data);
+    //         })
+    //         .then((data) => {
+    //           console.log(data);
 
-              //---STORING THE RESEARCH ID---
-              this.state.researchID = data.map(({ id }) => id)
-              console.log("List of research IDs: " + this.state.researchID);
+    //           //---STORING THE RESEARCH ID---
+    //           this.state.researchID = data.map(({ id }) => id)
+    //           console.log("List of research IDs: " + this.state.researchID);
 
-              //---GET LAST ID---
-              this.state.lastID = this.state.researchID.slice(-1)[0]
-              console.log("Last ID: " + this.state.lastID)
+    //           //---GET LAST ID---
+    //           this.state.lastID = this.state.researchID.slice(-1)[0]
+    //           console.log("Last ID: " + this.state.lastID)
 
       
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-    }
+    //         })
+    //         .catch(function (error) {
+    //           console.log(error);
+    //         });
+    // }
 
-    send(event) {
+    // send(event) {
 
-        // ---GET ITEMS FROM LOCAL STORAGE---
-        const researcherID = localStorage.getItem('ID');
-        const token = localStorage.getItem('TOKEN');
-        this.setState({ researcherID, token });
+    //     // ---GET ITEMS FROM LOCAL STORAGE---
+    //     const researcherID = localStorage.getItem('ID');
+    //     const token = localStorage.getItem('TOKEN');
+    //     this.setState({ researcherID, token });
 
-        fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addAnchor',  {
-        method: 'POST',
-        headers: {
-               'Authorization': token,
-               'Content-Type': 'application/json'         
-           },
-        body: JSON.stringify({
+    //     fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/admin/addAnchor',  {
+    //     method: 'POST',
+    //     headers: {
+    //            'Authorization': token,
+    //            'Content-Type': 'application/json'         
+    //        },
+    //     body: JSON.stringify({
 
-            'markerNum': this.state.markerNumber,
-            'items': this.state.numberOfItems,
-            'researchID': this.state.lastID,
-          })
-          })
-          .then((response) => {
-            return response.json();
+    //         'markerNum': this.state.markerNumber,
+    //         'items': this.state.numberOfItems,
+    //         'researchID': this.state.lastID,
+    //       })
+    //       })
+    //       .then((response) => {
+    //         return response.json();
     
-          })
-          .then((data) => {
-            console.log(data);
+    //       })
+    //       .then((data) => {
+    //         console.log(data);
     
-            this.state.error = data.error;
+    //         this.state.error = data.error;
             
-            if (this.state.error == true) {
-                alert("This marker already exist!") 
-            }
+    //         if (this.state.error == true) {
+    //             alert("This marker already exist!") 
+    //         }
     
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
+
+    //       //SEND DATA TO LOCAL STORAGE
+    // }
 
 
-    componentDidMount(){
-        this.getResearchID();
-    }
+    // componentDidMount(){
+    //     this.getResearchID();
+    // }
 
 
     render(){
 
         localStorage.setItem('TOTAL', this.state.total);
 
-        window.totalNumberOfItems = this.state.total
+       // window.totalNumberOfItems = this.state.total
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -166,8 +170,10 @@ class AddAnchor extends Component{
                     </div>
 
                     <div>
-                        <button className = 'space button button3' 
-                            type="submit" >
+                        <button 
+                            className = 'space button button3'  
+                            // onClick={this.send} 
+                        >
                             Add +
                         </button>
                     </div>

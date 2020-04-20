@@ -17,7 +17,7 @@ import QSort2Pos from './layouts/QSort2 - Positive';
 import End from './layouts/End';
 import Complete from './layouts/Complete';
 import DeleteParticipant from './layouts/DeleteParticipant';
-import RequestDelition from './layouts/RequestDelition';
+import RequestDeletion from './layouts/RequestDeletion';
 import NewQuestions from './layouts/NewQuestions';
 import AnswerQuestions from './layouts/AnswerQuestions';
 
@@ -52,7 +52,7 @@ export default class App extends React.Component {
               <Route path='/End' component={End} />
               <Route path='/Complete' component={Complete} />
               <Route path='/DeleteParticipant' component={DeleteParticipant} />
-              <Route path='/RequestDelition' component={RequestDelition} />
+              <Route path='/RequestDeletion' component={RequestDeletion} />
               <Route path='/NewQuestions' component={NewQuestions} />
               <Route path='/AnswerQuestions' component={AnswerQuestions} />
             </Switch>

@@ -19,6 +19,7 @@ export default class QSort1 extends Component {
             researchId: '',
 
             researchName: localStorage.getItem('RE_NAME'),
+            researchDescription: localStorage.getItem('RE_DESCRIPTION'),
             box1: localStorage.getItem('RE_BOX1'),
             box2: localStorage.getItem('RE_BOX2'),
             box3: localStorage.getItem('RE_BOX3'),
@@ -387,6 +388,7 @@ export default class QSort1 extends Component {
             <div className='TextCenter'>
                 <h1>Q Sort Stage 1</h1>
                 <h2>{this.state.researchName}</h2>
+                <h3>{this.state.researchDescription}</h3>
                 <div>
 
                     <div>

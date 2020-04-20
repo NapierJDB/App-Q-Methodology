@@ -48,6 +48,8 @@ export default class QSort2 extends Component {
 
         this.tip = this.tip.bind(this);
 
+        this.removeStatementFromAnchor = this.removeStatementFromAnchor.bind(this);
+
         //      QJ5921
     }
     // refresh(){
@@ -220,6 +222,10 @@ export default class QSort2 extends Component {
         localStorage.setItem('NEGATIVE_RESULTS', JSON.stringify(this.state.list));
         // localStorage.setItem('RESULTS', JSON.stringify(this.state.list));
     }
+
+    removeStatementFromAnchor(){
+        alert(this.state.list)
+    }
    
 
     render() {
@@ -235,7 +241,14 @@ export default class QSort2 extends Component {
     
                     <tr key={index}>
                         <td>{item.markerNum}</td>
-                        <td>{item.statement}</td>                              
+                        <td>{item.statement}</td>
+                        <td>
+                            <button
+                                className='space button button3'
+                                onClick={this.removeStatementFromAnchor}>
+                                Delete
+                            </button>
+                        </td>                            
                     </tr>
                  )
     

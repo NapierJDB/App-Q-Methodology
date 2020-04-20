@@ -69,6 +69,16 @@ export default class PrivacyScreen extends React.Component {
                       Agree
                   </button>
                 </Link>
+
+                <Link
+                    to={{
+                        pathname: '/RequestDeletion'
+                    }}>
+                    <button  
+                        className = 'space button button3'>
+                        Request Deletion
+                    </button>
+                    </Link>
             </div>
         )
 

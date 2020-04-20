@@ -13,6 +13,7 @@ export default class Participant extends Component {
             code: '',
             researchToken: '',
             researchId: '',
+            researcherEmail: '',
 
             researchInfo: [],
             anchors: [],
@@ -69,6 +70,7 @@ export default class Participant extends Component {
                 this.state.error = data.error;
                 this.state.researchToken = data.token;
                 this.state.researchId = data.id;
+                this.state.researcherEmai = data.researcherEmail;
 
                 //console.log('TOKEN: ' + this.state.researchToken)
                 //console.log('ID: ' + this.state.researchId)
@@ -80,6 +82,7 @@ export default class Participant extends Component {
                     // ---PASS TO LOCAL STORAGE---
                     localStorage.setItem('RE_TOKEN', this.state.researchToken);
                     localStorage.setItem('RE_ID', this.state.researchId);
+                    localStorage.setItem('RE_EMAIL', this.state.researcherEmail);
 
                     this.getResearchData();
 
@@ -281,15 +284,7 @@ export default class Participant extends Component {
               
                 </div>
 
-                <Link
-                        to={{
-                            pathname: '/RequestDelition'
-                        }}>
-                        <button  
-                            className = 'space button button3'>
-                            Request Deletion
-                        </button>
-                    </Link>
+                
                 </div>
 
                 <div
