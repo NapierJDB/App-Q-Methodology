@@ -67,3 +67,8 @@ function deleteEmail($userID)
     $stmt->bindParam('id', $userID);
     $stmt->execute();
 }
+
+function displayEmail(Request $request, Response $response)
+{
+
+}
