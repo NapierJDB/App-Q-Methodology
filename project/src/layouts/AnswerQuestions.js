@@ -175,6 +175,7 @@ export default class AnswerQuestions extends Component {
                                 className='space button button3'
                                 type="submit"
                                 disabled={this.state.nextBtnAvailable}
+                                onClick={this.formQA}
                                 >
                                 Next Question
                                 </button>
