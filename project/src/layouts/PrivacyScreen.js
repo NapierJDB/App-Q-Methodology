@@ -1,28 +1,19 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    useHistory,
-    withRouter,
-    Redirect,
-    MemoryRouter
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+/**
+ * Purpose: This page allows participnat to agree to the privacy statement 
+ * and also request deletion of their data 
+ */
 
 export default class PrivacyScreen extends React.Component {
 
     constructor() {
         super();
-
         this.state = {
             agreed: false,
             privacyStatement: localStorage.getItem('RE_PRIVACY'),
         }
-
-        //this.enabled = this.enabled.bind(this)
-
     }
 
     handleCheckboxChange = (e) => {
@@ -41,7 +32,8 @@ export default class PrivacyScreen extends React.Component {
                 <h1>Consent Form</h1>
                 <p>Please read and accept the terms and conditions before continuing</p>
                 <br></br>
-                <textarea className='policyTextbox'>
+                <textarea className='policyTextbox'
+                readOnly>
                     {this.state.privacyStatement}
                 </textarea>
                 <br></br>
@@ -84,7 +76,7 @@ export default class PrivacyScreen extends React.Component {
                 <div className='TextCenter'>
                     <br></br>
                 <p>
-                    Edinburgh Napier University Data Protection Stateemnt 
+                    Edinburgh Napier University Data Protection Statement 
                 </p>
                 <p>
                     https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/default.aspx

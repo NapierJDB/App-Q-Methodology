@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import './App.css';
 import logo from './images/logo2.png'
-
-import { Link, Redirect } from 'react-router-dom';
-import './App.css';
+import { Redirect } from 'react-router-dom';
 import { __RouterContext } from 'react-router';
+
+/**
+ * Purpose: This page allows participant to enter the code of the survey
+ */
 
 export default class Participant extends Component {
     constructor(props) {
@@ -14,7 +16,6 @@ export default class Participant extends Component {
             researchToken: '',
             researchId: '',
             researcherEmail: '',
-
             researchInfo: [],
             anchors: [],
             statements: [],
@@ -46,9 +47,6 @@ export default class Participant extends Component {
       }
 
     handleSubmit(event) {
-        //event.preventDefault()
-        //console.log(this.state.code)
-        //this.setState({ Redirect: true });
 
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/checkCode',{
             method: 'POST',
@@ -72,11 +70,9 @@ export default class Participant extends Component {
                 this.state.researchId = data.id;
                 this.state.researcherEmai = data.researcherEmail;
                 console.log(data.researcherEmail)
-                //console.log('TOKEN: ' + this.state.researchToken)
-                //console.log('ID: ' + this.state.researchId)
 
-                
-        
+                //If the error from back end if false then pass things
+                //to local storage
                 if (this.state.error == false) {
 
                     // ---PASS TO LOCAL STORAGE---
@@ -85,8 +81,6 @@ export default class Participant extends Component {
                     localStorage.setItem('RE_EMAIL', data.researcherEmail);
 
                     this.getResearchData();
-
-                   // this.setState({ Redirect: true });
                     
                 }
                 else {
@@ -101,6 +95,11 @@ export default class Participant extends Component {
     }
 
     getResearchData(){
+        /**
+         * This method is used to get all the research information
+         * which are needed to be displayed
+         * in order to fill out the research survey
+         */
         fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/getData',{
             method: 'POST',
             headers: {
@@ -117,8 +116,6 @@ export default class Participant extends Component {
             .then((data) => {
                 console.log(data);
 
-                //this.state.error = data.error;
-
                 this.state.researchInfo = data.research
                 this.state.anchors = data.anchors
                 this.state.statements = data.statements
@@ -133,10 +130,6 @@ export default class Participant extends Component {
                 var reBox3 = this.state.researchInfo.box3;
                 var rePrivacy = this.state.researchInfo.privacy_statement;
                 var reDebrief = this.state.researchInfo.debrief;
-               // var negativeAnchors = this.state.anchors.
-                
-                //      QJ5921
-                //      QF2007
 
                 // ---PASS TO LOCAL STORAGE---
                 localStorage.setItem('RE_NAME', reName);
@@ -149,21 +142,6 @@ export default class Participant extends Component {
                 localStorage.setItem('RE_STATEMENTS', JSON.stringify(this.state.statements));
 
                 var anchors = this.state.anchors;
-
-                // var iterator = anchors.values();
-                // for (var value of iterator) {
-                //     console.log(value);
-
-                // }
-
-                //console.log(anchors)
-
-                //anchors = anchors.map(Number);
-                //console.log(anchors)
-
-                //console.log(anchorsInt)
-
-                //      QJ5921
 
                 // ANCHORS
 
@@ -214,37 +192,14 @@ export default class Participant extends Component {
                 localStorage.setItem('RE_NEUTRAL_QUANTITY', neutralQuantity);
                 localStorage.setItem('RE_POSITIVE_QUANTITY', positiveQuantity);
 
+                //Navigate to next oage
                 this.setState({ Redirect: true });
-                
-                //console.log(negativeAnchors.includes("-"))
-
-                //var negativeAnchors = anchors.some(anchor => anchor.markerNum === "1")
-                //var negativeAnchors = anchors.some(1 => anchor.includes(1))
-                //console.log(negativeAnchors)
-
-              //  var negativeAnchors = anchors.includes("-")
-               //console.log(anchors)
-                // Set up an array of negative, neutral, and positive 
-                // if(negativeAnchors){
-                //     //localStorage.setItem('RE_NEGATIVE_ANCHORS', JSON.stringify(this.state.anchors));
-                //     this.state.negativeAnchors = anchors.some(anchor => anchor.markerNum === "1")
-                //     console.log(this.state.negativeAnchors)
-                // }
-                // else{
-                //     localStorage.setItem('RE_POSITIVE_ANCHORS', JSON.stringify(this.state.anchors));
-                // }
-                
-
-              //  this.setState({ Redirect: true });
-
-    
+                   
               })
               .catch(function (error) {
                 console.log(error);
               });
     }
-
-// QP2051
   
     render() {
 
@@ -269,28 +224,21 @@ export default class Participant extends Component {
                         code={this.state.code}
                         onChange={this.handleChange}
                         required                   
-                />
-                <div className = 'buttonContainer'>
-                
-                
-                    <button 
-                        type="submit" 
-                        className = 'space button button3'
-                        onClick={this.handleSubmit}>
-                        Enter
-                    </button>
-
-                    
-              
-                </div>
-
-                
+                    />
+                    <div className = 'buttonContainer'>               
+                        <button 
+                            type="submit" 
+                            className = 'space button button3'
+                            onClick={this.handleSubmit}>
+                            Enter
+                        </button>             
+                    </div>             
                 </div>
 
                 <div className='TextCenter'>
                 <br></br>
                     <p>
-                        Edinburgh Napier University Data Protection Stateemnt 
+                        Edinburgh Napier University Data Protection Statement 
                     </p>
                     <p>
                         https://staff.napier.ac.uk/services/governance-compliance/governance/DataProtection/Pages/default.aspx

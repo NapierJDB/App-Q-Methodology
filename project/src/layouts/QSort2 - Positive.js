@@ -1,24 +1,14 @@
-import React, { Component, useState} from 'react'
-import { render } from 'react-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
 import './App.css';
-import redBox from './images/redbox.png'
-import greenBox from './images/greenbox.png'
-import whiteBox from './images/whitebox.png'
 import leftArrow from './images/left.png'
 import rightArrow from './images/right.png'
+import { Redirect } from 'react-router-dom';
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-  withRouter,
-  Redirect,
-  MemoryRouter
-} from 'react-router-dom';
-import './App.css';
+/**
+ * Purpose: Second stage of the sort
+ * participant sorts the statements
+ * to anchors
+ */
 
 export default class QSort2 extends Component {
 
@@ -44,25 +34,15 @@ export default class QSort2 extends Component {
         this.getArrays = this.getArrays.bind(this);
         this.nextItem = this.nextItem.bind(this);
         this.prevItem = this.prevItem.bind(this);
-
         this.nextAnchor = this.nextAnchor.bind(this);
         this.prevAnchor = this.prevAnchor.bind(this);
         this.addStatement = this.addStatement.bind(this);
         this.getNumberOfAnchors = this.getNumberOfAnchors.bind(this);
-
         this.getVariable = this.getVariable.bind(this);
-
         this.manageNavigation = this.manageNavigation.bind(this);
         this.sendResultsToLocalStorage = this.sendResultsToLocalStorage.bind(this);
         this.tip = this.tip.bind(this);
-
-        //      QJ5921
     }
-    // refresh(){
-    //     this.setState({
-    //         refresh: 1
-    //     })
-    // }
 
     tip() {
         alert("Use the arrow buttons to navigate through anchors.\n"+ 
@@ -81,19 +61,14 @@ export default class QSort2 extends Component {
         //Assign them to arrays
         this.setState({
             greenBoxStatements: JSON.parse(asString),
-           // anchors: this.state.negativeAnchors.split(','),
-           // quantity: this.state.negativeQuantity.split(',')
         })
 
         this.state.anchors = this.state.positiveAnchors.split(',');
         this.state.quantity = this.state.positiveQuantity.split(',');
 
         this.setState({
-            anchorsArray: [{markerNum: this.state.positiveAnchors.split(','), items: this.state.positiveQuantity.split(',')}],
-            
-            
+            anchorsArray: [{markerNum: this.state.positiveAnchors.split(','), items: this.state.positiveQuantity.split(',')}],           
         })
-
     }
 
      getNumberOfAnchors() {
@@ -310,21 +285,6 @@ export default class QSort2 extends Component {
                                 </tbody>         
                             </table>
                             </div>
-                            {/* <div className='center TextCenter'>
-                                <table className="center">
-                                    <thead>
-                                        <tr>
-                                        <th>Marker number</th>
-                                        <th>Statements</th>
-                                        <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                <tbody>
-                                    {mappedList}
-                                </tbody>         
-                                </table>
-                            </div> */}
-
                         </div>
 
                     </div>

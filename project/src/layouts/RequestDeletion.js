@@ -1,39 +1,23 @@
 import React from "react";
 import logo from './images/logo2.png';
-import Tooltip from "react-simple-tooltip";
 import { Link } from 'react-router-dom';
 
-
+/**
+ * Purpose: Get admin email and display it 
+ * so the participant is able to contact the researcher 
+ * and request deletion of their detaild
+ * from that data base
+ */
 
 export default class CreateSurvey_1 extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       researcherEmail: localStorage.getItem('RE_EMAIL'),
     };
-
-  //  this.handleChange = this.handleChange.bind(this);
-    //this.request = this.send.bind(this);
   }
 
-  // handleChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   })
-  // }
-
-
   render() {
-
-    // if (this.state.Redirect) {
-    //   return (
-    //     <Redirect to={{
-    //       pathname: '/NewAnchors',
-    //     }} />
-    //   )
-    // }
-
     return (
       <div className = 'TextCenter'>
             <img src={logo}/>

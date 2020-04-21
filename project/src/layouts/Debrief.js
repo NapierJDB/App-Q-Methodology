@@ -1,6 +1,15 @@
 import React from "react";
 import { Redirect, Link } from 'react-router-dom';
 
+/**
+ * Purpose: Third stage of the sort
+ * getting the user to provide their email address
+ * and agree to the debrief terms that was created
+ * by the admin during the survey creation stage
+ * The results of the research are passed to the back end
+ * on this page
+ */
+
 
 export default class Debrief extends React.Component {
 
@@ -19,18 +28,6 @@ export default class Debrief extends React.Component {
             positive: [],
             statements: [],
             answers: [],
-
-            testArray: {
-
-                researchID: 123, 
-                statements:[
-
-                    {markerNum:1, statement:1},
-                    {markerNum:2, statement:2}
-                ], 
-                email:"test@email.com"
-            },
-
             array: [],
             array2: [],
         }
@@ -76,31 +73,20 @@ export default class Debrief extends React.Component {
         console.log(this.state.negative);
         console.log(this.state.neutral);
         console.log(this.state.positive);
-
-        //const statementObj2 = Object.assign(this.state.negative, this.state.neutral, this.state.positive);
-        //console.log(statementObj2);
-
-        //const statementObj = this.state.negative;
         
         this.state.statements = this.state.negative.concat(this.state.neutral, this.state.positive);
         
-        console.log(this.state.statements);
+        console.log(this.state.statements);      
 
-        
-
+        //Creating the object to be passed to back end 
+        //which contain the answers, results, email and research ID
         const obj = {researchID: this.state.researchID,                   
                      statements: this.state.statements,
                      answers: this.state.answers,
                      email:this.state.email};
 
-        //  this.state.array = [...this.state.array, obj];
         console.log(obj);
-
-        //  const obj2 = {array: this.state.array}
-        //  this.state.array2 = [...this.state.array2, obj2];
-        //  console.log(this.state.array2);
-
-      
+    
       // ---SEND RESULTS TO BACK END---
 
       fetch('https://soc-web-liv-60.napier.ac.uk/API/public/api/user/sendResults', {
@@ -131,7 +117,6 @@ export default class Debrief extends React.Component {
       })
 
   }
-    //      QJ5921
 
     render() {
 
@@ -162,7 +147,8 @@ export default class Debrief extends React.Component {
                 </form>
                 <p>Please read and accept the terms and conditions</p>
                 <br></br>
-                <textarea className='policyTextbox'>
+                <textarea className='policyTextbox'
+                readOnly>
                     {this.state.privacyStatement}
                 </textarea>
                 <br></br>
@@ -179,8 +165,7 @@ export default class Debrief extends React.Component {
                         className = 'space button button3'>Disagree
                     </button>
                 </Link>
-                
-                {/* <Link to={'/Complete'}> */}
+
                   <button 
                     onClick={this.results}
                     name=""
@@ -190,7 +175,6 @@ export default class Debrief extends React.Component {
                     >
                       Agree
                   </button>
-                {/* </Link> */}
             </div>
         )
 

@@ -4,20 +4,20 @@ import redBox from './images/redbox.png'
 import greenBox from './images/greenbox.png'
 import whiteBox from './images/whitebox.png'
 import { Redirect } from 'react-router-dom';
-import './App.css';
 import Modal from 'react-modal';
-import Tooltip from "react-simple-tooltip";
 
-//Modal.setAppElement('App.js')
+/**
+ * Purpose: First stage of the sort
+ * participant sorts the statements
+ * to boxes 
+ */
 
 export default class QSort1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             researchToken: '',
             researchId: '',
-
             researchName: localStorage.getItem('RE_NAME'),
             researchDescription: localStorage.getItem('RE_DESCRIPTION'),
             box1: localStorage.getItem('RE_BOX1'),
@@ -38,30 +38,24 @@ export default class QSort1 extends Component {
             redVisible: false,
             whiteVisible: false,
             greenVisible: false,
-            buttonID: undefined
+            buttonID: undefined,
+            available: false,
         }
 
         this.getStatements = this.getStatements.bind(this);
-
         this.nextItem = this.nextItem.bind(this);
-
         this.addtoRed = this.addtoRed.bind(this);
         this.addtoWhite = this.addtoWhite.bind(this);
         this.addtoGreen = this.addtoGreen.bind(this);
-
-
         //CODE FOR POP UP BOX BINDS
         this.openRedModal = this.openRedModal.bind(this);
         this.closeRedModal = this.closeRedModal.bind(this);
-
         this.openWhiteModal = this.openWhiteModal.bind(this);
         this.closeWhiteModal = this.closeWhiteModal.bind(this);
-
         this.openGreenModal = this.openGreenModal.bind(this);
         this.closeGreenModal = this.closeGreenModal.bind(this);
 
         this.checkStatus = this.checkStatus.bind(this);
-
         this.removeRedStatement = this.removeRedStatement.bind(this);
         this.removeWhiteStatement = this.removeWhiteStatement.bind(this);
         this.removeGreenStatement = this.removeGreenStatement.bind(this);
@@ -81,10 +75,21 @@ export default class QSort1 extends Component {
 
     getQuantity(){
 
-        //Get the total of slots available fro RED box
+        /**
+         * This method gets the total of slots
+         * available for each box, which is used to restric
+         * the user from adding more or less statements
+         * that is needed for each category
+         * There must be accuracte amount of statements
+         * in each box to fit in all anchors slots
+         */
+
+        //Get the total of slots available for RED box
         this.state.negativeQuantity = localStorage.getItem('RE_NEGATIVE_QUANTITY');
+        //Format the array appropriately
         this.state.redQuantity = this.state.negativeQuantity.split(',');
         console.log(this.state.redQuantity);
+
         this.state.redQuantityTotal = this.state.redQuantity.reduce(
             (redQuantityTotal, redQuantityItem) => 
             redQuantityTotal + parseInt(redQuantityItem, 10), 0);
@@ -92,8 +97,10 @@ export default class QSort1 extends Component {
 
         //Get the total of slots available fro WHITE box
         this.state.neutralQuantity = localStorage.getItem('RE_NEUTRAL_QUANTITY');
+        //Format the array appropriately
         this.state.whiteQuantity = this.state.neutralQuantity.split(',');
         console.log(this.state.whiteQuantity);
+
         this.state.whiteQuantityTotal = this.state.whiteQuantity.reduce(
             (whiteQuantityTotal, whiteQuantityItem) => 
             whiteQuantityTotal + parseInt(whiteQuantityItem, 10), 0);
@@ -101,8 +108,10 @@ export default class QSort1 extends Component {
 
         //Get the total of slots available fro GREEN box
         this.state.positiveQuantity = localStorage.getItem('RE_POSITIVE_QUANTITY');
+        //Format the array appropriately
         this.state.greenQuantity = this.state.positiveQuantity.split(',');
         console.log(this.state.greenQuantity);
+
         this.state.greenQuantityTotal = this.state.greenQuantity.reduce(
             (greenQuantityTotal, greenQuantityItem) => 
             greenQuantityTotal + parseInt(greenQuantityItem, 10), 0);
@@ -110,11 +119,11 @@ export default class QSort1 extends Component {
     }
 
     getStatements() {
-        // var asString = localStorage.getItem('RE_STATEMENTS');
-        // this.setState({
-        //     statements: JSON.parse(asString)
-        // })
-        // console.log(this.state.statements)
+
+        /**
+         * Get the statements from the database
+         * by providing token and id form this particular research
+         */
 
         this.state.researchToken = localStorage.getItem('RE_TOKEN');
         this.state.researchId = localStorage.getItem('RE_ID');
@@ -135,12 +144,15 @@ export default class QSort1 extends Component {
             .then((data) => {
                 console.log(data);
 
-                //this.state.error = data.error;
-
+                //Store the statements in the arra
                 this.state.statements = data.statements
                 console.log(this.state.statements)
 
-                // Format the array appropriatelly
+                /**
+                 * Format the statements appropriately
+                 * which means that the statements must have a numeber 
+                 * and a statement coresponding with the number
+                 */
                 this.state.formatedStatements = this.state.statements.map(statement =>
                     statement.number + " " + statement.description)
                 // set index to 0 so first item of formated array is displayed
@@ -148,11 +160,19 @@ export default class QSort1 extends Component {
                     index: 0
                 })
 
+                if(this.state.formatedStatements.length > 0){
+                    //Make the button disabled
+                    this.setState(previousState => { 
+                        return {available: !previousState.available}
+                    })
+                }
+
             })
             .catch(function (error) {
                 console.log(error);
             });
 
+            //Call the quantity method to set total of slots available for each box
             this.getQuantity();
     }
 
@@ -175,9 +195,12 @@ export default class QSort1 extends Component {
 
     addtoRed(e) {
 
+        //If there are slots available in red box...
         if(this.state.redQuantityTotal > 0){
 
+            //Take away one slot
             this.state.redQuantityTotal = this.state.redQuantityTotal - 1;
+            //add currently displayed statement ([this.state.index]) to the redArray
             this.setState(prevState => ({
                 redArray: [...prevState.redArray, this.state.formatedStatements[this.state.index]]
             }))
@@ -245,6 +268,11 @@ export default class QSort1 extends Component {
     }
 
     checkStatus() {
+        /**
+         * If there are no more items in the array that holds all the statements
+         * pass the arrays that holds sorted statements to local storage
+         * and set the redirect to true so user can navigate to the next stage
+         */
         if (this.state.formatedStatements.length == 0) {
             localStorage.setItem('RED_BOX', JSON.stringify(this.state.redArray));
             localStorage.setItem('WHITE_BOX', JSON.stringify(this.state.whiteArray));
@@ -393,7 +421,8 @@ export default class QSort1 extends Component {
 
                     <div>
                         <button className='space button button3'
-                            onClick={this.getStatements}>
+                            onClick={this.getStatements}
+                            disabled={this.state.available}>
                             Get statements
                             </button>
                         <h2>{formatedStatements[index]}</h2>

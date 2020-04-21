@@ -1,20 +1,11 @@
-import React, { Component, useState} from 'react'
-import { render } from 'react-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
 import './App.css';
 import logo from './images/logo2.png'
+import { Link } from 'react-router-dom';
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-  withRouter,
-  Redirect,
-  MemoryRouter
-} from 'react-router-dom';
-import './App.css';
+/*
+Purpose: Esentailly a home screen that naviagtes to either
+Admin or Paricipant part of the application */
 
 export default class Splash extends Component
 {

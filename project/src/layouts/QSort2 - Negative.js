@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './App.css';
-import redBox from './images/redbox.png'
-import greenBox from './images/greenbox.png'
-import whiteBox from './images/whitebox.png'
 import leftArrow from './images/left.png'
 import rightArrow from './images/right.png'
+import { Redirect } from 'react-router-dom';
 
-import { Link,Redirect } from 'react-router-dom';
-import './App.css';
+/**
+ * Purpose: Second stage of the sort
+ * participant sorts the statements
+ * to anchors
+ */
 
 export default class QSort2 extends Component {
 
@@ -35,28 +36,17 @@ export default class QSort2 extends Component {
         this.getArrays = this.getArrays.bind(this);
         this.nextItem = this.nextItem.bind(this);
         this.prevItem = this.prevItem.bind(this);
-
         this.nextAnchor = this.nextAnchor.bind(this);
         this.prevAnchor = this.prevAnchor.bind(this);
         this.addStatement = this.addStatement.bind(this);
         this.getNumberOfAnchors = this.getNumberOfAnchors.bind(this);
-
         this.getVariable = this.getVariable.bind(this);
-
         this.manageNavigation = this.manageNavigation.bind(this);
         this.sendResultsToLocalStorage = this.sendResultsToLocalStorage.bind(this);
-
         this.tip = this.tip.bind(this);
-
         this.removeStatementFromAnchor = this.removeStatementFromAnchor.bind(this);
-
-        //      QJ5921
     }
-    // refresh(){
-    //     this.setState({
-    //         refresh: 1
-    //     })
-    // }
+
 
     tip() {
         alert("Use the arrow buttons to navigate through anchors.\n"+ 
@@ -75,8 +65,6 @@ export default class QSort2 extends Component {
         //Assign them to arrays
         this.setState({
             redBoxStatements: JSON.parse(asString),
-           // anchors: this.state.negativeAnchors.split(','),
-           // quantity: this.state.negativeQuantity.split(',')
         })
 
         this.state.anchors = this.state.negativeAnchors.split(',');
@@ -176,8 +164,6 @@ export default class QSort2 extends Component {
     }
 
     addStatement() {
-
-        //      QJ5921
         this.getVariable();
         let {anchorsIndex, quantity} = this.state;
 
@@ -220,7 +206,6 @@ export default class QSort2 extends Component {
 
     sendResultsToLocalStorage(){
         localStorage.setItem('NEGATIVE_RESULTS', JSON.stringify(this.state.list));
-        // localStorage.setItem('RESULTS', JSON.stringify(this.state.list));
     }
 
     removeStatementFromAnchor(){
@@ -318,21 +303,6 @@ export default class QSort2 extends Component {
                                 </tbody>         
                             </table>
                             </div>
-                            {/* <div className='center TextCenter'>
-                                <table className="center">
-                                    <thead>
-                                        <tr>
-                                        <th>Marker number</th>
-                                        <th>Statements</th>
-                                        <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                <tbody>
-                                    {mappedList}
-                                </tbody>         
-                                </table>
-                            </div> */}
-
                         </div>
 
                     </div>
